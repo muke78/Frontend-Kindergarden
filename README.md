@@ -31,6 +31,7 @@ El proyecto está desarrollado con las siguientes tecnologías y librerías:
 - `recharts`- Librería de gráficos para visualización de datos.
 - `zustand` - Manejo de estado global en React.
 - `tailwindcss`- Framework de CSS para estilización eficiente.
+- `react-icons`- Libreia de iconos para ayuda visual a la iconografia
 - `husky`- Hooks para mejorar la calidad del código en commits.
 
 ## 📂 Estructura del Proyecto
