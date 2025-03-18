@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useState } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
+export const App = () => {
+  const [count, setCount] = useState(0);
 
   return (
     <>
@@ -26,7 +26,5 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
     </>
-  )
-}
-
-export default App
+  );
+};
