@@ -131,7 +131,6 @@ El proyecto está desarrollado con las siguientes tecnologías y librerías:
 Sigue estos pasos para ejecutar el proyecto localmente:
 
 ### 1️⃣ Clonar el repositorio
-
 ```
  git clone https://github.com/muke78/Frontend-Kindergarden.git
  cd Frontend-Kindergarden

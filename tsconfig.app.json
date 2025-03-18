@@ -23,7 +23,7 @@
     "noUncheckedSideEffectImports": true,
 
     /* Ruta base y alias para rutas absolutas */
-    "baseUrl": "./src", 
+    "baseUrl": "./src",
     "paths": {
       "@components/*": ["components/*"],
       "@features/*": ["features/*"],
