@@ -1,27 +1,40 @@
+import { useState } from "react";
+import { type FieldError, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
-// interface FormData {
-//   email: string;
-//   password: string;
-// }
+import { v } from "../styles/variables";
 
+interface FormData {
+  email: string;
+  password: string;
+}
 export const Login = () => {
-  const onSubmit = async () => {
-    console.log("Hola mundo");
-  };
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const inputErrorText = "Este campo es obligatorio";
+  const invalidPatterEmail = "Formato de correo inválido";
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<FormData>();
+
+  const onSubmit = async (data: FormData) => {
+    console.log(data.email, data.password);
+    reset();
+  };
   return (
     <div className="h-screen flex flex-col justify-center items-center p-4 bg-base-200">
       <div className="card bg-secondary text-accent-content w-96 max-w-full shadow-lg">
         <div className="card bg-primary text-primary-content shadow-lg">
-          <form onSubmit={onSubmit}>
+          <form onSubmit={handleSubmit(onSubmit)} method="POST">
             <div className="card-body p-9 text-center space-y-4">
               <img
-                src="https://images.icon-icons.com/3564/PNG/512/children_toy_airplane_childrens_toys_icon_225323.png"
-                alt="Logo"
+                src={v.logoLogin}
+                alt="Logo de Login"
                 className="mx-auto w-16 h-16"
               />
-
               <h1 className="text-2xl font-semibold">Iniciar sesión en AKC</h1>
               <span className="text-sm text-secondary-content block">
                 ¡Bienvenido de nuevo! Inicia sesión para continuar.
@@ -32,12 +45,46 @@ export const Login = () => {
                   type="email"
                   placeholder="Correo electrónico"
                   className="input input-bordered w-full text-black"
+                  {...register("email", {
+                    required: inputErrorText,
+                    pattern: {
+                      value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                      message: invalidPatterEmail,
+                    },
+                  })}
                 />
-                <input
-                  type="password"
-                  placeholder="Contraseña"
-                  className="input input-bordered w-full text-black"
-                />
+                {errors.email && (
+                  <p className="text-red-500">
+                    {(errors.email as FieldError)?.message}
+                  </p>
+                )}
+                <div className="join w-full">
+                  <div className="w-full">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Contraseña"
+                      className="input input-bordered w-full text-black rounded-l-lg"
+                      {...register("password", {
+                        required: inputErrorText,
+                      })}
+                    />
+                  </div>
+                  <span
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="btn btn-neutral join-item"
+                  >
+                    {showPassword ? (
+                      <v.iconoOjoCerrado />
+                    ) : (
+                      <v.iconoOjoAbierto />
+                    )}
+                  </span>
+                </div>
+                {errors.password && (
+                  <p className="text-red-500 p-0">
+                    {(errors.email as FieldError)?.message}
+                  </p>
+                )}
               </div>
 
               <button className="btn btn-secondary w-full">
