@@ -1,9 +1,7 @@
-module.exports = {
-  content: [
-    "./src/**/*.{html,js,ts,tsx}", // Aquí añades tus archivos .tsx
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
+import daisyui from "daisyui";
+
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ["./src/**/*.{html,js,ts,tsx}"],
+  plugins: [daisyui],
 };
