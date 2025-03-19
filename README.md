@@ -131,6 +131,7 @@ El proyecto está desarrollado con las siguientes tecnologías y librerías:
 Sigue estos pasos para ejecutar el proyecto localmente:
 
 ### 1️⃣ Clonar el repositorio
+
 ```
  git clone https://github.com/muke78/Frontend-Kindergarden.git
  cd Frontend-Kindergarden
@@ -156,7 +157,9 @@ VITE_GOOGLE_CLIENT_ID=tu-google-client-id
 ```
   bun dev
 ```
+
 ## 📌 Convenciones de Código
+
 Para mantener un código limpio y estandarizado, seguimos estas prácticas:
 
 - Prettier para formateo automático.
@@ -168,4 +171,5 @@ Para mantener un código limpio y estandarizado, seguimos estas prácticas:
 - React Query para manejar peticiones asíncronas eficientemente.
 
 ## 📄 Licencia
+
 Este proyecto está bajo la licencia MIT. Consulta el archivo LICENSE para más detalles.
