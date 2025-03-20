@@ -33,7 +33,7 @@ export const Register = () => {
     });
   };
   return (
-    <div className="h-screen flex flex-col justify-center items-center p-4 bg-base-200">
+    <div className="h-screen flex flex-col justify-center items-center p-4 bg-base-200 animate__animated animate__fadeIn">
       <div className="card bg-neutral text-primary-content w-96 max-w-full shadow-lg">
         <Link to={"/login"} className="pt-4 pl-4">
           <Icon
@@ -68,7 +68,7 @@ export const Register = () => {
                   })}
                 />
                 {errors.email && (
-                  <p className="text-red-500">
+                  <p className="text-primary p-0">
                     {(errors.email as FieldError)?.message}
                   </p>
                 )}
@@ -87,7 +87,7 @@ export const Register = () => {
                   })}
                 />
                 {errors.email && (
-                  <p className="text-red-500">
+                  <p className="text-primary p-0">
                     {(errors.email as FieldError)?.message}
                   </p>
                 )}
@@ -116,7 +116,7 @@ export const Register = () => {
                   </span>
                 </div>
                 {errors.password && (
-                  <p className="text-red-500 p-0">
+                  <p className="text-primary p-0">
                     {(errors.email as FieldError)?.message}
                   </p>
                 )}
