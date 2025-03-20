@@ -1,10 +1,9 @@
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router";
 
+import { loginService } from "@services/auth/authService";
+import { useAuthStore } from "@store/authStore";
 import { useMutation } from "@tanstack/react-query";
-
-import { loginService } from "../services/auth/authService";
-import { useAuthStore } from "../store/authStore";
 
 export const useLogin = () => {
   const { login } = useAuthStore();

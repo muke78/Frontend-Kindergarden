@@ -1,12 +1,14 @@
 import { useContext } from "react";
 
-import { AuthContext } from "../../context/AuthContext";
+import { Navbar } from "@components/Navbar";
+import { AuthContext } from "@context/AuthContext";
 
 export const Home = () => {
   const authContext = useContext(AuthContext);
   const user = authContext?.user;
   return (
     <div>
+      <Navbar />
       <code>{user?.id}</code>
       <h1>Bienvenido, {user?.nameUser || "Invitado"}!</h1>
       <h2>Tu correo es, {user?.email} </h2>

@@ -3,9 +3,9 @@ import { type FieldError, useForm } from "react-hook-form";
 import { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
-import { Icon } from "../../components/ui/Icon";
-import { useRegister } from "../../hooks/useRegister";
-import { v } from "../../styles/variables";
+import { Icon } from "@components/ui/Icon";
+import { useRegister } from "@hooks/useRegister";
+import { v } from "@styles/variables";
 
 interface FormData {
   nameUser: string;
