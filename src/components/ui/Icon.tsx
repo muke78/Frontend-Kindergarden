@@ -6,7 +6,7 @@ interface IconProps {
   className?: string;
 }
 
-export const Icon: React.FC<IconProps> = ({ name, size, className = "" }) => {
+export const Icon = ({ name, size, className = "" }: IconProps) => {
   const IconComponent = v[name];
 
   if (!IconComponent) return null;
