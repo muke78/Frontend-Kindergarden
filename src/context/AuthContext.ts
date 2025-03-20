@@ -1,23 +1,17 @@
 import { createContext } from "react";
 
-export interface User {
+interface User {
   id: string;
-  name: string;
+  nameUser: string;
   email: string;
+  role: string;
+  lastLogin: string;
+  accountStatus: string;
 }
 
-interface AuthState {
-  logged: boolean;
+interface AuthContextType {
   user: User | null;
 }
-
-interface AuthContextProps {
-  state: AuthState;
-  logged: boolean;
-  login: (user: User) => void;
-  logout: () => void;
-}
-
-export const AuthContext = createContext<AuthContextProps | undefined>(
+export const AuthContext = createContext<AuthContextType | undefined>(
   undefined,
 );
