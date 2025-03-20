@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { type FieldError, useForm } from "react-hook-form";
+import { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
+import { useLogin } from "../hooks/useAuth";
 import { v } from "../styles/variables";
 
 interface FormData {
@@ -10,6 +12,8 @@ interface FormData {
 }
 export const Login = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const { mutate } = useLogin();
+
   const inputErrorText = "Este campo es obligatorio";
   const invalidPatterEmail = "Formato de correo inválido";
 
@@ -17,12 +21,13 @@ export const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<FormData>();
 
   const onSubmit = async (data: FormData) => {
-    console.log(data.email, data.password);
-    reset();
+    await mutate({
+      email: data.email,
+      password: data.password,
+    });
   };
   return (
     <div className="h-screen flex flex-col justify-center items-center p-4 bg-base-200">
@@ -71,7 +76,7 @@ export const Login = () => {
                   </div>
                   <span
                     onClick={() => setShowPassword(!showPassword)}
-                    className="btn btn-neutral join-item"
+                    className="btn btn-neutral text-lg join-item"
                   >
                     {showPassword ? (
                       <v.iconoOjoCerrado />
@@ -90,6 +95,7 @@ export const Login = () => {
               <button className="btn btn-secondary w-full">
                 Iniciar sesión
               </button>
+              <Toaster position="bottom-right" reverseOrder={false} />
             </div>
           </form>
         </div>
