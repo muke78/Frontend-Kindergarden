@@ -1,9 +1,8 @@
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 
+import { registerService } from "@services/register/registerService";
 import { useMutation } from "@tanstack/react-query";
-
-import { registerService } from "../services/register/registerService";
 
 export const useRegister = () => {
   const navigate = useNavigate();

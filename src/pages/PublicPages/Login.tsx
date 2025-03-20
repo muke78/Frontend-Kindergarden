@@ -3,8 +3,8 @@ import { type FieldError, useForm } from "react-hook-form";
 import { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
-import { useLogin } from "../../hooks/useAuth";
-import { v } from "../../styles/variables";
+import { useLogin } from "@hooks/useAuth";
+import { v } from "@styles/variables";
 
 interface FormData {
   email: string;

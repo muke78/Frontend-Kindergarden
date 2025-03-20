@@ -25,6 +25,7 @@
     /* Ruta base y alias para rutas absolutas */
     "baseUrl": "./src",
     "paths": {
+      "@/*": ["./*"],
       "@components/*": ["components/*"],
       "@features/*": ["features/*"],
       "@hooks/*": ["hooks/*"],
@@ -36,7 +37,8 @@
       "@styles/*": ["styles/*"],
       "@config/*": ["config/*"],
       "@type/*": ["type/*"],
-      "@context/*": ["context/*"]
+      "@context/*": ["context/*"],
+      "@assets/*": ["assets/*"]
     }
   },
   "include": ["src"]
