@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 
-import { Home } from "../pages/Home";
-import { Login } from "../pages/Login";
 import { NotFound } from "../pages/NotFound";
-import { Register } from "../pages/Register";
+import { Home } from "../pages/PrivateRoutes/Home";
+import { Login } from "../pages/PublicPages/Login";
+import { Register } from "../pages/PublicPages/Register";
 import { PrivateRoute } from "../routes/PrivateRoute";
 import { PublicRouter } from "../routes/PublicRouter";
 import { useAuthStore } from "../store/authStore";
