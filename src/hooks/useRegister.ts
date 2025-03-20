@@ -14,7 +14,7 @@ export const useRegister = () => {
       password: string;
       role: string;
     }) => registerService(data.nameUser, data.email, data.password, data.role),
-    onSuccess: (data, variables) => {
+    onSuccess: (_, variables) => {
       toast.success(
         `Se registro exitosamente el usuario ${variables.nameUser}`,
         {

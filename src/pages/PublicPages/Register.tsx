@@ -3,9 +3,9 @@ import { type FieldError, useForm } from "react-hook-form";
 import { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
-import { Icon } from "../components/ui/Icon";
-import { useRegister } from "../hooks/useRegister";
-import { v } from "../styles/variables";
+import { Icon } from "../../components/ui/Icon";
+import { useRegister } from "../../hooks/useRegister";
+import { v } from "../../styles/variables";
 
 interface FormData {
   nameUser: string;
@@ -52,7 +52,7 @@ export const Register = () => {
             <h1 className="text-2xl font-semibold dark:text-white">
               Regístrate en AKC
             </h1>
-            <span className="text-sm text-balance text-secondary block">
+            <span className="text-md text-balance text-secondary block">
               Puedes crear una cuenta para poder ingresar a la plataforma y
               estar al día
             </span>

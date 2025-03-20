@@ -3,8 +3,8 @@ import { type FieldError, useForm } from "react-hook-form";
 import { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
-import { useLogin } from "../hooks/useAuth";
-import { v } from "../styles/variables";
+import { useLogin } from "../../hooks/useAuth";
+import { v } from "../../styles/variables";
 
 interface FormData {
   email: string;
@@ -31,8 +31,8 @@ export const Login = () => {
   };
   return (
     <div className="h-screen flex flex-col justify-center items-center p-4 bg-base-200">
-      <div className="card bg-secondary text-accent-content w-96 max-w-full shadow-lg">
-        <div className="card bg-primary text-primary-content shadow-lg">
+      <div className="card bg-primary-content text-accent-content w-96 max-w-full shadow-lg">
+        <div className="card bg-neutral text-primary-content shadow-lg">
           <form onSubmit={handleSubmit(onSubmit)} method="POST">
             <div className="card-body p-9 text-center space-y-4">
               <img
@@ -40,8 +40,10 @@ export const Login = () => {
                 alt="Logo de Login"
                 className="mx-auto w-16 h-16"
               />
-              <h1 className="text-2xl font-semibold">Iniciar sesión en AKC</h1>
-              <span className="text-sm text-secondary-content block">
+              <h1 className="text-2xl font-semibold dark:text-white">
+                Iniciar sesión en AKC
+              </h1>
+              <span className="text-md text-balance text-secondary block">
                 ¡Bienvenido de nuevo! Inicia sesión para continuar.
               </span>
 
@@ -49,7 +51,7 @@ export const Login = () => {
                 <input
                   type="email"
                   placeholder="Correo electrónico"
-                  className="input input-bordered w-full text-black"
+                  className="input input-bordered w-full text-base-content"
                   {...register("email", {
                     required: inputErrorText,
                     pattern: {
@@ -68,7 +70,7 @@ export const Login = () => {
                     <input
                       type={showPassword ? "text" : "password"}
                       placeholder="Contraseña"
-                      className="input input-bordered w-full text-black rounded-l-lg"
+                      className="input input-bordered w-full text-base-content rounded-l-lg"
                       {...register("password", {
                         required: inputErrorText,
                       })}
@@ -76,7 +78,7 @@ export const Login = () => {
                   </div>
                   <span
                     onClick={() => setShowPassword(!showPassword)}
-                    className="btn btn-neutral text-lg join-item"
+                    className="btn btn-secondary text-lg join-item"
                   >
                     {showPassword ? (
                       <v.iconoOjoCerrado />
@@ -92,18 +94,18 @@ export const Login = () => {
                 )}
               </div>
 
-              <button className="btn btn-secondary w-full">
-                Iniciar sesión
-              </button>
+              <button className="btn btn-primary w-full">Iniciar sesión</button>
               <Toaster position="bottom-right" reverseOrder={false} />
             </div>
           </form>
         </div>
 
-        <div className="flex justify-center items-center gap-1 p-3 text-sm">
-          <span>No tienes cuenta?</span>
+        <div className="flex justify-center items-center gap-3 p-3 text-sm">
+          <span className="text-secondary">No tienes cuenta?</span>
           <Link to="/register">
-            <button className="btn btn-accent btn-sm">Registrate</button>
+            <button className="btn btn-soft btn-accent btn-sm">
+              Registrate
+            </button>
           </Link>
         </div>
       </div>
