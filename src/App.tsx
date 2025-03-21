@@ -6,7 +6,7 @@ export const App = () => {
   return (
     <AuthProvider>
       <AppRouter />
-      <ReactQueryDevtools initialIsOpen={true} buttonPosition="bottom-left" />
+      <ReactQueryDevtools initialIsOpen={true} buttonPosition="top-right" />
     </AuthProvider>
   );
 };

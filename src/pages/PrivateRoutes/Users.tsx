@@ -4,10 +4,9 @@ import { useContext, useEffect, useState } from "react";
 
 import { AuthContext } from "@context/AuthContext";
 
-export const Home = () => {
+export const Users = () => {
   const authContext = useContext(AuthContext);
   const user = authContext?.user;
-
   const { sidebarOpen, setSidebarOpen } = useSidebarStore();
   const [isMobile, setIsMobile] = useState<boolean>(false);
 

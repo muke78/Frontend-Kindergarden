@@ -1,3 +1,11 @@
+import { Sidebar } from "@/components/Sidebar";
+import { Catalogs } from "@/pages/PrivateRoutes/Catalogs";
+import { Confi } from "@/pages/PrivateRoutes/Confi";
+import { Help } from "@/pages/PrivateRoutes/Help";
+import { Reports } from "@/pages/PrivateRoutes/Reports";
+import { Users } from "@/pages/PrivateRoutes/Users";
+import { Evaluations } from "@/pages/PrivateRoutes/evaluations";
+
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 
@@ -8,6 +16,9 @@ import { Register } from "@pages/PublicPages/Register";
 import { PrivateRoute } from "@routes/PrivateRoute";
 import { PublicRouter } from "@routes/PublicRouter";
 import { useAuthStore } from "@store/authStore";
+
+import { Student } from "../pages/PrivateRoutes/Student";
+import { Teachers } from "../pages/PrivateRoutes/Teachers";
 
 export const AppRouter = () => {
   const { login } = useAuthStore();
@@ -37,11 +48,85 @@ export const AppRouter = () => {
           </PublicRouter>
         }
       />
+
       <Route
         path="/home"
         element={
           <PrivateRoute>
+            <Sidebar />
             <Home />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/users"
+        element={
+          <PrivateRoute>
+            <Sidebar />
+            <Users />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/teachers"
+        element={
+          <PrivateRoute>
+            <Sidebar />
+            <Teachers />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/students"
+        element={
+          <PrivateRoute>
+            <Sidebar />
+            <Student />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/reports"
+        element={
+          <PrivateRoute>
+            <Sidebar />
+            <Reports />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/evaluations"
+        element={
+          <PrivateRoute>
+            <Sidebar />
+            <Evaluations />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/catalogs"
+        element={
+          <PrivateRoute>
+            <Sidebar />
+            <Catalogs />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/config"
+        element={
+          <PrivateRoute>
+            <Sidebar />
+            <Confi />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/help"
+        element={
+          <PrivateRoute>
+            <Sidebar />
+            <Help />
           </PrivateRoute>
         }
       />
