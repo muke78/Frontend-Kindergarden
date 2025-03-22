@@ -1,12 +1,8 @@
 import { useSidebar } from "@/hooks/useSidebar";
-
-import { useContext } from "react";
-
-import { AuthContext } from "@context/AuthContext";
+import { useAuthStore } from "@/store/authStore";
 
 export const Home = () => {
-  const authContext = useContext(AuthContext);
-  const user = authContext?.user;
+  const { user } = useAuthStore();
   const { isMobile, sidebarOpen } = useSidebar();
 
   return (
