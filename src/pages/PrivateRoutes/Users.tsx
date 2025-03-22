@@ -1,62 +1,14 @@
-import { useSidebarStore } from "@/store/sidebarStore";
+import { useSidebar } from "@/hooks/useSidebar";
 
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 
 import { AuthContext } from "@context/AuthContext";
 
 export const Users = () => {
   const authContext = useContext(AuthContext);
   const user = authContext?.user;
-  const { sidebarOpen, setSidebarOpen } = useSidebarStore();
-  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const { isMobile, sidebarOpen } = useSidebar();
 
-  // Detectar si es dispositivo móvil
-  useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    // Comprobar al cargar y al cambiar el tamaño de la ventana
-    checkIfMobile();
-    window.addEventListener("resize", checkIfMobile);
-
-    return () => {
-      window.removeEventListener("resize", checkIfMobile);
-    };
-  }, []);
-
-  // Cerrar sidebar al hacer clic fuera en móvil
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (
-        isMobile &&
-        sidebarOpen &&
-        !target.closest("#sidebar") &&
-        !target.closest("#sidebar-toggle")
-      ) {
-        setSidebarOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isMobile, sidebarOpen, setSidebarOpen]);
-
-  // Prevenir scroll cuando el sidebar está abierto en móvil
-  useEffect(() => {
-    if (isMobile && sidebarOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [isMobile, sidebarOpen]);
   return (
     <main
       className={`min-h-screen transition-all duration-300 ${isMobile ? "ml-0" : sidebarOpen ? "ml-64" : "ml-20"} animate__animated animate__fadeIn`}
@@ -67,7 +19,7 @@ export const Users = () => {
           <code>{user?.id}</code>
         </div>
         <div className="bg-red-700 row-start-2 flex justify-center items-center">
-          2
+          <code>{user?.email}</code>
         </div>
         <div className="bg-blue-700 row-start-3 flex justify-center items-center">
           3
