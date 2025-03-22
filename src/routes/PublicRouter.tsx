@@ -11,9 +11,5 @@ export const PublicRouter = ({ children }: PublicRouteProps) => {
   const { user, token } = useAuthStore();
 
   // Si el usuario está autenticado (ya sea con el usuario o el token), redirige a /home
-  if (user || token) {
-    return <Navigate to="/home" />;
-  }
-
-  return <>{children}</>;
+  return user || token ? <Navigate to="/home" replace /> : <>{children}</>;
 };

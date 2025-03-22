@@ -4,10 +4,11 @@ import { Confi } from "@/pages/PrivateRoutes/Confi";
 import { Help } from "@/pages/PrivateRoutes/Help";
 import { Reports } from "@/pages/PrivateRoutes/Reports";
 import { Users } from "@/pages/PrivateRoutes/Users";
-import { Evaluations } from "@/pages/PrivateRoutes/evaluations";
+
+// import { Evaluations } from "@/pages/PrivateRoutes/evaluations";
 
 import { useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import { NotFound } from "@pages/NotFound";
 import { Home } from "@pages/PrivateRoutes/Home";
@@ -53,7 +54,7 @@ export const AppRouter = () => {
         path="/home"
         element={
           <PrivateRoute>
-            <Sidebar />
+            {/* <Sidebar /> */}
             <Home />
           </PrivateRoute>
         }
@@ -62,7 +63,7 @@ export const AppRouter = () => {
         path="/users"
         element={
           <PrivateRoute>
-            <Sidebar />
+            {/* <Sidebar /> */}
             <Users />
           </PrivateRoute>
         }
@@ -71,7 +72,7 @@ export const AppRouter = () => {
         path="/teachers"
         element={
           <PrivateRoute>
-            <Sidebar />
+            {/* <Sidebar /> */}
             <Teachers />
           </PrivateRoute>
         }
@@ -80,7 +81,7 @@ export const AppRouter = () => {
         path="/students"
         element={
           <PrivateRoute>
-            <Sidebar />
+            {/* <Sidebar /> */}
             <Student />
           </PrivateRoute>
         }
@@ -89,7 +90,7 @@ export const AppRouter = () => {
         path="/reports"
         element={
           <PrivateRoute>
-            <Sidebar />
+            {/* <Sidebar /> */}
             <Reports />
           </PrivateRoute>
         }
@@ -99,7 +100,7 @@ export const AppRouter = () => {
         element={
           <PrivateRoute>
             <Sidebar />
-            <Evaluations />
+            {/* <Evaluations /> */}
           </PrivateRoute>
         }
       />
@@ -107,7 +108,6 @@ export const AppRouter = () => {
         path="/catalogs"
         element={
           <PrivateRoute>
-            <Sidebar />
             <Catalogs />
           </PrivateRoute>
         }
@@ -116,7 +116,7 @@ export const AppRouter = () => {
         path="/config"
         element={
           <PrivateRoute>
-            <Sidebar />
+            {/* <Sidebar /> */}
             <Confi />
           </PrivateRoute>
         }
@@ -125,12 +125,13 @@ export const AppRouter = () => {
         path="/help"
         element={
           <PrivateRoute>
-            <Sidebar />
+            {/* <Sidebar /> */}
             <Help />
           </PrivateRoute>
         }
       />
       <Route path="*" element={<NotFound />} />
+      <Route path="/" element={<Navigate to="/login" replace />} />
     </Routes>
   );
 };

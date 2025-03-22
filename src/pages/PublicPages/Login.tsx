@@ -41,7 +41,7 @@ export const Login = () => {
                 className="mx-auto w-16 h-16"
               />
               <h1 className="text-2xl font-semibold dark:text-white">
-                Iniciar sesión en AKC
+                Iniciar sesión en AKT
               </h1>
               <span className="text-md text-balance text-secondary block">
                 ¡Bienvenido de nuevo! Inicia sesión para continuar.
