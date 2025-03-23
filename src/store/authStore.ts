@@ -96,7 +96,7 @@ export const useAuthStore = create<AuthState>((set) => {
       try {
         const decoded: DecodedToken = jwtDecode(token);
         const currentTime = Date.now();
-        const threeHoursInMilliseconds = 4 * 60 * 60 * 1000;
+        const threeHoursInMilliseconds = 12 * 60 * 60 * 1000;
 
         if (currentTime - decoded.iat * 1000 >= threeHoursInMilliseconds) {
           toast.success(

@@ -14,12 +14,12 @@ export const PrivateRoute = ({ children }: PrivateRouteProps) => {
   const lastPath = pathname + search;
   localStorage.setItem("lastPath", lastPath);
 
-  const timeExp = 1 * 60 * 60 * 1000;
+  const timeExp = 6 * 60 * 60 * 1000;
 
   useEffect(() => {
     const interval = setInterval(() => {
       checkTokenExpiration();
-    }, timeExp); // Cada hora
+    }, timeExp); // Cada 6 horas
 
     return () => clearInterval(interval);
   }, [checkTokenExpiration, timeExp]);
