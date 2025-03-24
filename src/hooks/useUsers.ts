@@ -1,0 +1,124 @@
+import {
+  createUserService,
+  deleteUserService,
+  listUsersService,
+  updateUserService,
+} from "@/services/userService";
+import { useUserStore } from "@/store/useUserStore";
+
+import toast from "react-hot-toast";
+
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
+interface User {
+  id: string;
+  nameUser: string;
+  email: string;
+  role: string;
+  accountStatus: string;
+}
+
+export const useUsers = () => {
+  const { addUser, updateUser, deleteUser } = useUserStore();
+  const queryClient = useQueryClient();
+
+  // Obtener usuarios
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["users"],
+    queryFn: listUsersService,
+    staleTime: 1000 * 60 * 5,
+    retry: 2,
+  });
+
+  // Crear usuario
+  const createUserMutation = useMutation({
+    mutationFn: (data: {
+      nameUser: string;
+      email: string;
+      password: string;
+      role: string;
+    }) =>
+      createUserService(data.nameUser, data.email, data.password, data.role),
+    onSuccess: (newUser) => {
+      const userToAdd: User = {
+        id: Date.now().toString(),
+        nameUser: newUser.data.NameUser,
+        email: newUser.data.Email,
+        role: newUser.data.Role,
+        accountStatus: newUser.data.AccountStatus,
+      };
+
+      addUser(userToAdd);
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      toast.success(
+        `Se creo correctamente al usuario ${newUser.data.NameUser}`,
+        {
+          duration: 5000,
+        },
+      );
+    },
+    onError: (error: {
+      response?: { data?: { error?: { message?: string } } };
+    }) => {
+      toast.error(error.response?.data?.error?.message || "An error occurred", {
+        duration: 5000,
+      });
+    },
+  });
+
+  // Actualizar usuario
+  const updateUserMutation = useMutation({
+    mutationFn: (data: {
+      id: string;
+      nameUser: string;
+      email: string;
+      password: string;
+      role: string;
+      accountStatus: string;
+    }) =>
+      updateUserService(data.id, {
+        NameUser: data.nameUser,
+        Email: data.email,
+        Password: data.password,
+        Role: data.role,
+        AccountStatus: data.accountStatus,
+      }),
+    onSuccess: (updatedUser) => {
+      updateUser(updatedUser.data.ID, {
+        nameUser: updatedUser.data.NameUser,
+        email: updatedUser.data.Email,
+        role: updatedUser.data.Role,
+        accountStatus: updatedUser.data.AccountStatus,
+      });
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+    },
+  });
+
+  // Eliminar usuario
+  const deleteUserMutation = useMutation({
+    mutationFn: (id: string) => deleteUserService(id),
+    onSuccess: (data, id) => {
+      deleteUser(id);
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      toast.success(data.data.message, {
+        duration: 5000,
+      });
+    },
+    onError: (error: {
+      response?: { data?: { error?: { message?: string } } };
+    }) => {
+      toast.error(error.response?.data?.error?.message || "An error occurred", {
+        duration: 5000,
+      });
+    },
+  });
+
+  return {
+    data,
+    isLoading,
+    error,
+    createUser: createUserMutation.mutate,
+    updateUser: updateUserMutation.mutate,
+    deleteUser: deleteUserMutation.mutate,
+  };
+};

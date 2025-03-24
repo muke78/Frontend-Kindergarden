@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 export const useSidebar = () => {
   const { sidebarOpen, setSidebarOpen } = useSidebarStore();
   const [isMobile, setIsMobile] = useState<boolean>(false);
+
   // Detectar si es dispositivo móvil
   useEffect(() => {
     const checkIfMobile = () => {

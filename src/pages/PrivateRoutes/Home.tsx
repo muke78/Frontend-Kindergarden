@@ -1,27 +1,22 @@
+import { ControlUserOptions } from "@/components/ui/ControlUserOptions";
 import { useSidebar } from "@/hooks/useSidebar";
-import { useAuthStore } from "@/store/authStore";
+
+// import { useAuthStore } from "@/store/authStore";
 
 export const Home = () => {
-  const { user } = useAuthStore();
+  // const { user } = useAuthStore();
   const { isMobile, sidebarOpen } = useSidebar();
 
   return (
     <main
       className={`min-h-screen transition-all duration-300 ${isMobile ? "ml-0" : sidebarOpen ? "ml-64" : "ml-20"} animate__animated animate__fadeIn`}
     >
-      <div className="grid grid-rows-4 w-full h-screen">
-        <div className="bg-yellow-700 flex justify-center items-center">
-          {" "}
-          <code>{user?.id}</code>
+      <div className="grid grid-cols-1 grid-rows-5 w-full h-screen">
+        <div className="flex justify-center items-center">
+          <ControlUserOptions />
         </div>
-        <div className="bg-red-700 row-start-2 flex justify-center items-center">
-          <code>{user?.email}</code>
-        </div>
-        <div className="bg-blue-700 row-start-3 flex justify-center items-center">
-          3
-        </div>
-        <div className="bg-green-700 row-start-4 flex justify-center items-center">
-          4
+        <div className=" flex justify-center items-center bg-blue-700 row-span-4">
+          Contenido de la aplicacion
         </div>
       </div>
     </main>

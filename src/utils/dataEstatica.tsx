@@ -1,5 +1,18 @@
 import { v } from "../styles/variables";
 
+export const controlOptionsuserArray = [
+  {
+    label: "Configuración",
+    icon: <v.iconoConfiguracion />,
+    to: "/config",
+  },
+  {
+    label: "Cerrar sesion",
+    icon: <v.iconoCerrarSesion />,
+    to: "",
+  },
+];
+
 export const LinksArray = [
   {
     label: "Inicio",
@@ -36,12 +49,6 @@ export const LinksArray = [
     label: "Catalogos",
     icon: <v.iconoCatalogos />,
     to: "/catalogs",
-  },
-
-  {
-    label: "Configuración",
-    icon: <v.iconoConfiguracion />,
-    to: "/config",
   },
   {
     label: "Ayuda",

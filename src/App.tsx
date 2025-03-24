@@ -9,7 +9,7 @@ export const App = () => {
     <>
       <Sidebar />
       <AppRouter />
-      <ReactQueryDevtools initialIsOpen={true} buttonPosition="top-right" />
+      <ReactQueryDevtools initialIsOpen={true} buttonPosition="bottom-left" />
     </>
   );
 };

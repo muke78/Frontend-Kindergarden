@@ -3,6 +3,8 @@ import { HiChevronDoubleLeft } from "react-icons/hi";
 import { HiChevronDoubleRight } from "react-icons/hi";
 import { IoMdHelp } from "react-icons/io";
 import { LuLogOut } from "react-icons/lu";
+import { RiArrowDownSLine } from "react-icons/ri";
+import { RiArrowRightSLine } from "react-icons/ri";
 import { RiArrowLeftLine } from "react-icons/ri";
 import { RiCloseLine } from "react-icons/ri";
 import { RiEyeLine } from "react-icons/ri";
@@ -37,4 +39,6 @@ export const v = {
   iconoAyuda: IoMdHelp,
   iconoContraerMenu: HiChevronDoubleLeft,
   iconDesplegarMenu: HiChevronDoubleRight,
+  iconoFlechaAbajo: RiArrowDownSLine,
+  iconoFlechaDerecha: RiArrowRightSLine,
 };
