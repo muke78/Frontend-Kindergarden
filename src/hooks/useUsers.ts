@@ -26,7 +26,6 @@ export const useUsers = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ["users"],
     queryFn: listUsersService,
-    staleTime: 1000 * 60 * 5,
     retry: 2,
   });
 

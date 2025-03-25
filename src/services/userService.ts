@@ -71,7 +71,14 @@ export const updateUserService = async (
 ): Promise<ApiResponse<User>> => {
   const response = await api.put<ApiResponse<User>>(
     "/actualizar-usuario",
-    { id, ...updates },
+    {
+      id,
+      nameUser: updates.NameUser,
+      email: updates.Email,
+      password: updates.Password,
+      role: updates.Role,
+      accountStatus: updates.AccountStatus,
+    },
     getAuthHeaders(),
   );
   return response.data;
