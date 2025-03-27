@@ -1,3 +1,4 @@
+import { useSearch } from "@/hooks/useSearch";
 import { useSidebar } from "@/hooks/useSidebar";
 import { useUsers } from "@/hooks/useUsers";
 
@@ -30,6 +31,7 @@ export const TablaUsuarios = ({
   setIsOpenModalAddUser,
 }: PropsModalIsOpen) => {
   const { data, deleteUser } = useUsers();
+  const { users } = useSearch();
   const { isMobile } = useSidebar();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -37,6 +39,10 @@ export const TablaUsuarios = ({
 
   // Constantes memoizadas
   const countData = useMemo(() => data?.metadata?.dataCount ?? 0, [data]);
+  const dataToShow = useMemo(
+    () => (users.users.length > 0 ? users.users : (data?.data ?? [])),
+    [data, users],
+  );
 
   // Callback para eliminar usuario con confirmación
   const eliminar = useCallback(
@@ -82,8 +88,8 @@ export const TablaUsuarios = ({
               <th>Acciones</th>
             </tr>
           </thead>
-          <tbody>
-            {data?.data.map((user) => (
+          <tbody className="animate__animated animate__fadeIn">
+            {dataToShow.map((user) => (
               <tr key={user.ID} className="hover:bg-base-300 font-medium">
                 <td>{user.ID.slice(0, 6)}</td>
                 <td>{user.NameUser}</td>
@@ -142,7 +148,7 @@ export const TablaUsuarios = ({
       />
 
       <div
-        className={`flex justify-end w-full ${isMobile ? "hidden" : "block"}`}
+        className={`flex justify-end mt-2 w-full ${isMobile ? "hidden" : "block"}`}
       >
         <span className="badge badge-soft badge-secondary">
           Total de registros {countData}

@@ -57,7 +57,7 @@ export const ControlUserOptions = () => {
 
       {/* Dropdown */}
       {openDropDownUser && (
-        <div className="animate__animated animate__fadeIn">
+        <div>
           <ul className="min-w-[200px] max-w-xs px-2 bg-base-300 rounded-b-3xl border-t border-neutral-500/50 shadow-lg">
             {controlOptionsuserArray.map((item) => (
               <li key={item.label} className="p-2">
