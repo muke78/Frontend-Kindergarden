@@ -1,6 +1,6 @@
-import { Sidebar } from "@/components/Sidebar";
 import { Catalogs } from "@/pages/PrivateRoutes/Catalogs";
 import { Confi } from "@/pages/PrivateRoutes/Confi";
+import { Evaluations } from "@/pages/PrivateRoutes/Evaluations";
 import { Help } from "@/pages/PrivateRoutes/Help";
 import { Reports } from "@/pages/PrivateRoutes/Reports";
 import { Users } from "@/pages/PrivateRoutes/Users";
@@ -54,7 +54,6 @@ export const AppRouter = () => {
         path="/home"
         element={
           <PrivateRoute>
-            {/* <Sidebar /> */}
             <Home />
           </PrivateRoute>
         }
@@ -63,7 +62,6 @@ export const AppRouter = () => {
         path="/users"
         element={
           <PrivateRoute>
-            {/* <Sidebar /> */}
             <Users />
           </PrivateRoute>
         }
@@ -72,7 +70,6 @@ export const AppRouter = () => {
         path="/teachers"
         element={
           <PrivateRoute>
-            {/* <Sidebar /> */}
             <Teachers />
           </PrivateRoute>
         }
@@ -81,7 +78,6 @@ export const AppRouter = () => {
         path="/students"
         element={
           <PrivateRoute>
-            {/* <Sidebar /> */}
             <Student />
           </PrivateRoute>
         }
@@ -90,7 +86,6 @@ export const AppRouter = () => {
         path="/reports"
         element={
           <PrivateRoute>
-            {/* <Sidebar /> */}
             <Reports />
           </PrivateRoute>
         }
@@ -99,8 +94,7 @@ export const AppRouter = () => {
         path="/evaluations"
         element={
           <PrivateRoute>
-            <Sidebar />
-            {/* <Evaluations /> */}
+            <Evaluations />
           </PrivateRoute>
         }
       />
@@ -116,7 +110,6 @@ export const AppRouter = () => {
         path="/config"
         element={
           <PrivateRoute>
-            {/* <Sidebar /> */}
             <Confi />
           </PrivateRoute>
         }
@@ -125,7 +118,6 @@ export const AppRouter = () => {
         path="/help"
         element={
           <PrivateRoute>
-            {/* <Sidebar /> */}
             <Help />
           </PrivateRoute>
         }

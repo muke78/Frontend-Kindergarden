@@ -1,13 +1,11 @@
+import { BtnSidebarMobile } from "@/components/ui/Sidebar/BtnSidebarMobile";
+import { ContraerSidebar } from "@/components/ui/Sidebar/ContraerSidebar";
+import { ImageSidebar } from "@/components/ui/Sidebar/ImageSidebar";
+import { SidebarItems } from "@/components/ui/Sidebar/SidebarItems";
 import { useSidebar } from "@/hooks/useSidebar";
 import { useAuthStore } from "@/store/authStore";
 
 import { useLocation } from "react-router-dom";
-
-import { BtnSidebarMobile } from "@components//ui/sidebar/BtnSidebarMobile";
-import { ImageSidebar } from "@components//ui/sidebar/ImageSidebar";
-import { BtnCerrarSesion } from "@components/ui/sidebar/BtnCerrarSesion";
-import { ContraerSidebar } from "@components/ui/sidebar/ContraerSidebar";
-import { SidebarItems } from "@components/ui/sidebar/SidebarItems";
 
 export const Sidebar = () => {
   const { user, token } = useAuthStore();
@@ -35,7 +33,7 @@ export const Sidebar = () => {
           ${isMobile ? "w-64" : ""} ${user && token ? "block" : "hidden"}`}
       >
         {/* Logo */}
-        <div className="flex justify-center items-center h-16 border-b border-gray-400">
+        <div className="flex justify-center items-center h-16 border-b border-base-300/40">
           <ImageSidebar />
         </div>
 
@@ -43,13 +41,8 @@ export const Sidebar = () => {
         <SidebarItems />
 
         {/* Botón para alternar sidebar en escritorio */}
-        <div className="p-4 border-t border-gray-400">
+        <div className="p-4 border-t border-base-300/40">
           <ContraerSidebar />
-        </div>
-
-        {/* Botón de cerrar sesión */}
-        <div className="p-4 border-t border-gray-400">
-          <BtnCerrarSesion />
         </div>
       </aside>
 
