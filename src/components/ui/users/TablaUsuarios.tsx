@@ -256,11 +256,6 @@ export const TablaUsuarios = ({
                           required: inputErrorText,
                         })}
                       />
-                      {errors.password && (
-                        <p className="text-primary p-0">
-                          {(errors.password as FieldError)?.message}
-                        </p>
-                      )}
 
                       <span
                         onClick={() => setShowPassword(!showPassword)}
@@ -273,12 +268,12 @@ export const TablaUsuarios = ({
                         )}
                       </span>
                     </div>
+                    {errors.password && (
+                      <p className="text-primary p-0">
+                        {(errors.password as FieldError)?.message}
+                      </p>
+                    )}
                   </div>
-                  {errors.password && (
-                    <p className="text-primary p-0">
-                      {(errors.password as FieldError)?.message}
-                    </p>
-                  )}
 
                   <div>
                     <label className="label">Rol</label>
@@ -363,18 +358,30 @@ export const TablaUsuarios = ({
                     <option value="user">User</option>
                   </select>
                 </div>
-                <div>
+                <div className="join w-full h-10 flex flex-col">
                   <label className="label">Contraseña</label>
-                  <input
-                    type="password"
-                    className="input input-bordered w-full text-base-content"
-                    onChange={(e) =>
-                      setSelectedUser({
-                        ...selectedUser,
-                        password: e.target.value,
-                      })
-                    }
-                  />
+                  <div className="flex flex-row">
+                    <input
+                      type={`${showPassword ? "text" : "password"}`}
+                      className="input input-bordered w-full text-base-content rounded-l-lg"
+                      onChange={(e) =>
+                        setSelectedUser({
+                          ...selectedUser,
+                          password: e.target.value,
+                        })
+                      }
+                    />
+                    <span
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="btn btn-secondary text-lg join-item"
+                    >
+                      {showPassword ? (
+                        <v.iconoOjoCerrado />
+                      ) : (
+                        <v.iconoOjoAbierto />
+                      )}
+                    </span>
+                  </div>
                 </div>
                 <div>
                   <label className="label">Estatus</label>
