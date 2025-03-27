@@ -3,6 +3,7 @@ import { useAuthStore } from "@/store/authStore";
 import { api } from "@config/api";
 
 interface User {
+  message: string;
   ID: string;
   NameUser: string;
   Email: string;

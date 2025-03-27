@@ -26,7 +26,6 @@ export const useUsers = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ["users"],
     queryFn: listUsersService,
-    retry: 2,
   });
 
   // Crear usuario
@@ -90,6 +89,9 @@ export const useUsers = () => {
         accountStatus: updatedUser.data.AccountStatus,
       });
       queryClient.invalidateQueries({ queryKey: ["users"] });
+      toast.success(`${updatedUser?.data?.message}`, {
+        duration: 5000,
+      });
     },
   });
 

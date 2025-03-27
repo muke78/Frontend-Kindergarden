@@ -29,7 +29,7 @@ export const Sidebar = () => {
       {/* Sidebar */}
       <aside
         id="sidebar"
-        className={`fixed inset-y-0 left-0 z-50 flex flex-col bg-neutral text-white transition-all duration-300 ease-in-out rounded-r-2xl
+        className={`fixed inset-y-0 left-0 z-50 flex flex-col bg-neutral text-white transition-all duration-300 ease-in-out
           ${isMobile ? (sidebarOpen ? "translate-x-0 shadow-lg" : "-translate-x-full") : sidebarOpen ? "w-64" : "w-20"} 
           ${isMobile ? "w-64" : ""} ${user && token ? "block" : "hidden"}`}
       >

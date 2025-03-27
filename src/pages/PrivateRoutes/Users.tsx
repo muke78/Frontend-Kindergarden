@@ -40,6 +40,7 @@ export const Users = () => {
             className="btn btn-warning text-2"
             onClick={() => setIsOpenModal(true)}
           >
+            Crear nuevo usuario
             <v.iconoCrearButton />
           </button>
         </div>

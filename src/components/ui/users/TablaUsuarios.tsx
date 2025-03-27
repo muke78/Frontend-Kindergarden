@@ -21,12 +21,12 @@ interface FormData {
 }
 
 interface FormDataEdit {
-  ID: string;
-  NameUser: string;
-  Email: string;
-  Password: string;
-  Role: string;
-  AccountStatus: string;
+  id: string;
+  nameUser: string;
+  email: string;
+  password: string;
+  role: string;
+  accountStatus: string;
 }
 
 export const TablaUsuarios = ({
@@ -118,22 +118,20 @@ export const TablaUsuarios = ({
 
   // Guarda los cambios y envía la mutación
   const handleSaveChanges = async () => {
-    console.log("Datos enviados:", {
-      id: selectedUser?.ID ?? "",
-      nameUser: selectedUser?.NameUser ?? "",
-      email: selectedUser?.Email ?? "",
-      password: selectedUser?.Password ?? "",
-      role: selectedUser?.Role ?? "",
-      accountStatus: selectedUser?.AccountStatus ?? "",
-    });
-    updateUser({
-      id: selectedUser?.ID ?? "",
-      nameUser: selectedUser?.NameUser ?? "",
-      email: selectedUser?.Email ?? "",
-      password: selectedUser?.Password ?? "",
-      role: selectedUser?.Role ?? "",
-      accountStatus: selectedUser?.AccountStatus ?? "",
-    });
+    const dataToUpdate = {
+      id: selectedUser?.id || "",
+      nameUser: selectedUser?.nameUser || "",
+      email: selectedUser?.email || "",
+      password: selectedUser?.password?.trim() || "",
+      role: selectedUser?.role || "",
+      accountStatus: selectedUser?.accountStatus || "",
+    };
+
+    // Solo incluir la contraseña si fue modificada
+    if (selectedUser?.password && selectedUser.password.trim() !== "") {
+      dataToUpdate.password = selectedUser.password;
+    }
+    updateUser(dataToUpdate);
     setIsModalOpen(false);
   };
 
@@ -171,8 +169,12 @@ export const TablaUsuarios = ({
                       className="text-info text-2xl cursor-pointer"
                       onClick={() =>
                         handleOpenModal({
-                          ...user,
-                          Password: user.Password || "",
+                          id: user.ID,
+                          nameUser: user.NameUser,
+                          email: user.Email,
+                          password: user.Password ?? "",
+                          role: user.Role,
+                          accountStatus: user.AccountStatus,
                         })
                       }
                     >
@@ -201,6 +203,7 @@ export const TablaUsuarios = ({
               <form onSubmit={handleSubmit(onSubmit)} method="POST">
                 <div className="grid grid-cols-2 grid-rows-2 gap-4 mt-6">
                   <div>
+                    <label className="label">Nombre</label>
                     <input
                       type="text"
                       placeholder="Nombre"
@@ -218,6 +221,7 @@ export const TablaUsuarios = ({
                   </div>
 
                   <div>
+                    <label className="label">Correo</label>
                     <input
                       type="email"
                       placeholder="email"
@@ -237,9 +241,9 @@ export const TablaUsuarios = ({
                       </p>
                     )}
                   </div>
-
-                  <div className="join w-full">
-                    <div className="w-full">
+                  <div className="join w-full h-10 flex flex-col">
+                    <label className="">Contraseña</label>
+                    <div className="flex flex-row">
                       <input
                         type={showPassword ? "text" : "password"}
                         placeholder="Contraseña"
@@ -253,17 +257,18 @@ export const TablaUsuarios = ({
                           {(errors.password as FieldError)?.message}
                         </p>
                       )}
+
+                      <span
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="btn btn-secondary text-lg join-item"
+                      >
+                        {showPassword ? (
+                          <v.iconoOjoCerrado />
+                        ) : (
+                          <v.iconoOjoAbierto />
+                        )}
+                      </span>
                     </div>
-                    <span
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="btn btn-secondary text-lg join-item"
-                    >
-                      {showPassword ? (
-                        <v.iconoOjoCerrado />
-                      ) : (
-                        <v.iconoOjoAbierto />
-                      )}
-                    </span>
                   </div>
                   {errors.password && (
                     <p className="text-primary p-0">
@@ -272,8 +277,8 @@ export const TablaUsuarios = ({
                   )}
 
                   <div>
+                    <label className="label">Rol</label>
                     <select
-                      defaultValue="Pick a color"
                       className="select"
                       {...register("role", {
                         required: inputErrorText,
@@ -312,61 +317,70 @@ export const TablaUsuarios = ({
 
               <div className="grid grid-cols-2 grid-rows-2 gap-4 mt-6">
                 <div>
+                  <label className="label">Nombre</label>
                   <input
                     type="text"
                     className="input input-bordered w-full text-base-content"
-                    value={selectedUser.NameUser}
+                    value={selectedUser.nameUser}
                     onChange={(e) =>
                       setSelectedUser({
                         ...selectedUser,
-                        NameUser: e.target.value,
+                        nameUser: e.target.value,
                       })
                     }
                   />
                 </div>
                 <div>
+                  <label className="label">Correo</label>
                   <input
                     type="email"
                     className="input input-bordered w-full text-base-content"
-                    value={selectedUser.Email}
+                    value={selectedUser.email}
                     onChange={(e) =>
                       setSelectedUser({
                         ...selectedUser,
-                        Email: e.target.value,
+                        email: e.target.value,
                       })
                     }
                   />
                 </div>
                 <div>
-                  <input
-                    type="text"
-                    className="input input-bordered w-full text-base-content"
-                    value={selectedUser.Role}
-                    onChange={(e) =>
-                      setSelectedUser({ ...selectedUser, Role: e.target.value })
-                    }
-                  />
+                  <label className="label">Rol</label>
+                  <select
+                    className="select"
+                    value={selectedUser.role}
+                    onChange={(e) => ({
+                      ...selectedUser,
+                      role: e.target.value,
+                    })}
+                  >
+                    <option disabled={true}>Elije un rol</option>
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                  </select>
                 </div>
                 <div>
+                  <label className="label">Contraseña</label>
                   <input
                     type="password"
                     className="input input-bordered w-full text-base-content"
                     onChange={(e) =>
                       setSelectedUser({
                         ...selectedUser,
-                        Password: e.target.value,
+                        password: e.target.value,
                       })
                     }
                   />
                 </div>
                 <div>
+                  <label className="label">Estatus</label>
                   <select
                     className="select"
-                    value={selectedUser.AccountStatus}
+                    value={selectedUser.accountStatus}
                     onChange={(e) =>
                       setSelectedUser({
                         ...selectedUser,
-                        AccountStatus: e.target.value,
+                        accountStatus: e.target.value,
                       })
                     }
                   >
