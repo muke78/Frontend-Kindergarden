@@ -34,6 +34,15 @@ interface UserUpdatePayload {
   AccountStatus?: string;
 }
 
+interface UpdateUserPayload {
+  id: string;
+  nameUser?: string;
+  email?: string;
+  password?: string;
+  role?: string;
+  accountStatus?: string;
+}
+
 // Función para obtener headers con el token
 const getAuthHeaders = () => ({
   headers: {
@@ -70,18 +79,26 @@ export const updateUserService = async (
   id: string,
   updates: UserUpdatePayload,
 ): Promise<ApiResponse<User>> => {
+  // Crear un objeto de actualización sin la contraseña
+  const updatePayload: UpdateUserPayload = {
+    id,
+    nameUser: updates.NameUser,
+    email: updates.Email,
+    role: updates.Role,
+    accountStatus: updates.AccountStatus,
+  };
+
+  // Solo agregar la contraseña si se proporciona una nueva
+  if (updates.Password && updates.Password.trim() !== "") {
+    updatePayload.password = updates.Password;
+  }
+
   const response = await api.put<ApiResponse<User>>(
     "/actualizar-usuario",
-    {
-      id,
-      nameUser: updates.NameUser,
-      email: updates.Email,
-      password: updates.Password,
-      role: updates.Role,
-      accountStatus: updates.AccountStatus,
-    },
+    updatePayload,
     getAuthHeaders(),
   );
+
   return response.data;
 };
 

@@ -24,7 +24,7 @@ interface FormDataEdit {
   id: string;
   nameUser: string;
   email: string;
-  password: string;
+  password?: string;
   role: string;
   accountStatus: string;
 }
@@ -116,18 +116,23 @@ export const TablaUsuarios = ({
     setIsModalOpen(false);
   };
 
-  // Guarda los cambios y envía la mutación
   const handleSaveChanges = async () => {
-    const dataToUpdate = {
+    const dataToUpdate: {
+      id: string;
+      nameUser: string;
+      email: string;
+      password?: string;
+      role: string;
+      accountStatus: string;
+    } = {
       id: selectedUser?.id || "",
       nameUser: selectedUser?.nameUser || "",
       email: selectedUser?.email || "",
-      password: selectedUser?.password?.trim() || "",
       role: selectedUser?.role || "",
       accountStatus: selectedUser?.accountStatus || "",
     };
 
-    // Solo incluir la contraseña si fue modificada
+    // Solo agregar la contraseña si fue modificada y no está vacía
     if (selectedUser?.password && selectedUser.password.trim() !== "") {
       dataToUpdate.password = selectedUser.password;
     }
@@ -172,7 +177,6 @@ export const TablaUsuarios = ({
                           id: user.ID,
                           nameUser: user.NameUser,
                           email: user.Email,
-                          password: user.Password ?? "",
                           role: user.Role,
                           accountStatus: user.AccountStatus,
                         })

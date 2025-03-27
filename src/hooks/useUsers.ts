@@ -18,6 +18,14 @@ interface User {
   accountStatus: string;
 }
 
+interface UserUpdatePayload {
+  NameUser?: string;
+  Email?: string;
+  Password?: string;
+  Role?: string;
+  AccountStatus?: string;
+}
+
 export const useUsers = () => {
   const { addUser, updateUser, deleteUser } = useUserStore();
   const queryClient = useQueryClient();
@@ -70,17 +78,25 @@ export const useUsers = () => {
       id: string;
       nameUser: string;
       email: string;
-      password: string;
+      password?: string;
       role: string;
       accountStatus: string;
-    }) =>
-      updateUserService(data.id, {
+    }) => {
+      // Crear un payload condicional
+      const payload: UserUpdatePayload = {
         NameUser: data.nameUser,
         Email: data.email,
-        Password: data.password,
         Role: data.role,
         AccountStatus: data.accountStatus,
-      }),
+      };
+
+      // Solo agregar la contraseña si existe y no está vacía
+      if (data.password && data.password.trim() !== "") {
+        payload.Password = data.password;
+      }
+
+      return updateUserService(data.id, payload);
+    },
     onSuccess: (updatedUser) => {
       updateUser(updatedUser.data.ID, {
         nameUser: updatedUser.data.NameUser,
