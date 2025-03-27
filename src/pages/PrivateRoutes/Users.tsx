@@ -1,18 +1,18 @@
-import { TablaUsuarios } from "@/components/ui/users/TablaUsuarios";
+import { TablaUsuarios } from "@/components/ui/Users/TablaUsuarios";
 import { useSidebar } from "@/hooks/useSidebar";
 import { useUsers } from "@/hooks/useUsers";
 
 import { useState } from "react";
+import { Toaster } from "react-hot-toast";
 
 import { ControlUserOptions } from "@components/ui/ControlUserOptions";
-
-import { MobileCard } from "../../components/ui/users/MobileCard";
-import { v } from "../../styles/variables";
+import { Icon } from "@components/ui/Icon";
+import { MobileCard } from "@components/ui/Users/MobileCard";
 
 export const Users = () => {
   const { isMobile, sidebarOpen } = useSidebar();
   const { isLoading, error } = useUsers();
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isOpenModalAddUser, setIsOpenModalAddUser] = useState(false);
 
   if (isLoading) return <p>Cargando usuarios...</p>;
   if (error) return <p>Error al cargar usuarios</p>;
@@ -38,19 +38,19 @@ export const Users = () => {
           <button className="btn btn-primary">Buscar</button>
           <button
             className="btn btn-warning text-2"
-            onClick={() => setIsOpenModal(true)}
+            onClick={() => setIsOpenModalAddUser(!isOpenModalAddUser)}
           >
             Crear nuevo usuario
-            <v.iconoCrearButton />
+            <Icon name="iconoCrearButton" size="text-lg" />
           </button>
         </div>
-
         <TablaUsuarios
-          isOpenModal={isOpenModal}
-          setIsOpenModal={setIsOpenModal}
+          isOpenModalAddUser={isOpenModalAddUser}
+          setIsOpenModalAddUser={setIsOpenModalAddUser}
         />
         <MobileCard />
       </div>
+      <Toaster position="bottom-right" reverseOrder={false} />
     </main>
   );
 };

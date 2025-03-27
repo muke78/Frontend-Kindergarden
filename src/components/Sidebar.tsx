@@ -1,12 +1,11 @@
+import { BtnSidebarMobile } from "@/components/ui/Sidebar/BtnSidebarMobile";
+import { ContraerSidebar } from "@/components/ui/Sidebar/ContraerSidebar";
+import { ImageSidebar } from "@/components/ui/Sidebar/ImageSidebar";
+import { SidebarItems } from "@/components/ui/Sidebar/SidebarItems";
 import { useSidebar } from "@/hooks/useSidebar";
 import { useAuthStore } from "@/store/authStore";
 
 import { useLocation } from "react-router-dom";
-
-import { BtnSidebarMobile } from "@components//ui/sidebar/BtnSidebarMobile";
-import { ImageSidebar } from "@components//ui/sidebar/ImageSidebar";
-import { ContraerSidebar } from "@components/ui/sidebar/ContraerSidebar";
-import { SidebarItems } from "@components/ui/sidebar/SidebarItems";
 
 export const Sidebar = () => {
   const { user, token } = useAuthStore();
