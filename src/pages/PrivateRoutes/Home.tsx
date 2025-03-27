@@ -1,44 +1,42 @@
-import { Sidebar } from "@/components/Sidebar";
+import { ControlUserOptions } from "@/components/ui/ControlUserOptions";
+import { useSidebar } from "@/hooks/useSidebar";
 
-import { useContext, useState } from "react";
-
-import { AuthContext } from "@context/AuthContext";
+// import { useAuthStore } from "@/store/authStore";
 
 export const Home = () => {
-  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
-  const authContext = useContext(AuthContext);
-  const user = authContext?.user;
+  // const { user } = useAuthStore();
+  const { isMobile, sidebarOpen } = useSidebar();
+
   return (
-    <div className="flex h-full">
-      {/* Sidebar */}
-      <Sidebar
-        sidebarOpen={sidebarOpen}
-        setSidebarOpen={() => setSidebarOpen(!sidebarOpen)}
-      />{" "}
-      {/* Ajusta el ancho del sidebar según sea necesario */}
-      {/* Contenido principal */}
-      <div className="flex flex-col items-center justify-start w-full bg-[theme('colors.bgtotal')] text-[theme('colors.text')]">
-        {/* Area 1 */}
-        <section className="bg-[rgba(229,67,26,0.14)] flex items-center justify-center w-full h-1/4">
-          <code>{user?.id}</code>
-        </section>
-
-        {/* Area 2 */}
-        <section className="bg-[rgba(77,237,106,0.14)] flex items-center justify-center w-full h-1/4">
-          <h1>Bienvenido, {user?.nameUser || "Invitado"}!</h1>
-        </section>
-
-        {/* Area 2 */}
-        <section className="bg-[rgba(77,160,237,0.14)] flex items-center justify-center w-full h-1/4">
-          <h1>Bienvenido, {user?.nameUser || "Invitado"}!</h1>
-        </section>
-
-        {/* Main */}
-        <section className="bg-[rgba(179,46,241,0.14)] p-4 w-full h-1/4">
-          <h2>Tu correo es, {user?.email} </h2>
-          <h3>Tu role es {user?.role} </h3>
-        </section>
+    <main
+      className={`min-h-screen transition-all duration-300 ${isMobile ? "ml-0" : sidebarOpen ? "ml-64" : "ml-20"} animate__animated animate__fadeIn`}
+    >
+      <div className="grid grid-cols-9 grid-rows-9 gap-4 w-full h-screen p-2">
+        <div className="flex justify-start items-end col-span-9">
+          <span className="text-2xl font-bold">Inicio</span>
+          <ControlUserOptions />
+        </div>
+        <div className="col-span-2 row-start-2 bg-base-200">1</div>
+        <div className="col-span-2 col-start-1 row-start-3 bg-base-200">3</div>
+        <div className="col-span-2 col-start-1 row-start-4 bg-base-200">4</div>
+        <div className="col-span-2 col-start-1 row-start-5 bg-base-200">5</div>
+        <div className="col-span-4 row-span-4 col-start-3 row-start-2 bg-base-200">
+          6
+        </div>
+        <div className="col-span-3 row-span-2 col-start-7 row-start-2 bg-base-200">
+          7
+        </div>
+        <div className="col-span-3 row-span-2 col-start-7 row-start-4 bg-base-200">
+          8
+        </div>
+        <div className="col-span-3 row-span-4 row-start-6 bg-base-200">9</div>
+        <div className="col-span-3 row-span-4 col-start-4 row-start-6 bg-base-200">
+          10
+        </div>
+        <div className="col-span-3 row-span-4 col-start-7 row-start-6 bg-base-200">
+          11
+        </div>
       </div>
-    </div>
+    </main>
   );
 };

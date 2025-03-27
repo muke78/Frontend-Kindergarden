@@ -10,6 +10,7 @@ interface FormData {
   email: string;
   password: string;
 }
+
 export const Login = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const { mutate } = useLogin();
@@ -29,6 +30,7 @@ export const Login = () => {
       password: data.password,
     });
   };
+
   return (
     <div className="h-screen flex flex-col justify-center items-center p-4 bg-base-200 animate__animated animate__fadeIn">
       <div className="card bg-primary-content text-accent-content w-96 max-w-full shadow-lg">
@@ -41,7 +43,7 @@ export const Login = () => {
                 className="mx-auto w-16 h-16"
               />
               <h1 className="text-2xl font-semibold dark:text-white">
-                Iniciar sesión en AKC
+                Iniciar sesión en AKT
               </h1>
               <span className="text-md text-balance text-secondary block">
                 ¡Bienvenido de nuevo! Inicia sesión para continuar.
@@ -75,6 +77,11 @@ export const Login = () => {
                         required: inputErrorText,
                       })}
                     />
+                    {errors.password && (
+                      <p className="text-primary p-0">
+                        {(errors.password as FieldError)?.message}
+                      </p>
+                    )}
                   </div>
                   <span
                     onClick={() => setShowPassword(!showPassword)}
