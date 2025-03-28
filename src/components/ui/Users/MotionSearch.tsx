@@ -21,8 +21,7 @@ export const MotionSearch = ({ value, showError }: PropsMotionSearch) => {
         style={{
           borderRadius: 999,
           background: badgeClass,
-          padding: "0px 15px",
-          color: "#fff",
+          padding: "0px 10px",
         }}
         className={badgeClass}
       >
