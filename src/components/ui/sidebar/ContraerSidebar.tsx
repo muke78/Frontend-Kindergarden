@@ -18,7 +18,7 @@ export const ContraerSidebar = () => {
         </span>
       ) : (
         <span className="text-lg font-bold">
-          <v.iconDesplegarMenu />
+          <v.iconoDesplegarMenu />
         </span>
       )}
       <span

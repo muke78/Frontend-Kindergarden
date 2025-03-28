@@ -44,7 +44,10 @@ export const Users = () => {
 
         <div className="col-span-5 row-start-2 h-1/2 flex flex-col gap-4">
           <div className="flex flex-row justify-start items-end gap-2 w-full">
-            <form className="flex gap-2 w-1/2" onSubmit={onSearchSubmit}>
+            <form
+              className="flex gap-2 lg:w-1/2 w-full"
+              onSubmit={onSearchSubmit}
+            >
               <input
                 type="text"
                 placeholder="Buscar correo"
@@ -61,7 +64,6 @@ export const Users = () => {
               className="btn btn-warning text-2"
               onClick={() => setIsOpenModalAddUser(!isOpenModalAddUser)}
             >
-              Crear nuevo usuario
               <Icon name="iconoCrearButton" size="text-lg" />
             </button>
           </div>

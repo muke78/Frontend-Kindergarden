@@ -20,7 +20,7 @@ export const BtnSidebarMobile = () => {
       </span>
       {sidebarOpen ? (
         <span className="text-xl">
-          <v.iconCerrar />
+          <v.iconoCerrar />
         </span>
       ) : (
         <span className="text-xl">

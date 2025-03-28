@@ -1,3 +1,5 @@
+import { Paginacion } from "@/components/Paginacion";
+import { useSearch } from "@/hooks/useSearch";
 import { useUsers } from "@/hooks/useUsers";
 import { formatDate } from "@/utils/formatDate";
 import { getStatusBadge } from "@/utils/statusBadge";
@@ -19,10 +21,28 @@ interface FormDataEdit {
 
 export const MobileCard = () => {
   const { data, deleteUser } = useUsers();
+  const { users } = useSearch();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState<FormDataEdit>();
   const [showPassword, setShowPassword] = useState<boolean>(false);
+
+  // Paginacuion para la tabla
+  const [pagina, setPagina] = useState<number>(1);
+  const [porPagina] = useState<number>(7);
+  const totalItems =
+    users.users.length > 0 ? users.users.length : (data?.data?.length ?? 0);
+  const maximo = Math.max(1, Math.ceil(totalItems / porPagina));
+
+  // Constantes memoizadas
   const countData = useMemo(() => data?.metadata?.dataCount ?? 0, [data]);
+
+  const dataToShow = useMemo(() => {
+    const startIndex = (pagina - 1) * porPagina;
+    const endIndex = startIndex + porPagina;
+    return users.users.length > 0
+      ? users.users.slice(startIndex, endIndex)
+      : (data?.data?.slice(startIndex, endIndex) ?? []);
+  }, [data, users, pagina, porPagina]);
 
   // Callback para eliminar usuario con confirmación
   const eliminar = useCallback(
@@ -55,10 +75,11 @@ export const MobileCard = () => {
     <>
       {/* Mobile Card View (shown only on mobile) */}
       <div className="grid grid-cols-1 gap-4 md:hidden">
+        <Paginacion pagina={pagina} setPagina={setPagina} maximo={maximo} />
         <div className="badge badge-soft badge-secondary mt-2">
           Total de registros {countData}
         </div>
-        {data?.data.map((user) => (
+        {dataToShow.map((user) => (
           <div key={user.ID} className="card bg-base-300 shadow-sm">
             <div className="card-body p-4">
               <div className="flex justify-between items-start mb-3">
