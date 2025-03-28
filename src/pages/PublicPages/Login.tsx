@@ -4,7 +4,9 @@ import { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 import { useLogin } from "@hooks/useAuth";
+import { GoogleLogin } from "@react-oauth/google";
 import { v } from "@styles/variables";
+import { jwtDecode } from "jwt-decode";
 
 interface FormData {
   email: string;
@@ -35,20 +37,39 @@ export const Login = () => {
     <div className="h-screen flex flex-col justify-center items-center p-4 bg-base-200 animate__animated animate__fadeIn">
       <div className="card bg-primary-content text-accent-content w-96 max-w-full shadow-lg">
         <div className="card bg-neutral text-primary-content shadow-lg">
-          <form onSubmit={handleSubmit(onSubmit)} method="POST">
-            <div className="card-body p-9 text-center space-y-4">
-              <img
-                src={v.logoLogin}
-                alt="Logo de Login"
-                className="mx-auto w-16 h-16"
-              />
-              <h1 className="text-2xl font-semibold dark:text-white">
-                Iniciar sesión en AKT
-              </h1>
-              <span className="text-md text-balance text-secondary block">
-                ¡Bienvenido de nuevo! Inicia sesión para continuar.
-              </span>
-
+          <div className="card-body p-9 text-center space-y-4">
+            <img
+              src={v.logoLogin}
+              alt="Logo de Login"
+              className="mx-auto w-16 h-16"
+            />
+            <h1 className="text-2xl font-semibold text-white">
+              Iniciar sesión en AKT
+            </h1>
+            <span className="text-md text-balance text-white block">
+              ¡Bienvenido de nuevo! Inicia sesión para continuar.
+            </span>
+            {/* Google */}
+            <GoogleLogin
+              onSuccess={(credentialResponse) => {
+                console.log(credentialResponse);
+                if (credentialResponse.credential) {
+                  console.log(jwtDecode(credentialResponse.credential));
+                } else {
+                  console.error("Credential is undefined");
+                }
+              }}
+              onError={() => {
+                console.log("Login Failed");
+              }}
+              auto_select={true}
+            />
+            <div className="divider divider-secondary text-white m-0">O</div>
+            <form
+              className="flex flex-col gap-4"
+              onSubmit={handleSubmit(onSubmit)}
+              method="POST"
+            >
               <div className="space-y-4">
                 <input
                   type="email"
@@ -77,11 +98,6 @@ export const Login = () => {
                         required: inputErrorText,
                       })}
                     />
-                    {errors.password && (
-                      <p className="text-primary p-0">
-                        {(errors.password as FieldError)?.message}
-                      </p>
-                    )}
                   </div>
                   <span
                     onClick={() => setShowPassword(!showPassword)}
@@ -96,15 +112,15 @@ export const Login = () => {
                 </div>
                 {errors.password && (
                   <p className="text-primary p-0">
-                    {(errors.email as FieldError)?.message}
+                    {(errors.password as FieldError)?.message}
                   </p>
                 )}
               </div>
 
               <button className="btn btn-primary w-full">Iniciar sesión</button>
               <Toaster position="bottom-right" reverseOrder={false} />
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
 
         <div className="flex justify-center items-center gap-3 p-3 text-sm">

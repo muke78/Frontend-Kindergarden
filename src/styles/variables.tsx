@@ -1,3 +1,4 @@
+import { FcGoogle } from "react-icons/fc";
 import { FiEdit } from "react-icons/fi";
 import { GrUserManager } from "react-icons/gr";
 import { HiChevronDoubleLeft } from "react-icons/hi";
@@ -51,4 +52,5 @@ export const v = {
   iconoEditarButton: FiEdit,
   iconoCrearButton: RiEditLine,
   iconoMasOpciones: SlOptions,
+  iconoGoogle: FcGoogle,
 };
