@@ -1,8 +1,9 @@
+import { Paginacion } from "@/components/Paginacion";
 import { useSearch } from "@/hooks/useSearch";
 import { useSidebar } from "@/hooks/useSidebar";
 import { useUsers } from "@/hooks/useUsers";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { Icon } from "@components/ui/Icon";
 import { formatDate } from "@utils/formatDate";
@@ -37,12 +38,29 @@ export const TablaUsuarios = ({
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState<FormDataEdit>();
 
+  // Paginacion para la tabla
+  const [pagina, setPagina] = useState<number>(1);
+  const [porPagina] = useState<number>(7);
+  const totalItems =
+    users.users.length > 0 ? users.users.length : (data?.data?.length ?? 0);
+  const maximo = Math.max(1, Math.ceil(totalItems / porPagina));
+
   // Constantes memoizadas
   const countData = useMemo(() => data?.metadata?.dataCount ?? 0, [data]);
-  const dataToShow = useMemo(
-    () => (users.users.length > 0 ? users.users : (data?.data ?? [])),
-    [data, users],
-  );
+
+  const dataToShow = useMemo(() => {
+    const startIndex = (pagina - 1) * porPagina;
+    const endIndex = startIndex + porPagina;
+    return users.users.length > 0
+      ? users.users.slice(startIndex, endIndex)
+      : (data?.data?.slice(startIndex, endIndex) ?? []);
+  }, [data, users, pagina, porPagina]);
+
+  useEffect(() => {
+    if (!dataToShow.length) {
+      setPagina(1);
+    }
+  }, [dataToShow]);
 
   // Callback para eliminar usuario con confirmación
   const eliminar = useCallback(
@@ -73,8 +91,8 @@ export const TablaUsuarios = ({
 
   return (
     <>
-      <div className="hidden md:block overflow-x-auto rounded-md border border-neutral bg-base-100 shadow-sm row-span-4">
-        <table className="table table-zebra w-full">
+      <div className="hidden md:block overflow-x-auto rounded-md border-t-4 border-neutral bg-base-100 shadow-sm row-start-3">
+        <table className="table table-zebra w-full animate__animated animate__fadeIn">
           <thead>
             <tr className="text-left text-md">
               <th>ID</th>
@@ -129,6 +147,7 @@ export const TablaUsuarios = ({
             ))}
           </tbody>
         </table>
+        <Paginacion pagina={pagina} setPagina={setPagina} maximo={maximo} />
       </div>
 
       <ModalAgregarUsuario

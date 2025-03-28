@@ -19,6 +19,7 @@ import { RiFileList3Line } from "react-icons/ri";
 import { RiBookReadLine } from "react-icons/ri";
 import { RiSettings5Line } from "react-icons/ri";
 import { RiEditLine } from "react-icons/ri";
+import { RiArrowLeftSLine } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { SlOptions } from "react-icons/sl";
 
@@ -31,7 +32,7 @@ export const v = {
   iconoRegresar: RiArrowLeftLine,
   iconoCerrarSesion: LuLogOut,
   iconoMenu: RxHamburgerMenu,
-  iconCerrar: RiCloseLine,
+  iconoCerrar: RiCloseLine,
   iconoInicio: RiHome5Line,
   iconoUsuarios: RiGroupLine,
   iconoMaestros: GrUserManager,
@@ -42,9 +43,10 @@ export const v = {
   iconoConfiguracion: RiSettings5Line,
   iconoAyuda: IoMdHelp,
   iconoContraerMenu: HiChevronDoubleLeft,
-  iconDesplegarMenu: HiChevronDoubleRight,
+  iconoDesplegarMenu: HiChevronDoubleRight,
   iconoFlechaAbajo: RiArrowDownSLine,
   iconoFlechaDerecha: RiArrowRightSLine,
+  iconoFlechaIzquierda: RiArrowLeftSLine,
   iconoBasuraButton: LuTrash2,
   iconoEditarButton: FiEdit,
   iconoCrearButton: RiEditLine,
