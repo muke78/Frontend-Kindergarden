@@ -73,7 +73,7 @@ export const TablaUsuarios = ({
 
   return (
     <>
-      <div className="hidden md:block overflow-x-auto rounded-md border border-neutral bg-base-100 shadow-sm row-span-4">
+      <div className="hidden md:block overflow-x-auto rounded-md border-t-4 border-neutral bg-base-100 shadow-sm row-start-3">
         <table className="table table-zebra w-full">
           <thead>
             <tr className="text-left text-md">
