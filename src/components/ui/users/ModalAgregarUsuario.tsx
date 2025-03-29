@@ -9,8 +9,10 @@ import { Modal } from "@components/ui/Modal/Modal";
 interface FormData {
   nameUser: string;
   email: string;
+  profilePicture: string;
   password: string;
   role: string;
+  accountType: string;
 }
 
 interface PropsModalAgregarUsuario {
@@ -42,8 +44,10 @@ export const ModalAgregarUsuario = ({
       await createUser({
         nameUser: data.nameUser,
         email: data.email,
+        profilePicture: data.profilePicture,
         password: data.password,
         role: data.role,
+        accountType: data.accountType,
       });
       reset();
       setIsOpenModalAddUser(!isOpenModalAddUser);
