@@ -25,12 +25,14 @@ import { RiUserStarLine } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { SlOptions } from "react-icons/sl";
 
+import errorFetch from "@assets/errorFetching.svg";
 import logo from "@assets/iconLogin.webp";
 
 export const v = {
   iconoOjoCerrado: RiEyeCloseLine,
   iconoOjoAbierto: RiEyeLine,
   logoLogin: logo,
+  iconoErrorFetch: errorFetch,
   iconoRegresar: RiArrowLeftLine,
   iconoCerrarSesion: LuLogOut,
   iconoMenu: RxHamburgerMenu,

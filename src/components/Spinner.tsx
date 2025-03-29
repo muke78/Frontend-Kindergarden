@@ -10,7 +10,9 @@ export const Spinner = () => {
         isMobile ? "ml-0 mt-32" : sidebarOpen ? "ml-64" : "ml-20"
       } animate__animated animate__fadeIn`}
     >
-      <HashLoader color="#5f360f" size={200} />
+      <HashLoader color="#818cf8" size={200} />
     </div>
   );
 };
+
+// Color de modo claro #c93400
