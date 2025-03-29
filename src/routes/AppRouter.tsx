@@ -2,6 +2,7 @@ import { Catalogs } from "@/pages/PrivateRoutes/Catalogs";
 import { Confi } from "@/pages/PrivateRoutes/Confi";
 import { Evaluations } from "@/pages/PrivateRoutes/Evaluations";
 import { Help } from "@/pages/PrivateRoutes/Help";
+import { Parents } from "@/pages/PrivateRoutes/Parents";
 import { Reports } from "@/pages/PrivateRoutes/Reports";
 import { Users } from "@/pages/PrivateRoutes/Users";
 
@@ -71,6 +72,14 @@ export const AppRouter = () => {
         element={
           <PrivateRoute>
             <Teachers />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/parents"
+        element={
+          <PrivateRoute>
+            <Parents />
           </PrivateRoute>
         }
       />
