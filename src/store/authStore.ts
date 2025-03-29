@@ -7,7 +7,9 @@ interface User {
   id: string;
   nameUser: string;
   email: string;
+  profilePicture: string;
   role: string;
+  accountType: string;
   lastLogin: string;
   accountStatus: string;
 }
@@ -26,7 +28,9 @@ interface DecodedToken {
   id: string;
   nameUser: string;
   email: string;
+  profilePicture: string;
   role: string;
+  accountType: string;
   lastLogin: string;
   accountStatus: string;
   iat: number;
@@ -46,7 +50,9 @@ export const useAuthStore = create<AuthState>((set) => {
           id: decoded.id,
           nameUser: decoded.nameUser,
           email: decoded.email,
+          profilePicture: decoded.profilePicture,
           role: decoded.role,
+          accountType: decoded.accountType,
           lastLogin: decoded.lastLogin,
           accountStatus: decoded.accountStatus,
         };
@@ -72,7 +78,9 @@ export const useAuthStore = create<AuthState>((set) => {
             id: decoded.id,
             nameUser: decoded.nameUser,
             email: decoded.email,
+            profilePicture: decoded.profilePicture,
             role: decoded.role,
+            accountType: decoded.accountType,
             lastLogin: decoded.lastLogin,
             accountStatus: decoded.accountStatus,
           },

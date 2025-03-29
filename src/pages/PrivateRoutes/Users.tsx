@@ -40,7 +40,7 @@ export const Users = () => {
         isMobile ? "ml-0 mt-32" : sidebarOpen ? "ml-64" : "ml-20"
       } animate__animated animate__fadeIn`}
     >
-      <div className="grid grid-cols-5 grid-rows-5 gap-4 w-full h-screen p-4 md:p-6 max-w-7xl mx-auto">
+      <div className="grid grid-cols-5 grid-rows-5 gap-4 w-full h-screen p-4 md:p-6 max-w-[86rem] mx-auto">
         <div className="col-span-5 flex justify-start items-end">
           <span className="text-6xl font-bold">Usuarios</span>
           <ControlUserOptions />
