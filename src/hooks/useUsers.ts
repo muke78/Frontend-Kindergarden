@@ -34,7 +34,8 @@ export const useUsers = () => {
   const { data, isLoading, error } = useQuery({
     queryKey: ["users"],
     queryFn: listUsersService,
-    staleTime: 5000 * 60, // Datos frescos durante 5 minutos
+    staleTime: 1000 * 60, // Datos frescos durante 1 minutos
+    retry: 2,
   });
 
   // Crear usuario
