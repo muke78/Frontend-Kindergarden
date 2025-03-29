@@ -21,6 +21,7 @@ import { RiBookReadLine } from "react-icons/ri";
 import { RiSettings5Line } from "react-icons/ri";
 import { RiEditLine } from "react-icons/ri";
 import { RiArrowLeftSLine } from "react-icons/ri";
+import { RiUserStarLine } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { SlOptions } from "react-icons/sl";
 
@@ -53,4 +54,5 @@ export const v = {
   iconoCrearButton: RiEditLine,
   iconoMasOpciones: SlOptions,
   iconoGoogle: FcGoogle,
+  iconoPapas: RiUserStarLine,
 };
