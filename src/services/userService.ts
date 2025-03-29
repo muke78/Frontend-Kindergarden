@@ -8,7 +8,9 @@ interface User {
   NameUser: string;
   Email: string;
   Password?: string;
+  ProfilePicture: string;
   Role: string;
+  AccountType: string;
   LastLogin: string;
   AccountStatus: string;
   Created: string;

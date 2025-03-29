@@ -83,8 +83,23 @@ export const MobileCard = () => {
           <div key={user.ID} className="card bg-base-300 shadow-sm">
             <div className="card-body p-4">
               <div className="flex justify-between items-start mb-3">
-                <div>
-                  <h3 className="card-title text-2xl">{user.NameUser}</h3>
+                <div className="">
+                  <div className="w-10 h-10 flex items-center justify-center bg-neutral text-neutral-content rounded-full">
+                    <span className="font-bold text-lg">
+                      {user?.ProfilePicture ? (
+                        <img
+                          src={user.ProfilePicture}
+                          alt={user.NameUser}
+                          className="rounded-full w-full object-cover"
+                        />
+                      ) : (
+                        user?.NameUser?.charAt(0)
+                      )}
+                    </span>
+                  </div>
+                  <h3 className="card-title text-2xl text-balance">
+                    {user.NameUser}
+                  </h3>
                   <p className="text-base opacity-70">{user.Email}</p>
                 </div>
                 <div className="dropdown dropdown-end">

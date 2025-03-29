@@ -25,7 +25,7 @@ export const ControlUserOptions = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
   return (
-    <div ref={dropdownRef} className="absolute right-7 top-7">
+    <div ref={dropdownRef} className="absolute right-7 top-7 z-10">
       <div
         className={`flex items-center gap-4 p-2 bg-base-300 transition-all duration-200 
                   ${openDropDownUser ? "rounded-t-4xl" : "rounded-4xl"} shadow-lg`}
@@ -33,7 +33,15 @@ export const ControlUserOptions = () => {
         {/* Avatar */}
         <div className="w-12 h-12 flex items-center justify-center bg-neutral text-neutral-content rounded-full">
           <span className="font-bold text-lg">
-            {user?.nameUser?.charAt(0) || "L"}
+            {user?.profilePicture ? (
+              <img
+                src={user.profilePicture}
+                alt={user.nameUser}
+                className="rounded-full w-full object-cover"
+              />
+            ) : (
+              user?.nameUser?.charAt(0)
+            )}
           </span>
         </div>
         {/* Botón para abrir el dropdown */}

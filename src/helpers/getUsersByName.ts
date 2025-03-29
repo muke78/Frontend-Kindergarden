@@ -4,7 +4,9 @@ interface User {
   ID: string;
   NameUser: string;
   Email: string;
+  ProfilePicture: string;
   Role: string;
+  AccountType: string;
   LastLogin: string;
   Created: string;
   Updated: string;

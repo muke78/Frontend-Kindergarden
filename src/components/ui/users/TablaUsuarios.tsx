@@ -96,12 +96,14 @@ export const TablaUsuarios = ({
           <thead>
             <tr className="text-left text-md">
               <th>ID</th>
+              <th>Avatar</th>
               <th>Nombre de usuario</th>
               <th>Email</th>
               <th>Rol</th>
               <th>Último inicio</th>
               <th>Creado</th>
               <th>Actualizado</th>
+              <th>Tipo</th>
               <th>Status</th>
               <th>Acciones</th>
             </tr>
@@ -110,12 +112,42 @@ export const TablaUsuarios = ({
             {dataToShow.map((user) => (
               <tr key={user.ID} className="hover:bg-base-300 font-medium">
                 <td>{user.ID.slice(0, 6)}</td>
+                <td>
+                  <div className="w-10 h-10 flex items-center justify-center bg-neutral text-neutral-content rounded-full">
+                    <span className="font-bold text-lg">
+                      {user?.ProfilePicture ? (
+                        <img
+                          src={user.ProfilePicture}
+                          alt={user.NameUser}
+                          className="rounded-full w-full object-cover"
+                        />
+                      ) : (
+                        user?.NameUser?.charAt(0)
+                      )}
+                    </span>
+                  </div>
+                </td>
                 <td>{user.NameUser}</td>
                 <td>{user.Email}</td>
                 <td>{user.Role}</td>
                 <td>{formatDate(user.LastLogin)}</td>
                 <td>{formatDate(user.Created)}</td>
                 <td>{formatDate(user.Updated)}</td>
+                <td>
+                  {user.AccountType === "google" ? (
+                    <span
+                      className="badge text-white"
+                      style={{
+                        background:
+                          "linear-gradient(90deg, rgba(66, 134, 244, 0.7), rgba(234, 68, 53, 0.726), rgba(251, 189, 5, 0.7), rgba(52, 168, 83, 0.7))",
+                      }}
+                    >
+                      Google
+                    </span>
+                  ) : (
+                    <span className="badge badge-secondary">Email</span>
+                  )}
+                </td>
                 <td>{getStatusBadge(user.AccountStatus)}</td>
                 <td>
                   <div className="flex justify-center items-center gap-2">

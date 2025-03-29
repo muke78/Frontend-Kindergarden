@@ -1,3 +1,5 @@
+import { useAuthGoogleLogin } from "@/hooks/useAuthGoogle";
+
 import { useState } from "react";
 import { type FieldError, useForm } from "react-hook-form";
 import { Toaster } from "react-hot-toast";
@@ -6,16 +8,19 @@ import { Link } from "react-router-dom";
 import { useLogin } from "@hooks/useAuth";
 import { GoogleLogin } from "@react-oauth/google";
 import { v } from "@styles/variables";
-import { jwtDecode } from "jwt-decode";
 
 interface FormData {
   email: string;
   password: string;
 }
+interface CredentialResponse {
+  credential: string; // Es un string, no un `string | undefined`
+}
 
 export const Login = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const { mutate } = useLogin();
+  const { mutate: googleLogin } = useAuthGoogleLogin();
 
   const inputErrorText = "Este campo es obligatorio";
   const invalidPatterEmail = "Formato de correo inválido";
@@ -31,6 +36,21 @@ export const Login = () => {
       email: data.email,
       password: data.password,
     });
+  };
+
+  const handleGoogleLoginSuccess = async (
+    credentialResponse: CredentialResponse,
+  ) => {
+    if (credentialResponse.credential) {
+      try {
+        // Llamamos a la mutación de Google Login
+        await googleLogin(credentialResponse.credential); // Le pasamos el token de Google
+      } catch (error) {
+        console.error("Error al autenticar con Google", error);
+      }
+    } else {
+      console.error("Credential is undefined");
+    }
   };
 
   return (
@@ -49,20 +69,14 @@ export const Login = () => {
             <span className="text-md text-balance text-white block">
               ¡Bienvenido de nuevo! Inicia sesión para continuar.
             </span>
-            {/* Google */}
+            {/* Google Login Button */}
             <GoogleLogin
-              onSuccess={(credentialResponse) => {
-                console.log(credentialResponse);
-                if (credentialResponse.credential) {
-                  console.log(jwtDecode(credentialResponse.credential));
-                } else {
-                  console.error("Credential is undefined");
-                }
-              }}
+              onSuccess={(e) =>
+                handleGoogleLoginSuccess({ credential: e.credential || "" })
+              }
               onError={() => {
                 console.log("Login Failed");
               }}
-              auto_select={true}
             />
             <div className="divider divider-secondary text-white m-0">O</div>
             <form
