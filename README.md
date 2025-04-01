@@ -20,19 +20,49 @@ Un sistema de gestión diseñado para administrar eficientemente una escuela, pe
 
 El proyecto está desarrollado con las siguientes tecnologías y librerías:
 
-- `@react-oauth/google` - Autenticación con Google.
-- `@tanstack/react-query` - Manejo eficiente del estado de datos asíncronos.
-- `@tanstack/react-query-devtools` - Herramientas de desarrollo para React Query.
-- `@trivago/prettier-plugin-sort-imports` - Plugin para ordenar importaciones en Prettier.
-- `axios` - Cliente HTTP para realizar peticiones a la API.
-- `daisyui` - Extensión de TailwindCSS para componentes UI.
-- `jsonwebtoken` - Manejo de tokens JWT para autenticación segura.
-- `prettier` - Formateador de código para mantener consistencia.
-- `recharts`- Librería de gráficos para visualización de datos.
-- `zustand` - Manejo de estado global en React.
-- `tailwindcss`- Framework de CSS para estilización eficiente.
-- `react-icons`- Libreia de iconos para ayuda visual a la iconografia
-- `husky`- Hooks para mejorar la calidad del código en commits.
+### 📌 **Frontend y UI**
+
+- [`react`](https://react.dev/) - Biblioteca para la construcción de interfaces de usuario.
+- [`react-dom`](https://react.dev/) - Renderizado de componentes React en el DOM.
+- [`react-router-dom`](https://reactrouter.com/) - Enrutamiento dinámico en aplicaciones React.
+- [`tailwindcss`](https://tailwindcss.com/) - Framework CSS para estilos rápidos y eficientes.
+- [`daisyui`](https://daisyui.com/) - Extensión de TailwindCSS con componentes personalizables.
+- [`framer-motion`](https://www.framer.com/motion/) - Animaciones fluidas y avanzadas en React.
+- [`animate.css`](https://animate.style/) - Animaciones CSS listas para usar.
+- [`react-icons`](https://react-icons.github.io/react-icons/) - Librería de iconos para mejorar la experiencia visual.
+- [`react-spinners`](https://www.davidhu.io/react-spinners/) - Indicadores de carga animados.
+
+### 🔄 **Estado y Manejo de Datos**
+
+- [`@tanstack/react-query`](https://tanstack.com/query/latest) - Manejo eficiente del estado de datos asíncronos.
+- [`@tanstack/react-query-devtools`](https://tanstack.com/query/latest/docs/react/devtools) - Herramientas de desarrollo para React Query.
+- [`zustand`](https://zustand-demo.pmnd.rs/) - Gestión de estado global simple y eficiente.
+
+### 🔐 **Autenticación y Seguridad**
+
+- [`@react-oauth/google`](https://github.com/MomenSherif/react-oauth) - Autenticación con Google.
+- [`jwt-decode`](https://github.com/auth0/jwt-decode) - Decodificación de tokens JWT.
+
+### 🔧 **Utilidades y Herramientas**
+
+- [`axios`](https://axios-http.com/) - Cliente HTTP para realizar peticiones a la API.
+- [`query-string`](https://www.npmjs.com/package/query-string) - Manejo y manipulación de query strings en URLs.
+- [`sweetalert2`](https://sweetalert2.github.io/) - Alertas y modales personalizables.
+- [`motion-number`](https://motion-number.barvian.me/) - Contadores animados numéricos.
+
+### 📊 **Visualización de Datos**
+
+- [`recharts`](https://recharts.org/en-US/) - Librería de gráficos interactivos para React.
+
+### 🛠 **Desarrollo y Configuración**
+
+- [`vite`](https://vitejs.dev/) - Herramienta de construcción rápida para proyectos frontend.
+- [`@vitejs/plugin-react-swc`](https://www.npmjs.com/package/@vitejs/plugin-react-swc) - Optimizaciones de compilación para React.
+- [`prettier`](https://prettier.io/) - Formateador de código para mantener consistencia.
+- [`@trivago/prettier-plugin-sort-imports`](https://github.com/trivago/prettier-plugin-sort-imports) - Plugin para ordenar importaciones en Prettier.
+- [`eslint`](https://eslint.org/) - Linter para mejorar la calidad del código.
+- [`typescript`](https://www.typescriptlang.org/) - Tipado estático para JavaScript.
+- [`husky`](https://typicode.github.io/husky/#/) - Hooks para mejorar la calidad del código en commits.
 
 ## 📂 Estructura del Proyecto
 
