@@ -1,4 +1,4 @@
-import { AnimateNumber } from "motion-number";
+import CountUp from "react-countup";
 
 interface PropsMotionSearch {
   value: number;
@@ -7,26 +7,24 @@ interface PropsMotionSearch {
 
 export const MotionSearch = ({ value, showError }: PropsMotionSearch) => {
   const badgeClass = showError
-    ? "badge badge-error"
+    ? "badge badge-soft badge-error text-error"
     : value > 0
-      ? "badge badge-success"
-      : "badge badge-warning";
+      ? "badge badge-soft badge-success text-success"
+      : "badge badge-soft badge-warning text-warning";
 
   return (
-    <span className="flex flex-row gap-2 text-base">
+    <span className={`flex flex-row gap-2 text-base${badgeClass}`}>
       Se encontraron
-      <AnimateNumber
-        format={{ notation: "standard" }}
-        locales="es-ES"
-        style={{
-          borderRadius: 999,
-          background: badgeClass,
-          padding: "0px 10px",
-        }}
-        className={badgeClass}
-      >
-        {value}
-      </AnimateNumber>
+      <span className={badgeClass} style={{ display: "inline-block" }}>
+        <CountUp
+          start={0}
+          end={value}
+          duration={3}
+          useEasing={true}
+          separator=","
+          className="account-balance"
+        />
+      </span>
       elementos
     </span>
   );
