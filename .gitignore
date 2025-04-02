@@ -7,33 +7,26 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencias
 node_modules
 dist
 dist-ssr
 *.local
 
-# Environment files
+# Archivos de entorno
 .env
-.env.*
-.env.locallocal
-.env.developmentlopment
-.env.productionproduction
-.env.testst
+.env.local
+.env.development
+.env.production
+.env.test
 
-# Editor directories and filestor directories and files
-.vscode/*de/*
-!.vscode/extensions.jsonode/extensions.json
-.idea.idea
-
-
-
-
-
-
-
-*.sw?*.sln*.njsproj*.ntvs**.suo.DS_Store.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
+# Archivos del editor
+.vscode/
+!.vscode/extensions.json
+.idea/
 *.sw?
+*.sln
+*.njsproj
+*.ntvs*
+*.suo
+.DS_Store
