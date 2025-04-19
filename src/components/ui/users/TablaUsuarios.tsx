@@ -100,11 +100,10 @@ export const TablaUsuarios = ({
               <th>ID</th>
               <th>Avatar</th>
               <th>Nombre de usuario</th>
-              <th>Email</th>
+              {/* <th>Email</th> */}
               <th>Rol</th>
               <th>Último inicio</th>
-              <th>Creado</th>
-              <th>Actualizado</th>
+              <th>Informacion</th>
               <th>Tipo</th>
               <th>Status</th>
               <th>Acciones</th>
@@ -129,12 +128,42 @@ export const TablaUsuarios = ({
                     </span>
                   </div>
                 </td>
-                <td>{user.NameUser}</td>
-                <td>{user.Email}</td>
+                <td>
+                  <div className="flex flex-col">
+                    <span> {user.NameUser}</span>
+                    <span className="text-sm text-base-content/70">
+                      {user.Email}
+                    </span>
+                  </div>
+                </td>
                 <td>{user.Role}</td>
                 <td>{formatDate(user.LastLogin)}</td>
-                <td>{formatDate(user.Created)}</td>
-                <td>{formatDate(user.Updated)}</td>
+                <td>
+                  <div className="flex flex-col space-y-1">
+                    <div className="flex items-center text-sm text-base-content/70">
+                      <Icon
+                        name="iconoCreadoRegistro"
+                        size="text-sm"
+                        className="mr-2 text-base-content/50"
+                      />
+                      <span className="mr-1">Registrado:</span>
+                      <span className="font-semibold">
+                        {formatDate(user.Created)}
+                      </span>
+                    </div>
+                    <div className="flex items-center text-sm text-base-content/70">
+                      <Icon
+                        name="iconoActualizadoRegistro"
+                        size="text-sm"
+                        className="mr-2 text-base-content/50"
+                      />
+                      <span className="mr-1">Actualizado:</span>
+                      <span className="font-semibold">
+                        {formatDate(user.Updated)}
+                      </span>
+                    </div>
+                  </div>
+                </td>
                 <td>
                   {user.AccountType === "google" ? (
                     <span

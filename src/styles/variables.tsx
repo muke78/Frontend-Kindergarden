@@ -1,9 +1,11 @@
 import { BsFillMoonStarsFill } from "react-icons/bs";
+import { FaClockRotateLeft } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { FiEdit } from "react-icons/fi";
 import { GrUserManager } from "react-icons/gr";
 import { HiChevronDoubleLeft } from "react-icons/hi";
 import { IoMdHelp } from "react-icons/io";
+import { IoMdCreate } from "react-icons/io";
 import { LuLogOut } from "react-icons/lu";
 import { LuTrash2 } from "react-icons/lu";
 import { RiArrowDownSLine } from "react-icons/ri";
@@ -48,7 +50,6 @@ export const v = {
   iconoConfiguracion: RiSettings5Line,
   iconoAyuda: IoMdHelp,
   iconoContraerMenu: HiChevronDoubleLeft,
-  // iconoDesplegarMenu: HiChevronDoubleRight,
   iconoFlechaAbajo: RiArrowDownSLine,
   iconoFlechaDerecha: RiArrowRightSLine,
   iconoFlechaIzquierda: RiArrowLeftSLine,
@@ -60,4 +61,6 @@ export const v = {
   iconoPapas: RiUserStarLine,
   iconoLuna: BsFillMoonStarsFill,
   iconoSol: TbSunFilled,
+  iconoCreadoRegistro: IoMdCreate,
+  iconoActualizadoRegistro: FaClockRotateLeft,
 };
