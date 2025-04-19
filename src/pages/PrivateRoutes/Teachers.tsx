@@ -1,4 +1,3 @@
-import { ControlUserOptions } from "@/components/ui/ControlUserOptions";
 import { useSidebar } from "@/hooks/useSidebar";
 
 // import { useAuthStore } from "@/store/authStore";
@@ -12,7 +11,7 @@ export const Teachers = () => {
     >
       <div className="grid grid-cols-1 grid-rows-5 w-full h-screen">
         <div className="flex justify-center items-center">
-          <ControlUserOptions />
+          <span className="text-2xl font-bold">Maestros</span>
         </div>
         <div className=" flex justify-center items-center bg-blue-700 row-span-4">
           Contenido de la aplicacion
