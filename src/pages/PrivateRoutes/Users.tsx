@@ -1,12 +1,12 @@
 import { ErrorFetching } from "@/components/ErrorFetching";
 import { Spinner } from "@/components/Spinner";
+import { Toast } from "@/components/Toast";
 import { TablaUsuarios } from "@/components/ui/Users/TablaUsuarios";
 import { useSearch } from "@/hooks/useSearch";
 import { useSidebar } from "@/hooks/useSidebar";
 import { useUsers } from "@/hooks/useUsers";
 
 import { useState } from "react";
-import { Toaster } from "react-hot-toast";
 
 import { Icon } from "@components/ui/Icon";
 import { MobileCard } from "@components/ui/Users/MobileCard";
@@ -95,7 +95,7 @@ export const Users = () => {
           <MobileCard />
         </div>
       </div>
-      <Toaster position="bottom-right" reverseOrder={false} />
+      <Toast />
     </main>
   );
 };

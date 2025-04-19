@@ -1,7 +1,7 @@
 import { useSidebar } from "@/hooks/useSidebar";
 import { useAuthStore } from "@/store/authStore";
 
-import { v } from "@styles/variables";
+import { Icon } from "@components/ui/Icon";
 
 export const BtnSidebarMobile = () => {
   const { sidebarOpen, setSidebarOpen } = useSidebar();
@@ -19,13 +19,9 @@ export const BtnSidebarMobile = () => {
         {sidebarOpen ? "Cerrar menú" : "Abrir menú"}
       </span>
       {sidebarOpen ? (
-        <span className="text-xl">
-          <v.iconoCerrar />
-        </span>
+        <Icon name="iconoCerrar" size="text-xl" />
       ) : (
-        <span className="text-xl">
-          <v.iconoMenu />
-        </span>
+        <Icon name="iconoMenu" size="text-xl" />
       )}
     </button>
   );
