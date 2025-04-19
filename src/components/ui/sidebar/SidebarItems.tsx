@@ -20,14 +20,16 @@ export const SidebarItems = () => {
                   sidebarOpen ? "justify-start" : "justify-center"
                 } px-2 py-3 rounded-xl transition-colors duration-200 ${
                   isActive
-                    ? "bg-secondary text-white"
-                    : "text-gray-300 hover:bg-secondary hover:text-white"
+                    ? "bg-secondary/35"
+                    : "hover:bg-secondary hover:text-white"
                 }`
               }
               aria-current={item.active ? "page" : undefined}
               aria-label={item.label}
             >
-              <span className="flex justify-center items-center text-2xl">
+              <span
+                className={`flex justify-center items-center text-2xl ${sidebarOpen ? "pl-2" : "pl-0"}`}
+              >
                 {item.icon}
               </span>
               <span

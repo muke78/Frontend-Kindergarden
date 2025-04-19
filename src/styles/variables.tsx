@@ -1,8 +1,8 @@
+import { BsFillMoonStarsFill } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
 import { FiEdit } from "react-icons/fi";
 import { GrUserManager } from "react-icons/gr";
 import { HiChevronDoubleLeft } from "react-icons/hi";
-import { HiChevronDoubleRight } from "react-icons/hi";
 import { IoMdHelp } from "react-icons/io";
 import { LuLogOut } from "react-icons/lu";
 import { LuTrash2 } from "react-icons/lu";
@@ -24,6 +24,7 @@ import { RiArrowLeftSLine } from "react-icons/ri";
 import { RiUserStarLine } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { SlOptions } from "react-icons/sl";
+import { TbSunFilled } from "react-icons/tb";
 
 import errorFetch from "@assets/errorFetching.svg";
 import logo from "@assets/iconLogin.webp";
@@ -47,7 +48,7 @@ export const v = {
   iconoConfiguracion: RiSettings5Line,
   iconoAyuda: IoMdHelp,
   iconoContraerMenu: HiChevronDoubleLeft,
-  iconoDesplegarMenu: HiChevronDoubleRight,
+  // iconoDesplegarMenu: HiChevronDoubleRight,
   iconoFlechaAbajo: RiArrowDownSLine,
   iconoFlechaDerecha: RiArrowRightSLine,
   iconoFlechaIzquierda: RiArrowLeftSLine,
@@ -57,4 +58,6 @@ export const v = {
   iconoMasOpciones: SlOptions,
   iconoGoogle: FcGoogle,
   iconoPapas: RiUserStarLine,
+  iconoLuna: BsFillMoonStarsFill,
+  iconoSol: TbSunFilled,
 };

@@ -11,7 +11,7 @@ export const ImageSidebar = () => {
         className={`transition-all duration-300 ${sidebarOpen || isMobile ? "w-16" : "w-10"}`}
       />
       <span
-        className={`text-xl pl-2 text-white ${sidebarOpen || isMobile ? "block" : "hidden"}`}
+        className={`text-xl pl-2 ${sidebarOpen || isMobile ? "block" : "hidden"}`}
       >
         Admin Kinder
       </span>

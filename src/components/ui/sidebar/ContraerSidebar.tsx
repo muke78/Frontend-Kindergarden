@@ -1,6 +1,6 @@
 import { useSidebar } from "@/hooks/useSidebar";
 
-import { v } from "@styles/variables";
+import { Icon } from "../Icon";
 
 export const ContraerSidebar = () => {
   const { isMobile, sidebarOpen, setSidebarOpen } = useSidebar();
@@ -13,13 +13,11 @@ export const ContraerSidebar = () => {
       aria-label="Contraer sidebar"
     >
       {sidebarOpen ? (
-        <span className="text-lg font-bold">
-          <v.iconoContraerMenu />
-        </span>
+        <Icon name="iconoContraerMenu" size="text-xl" />
       ) : (
-        <span className="text-lg font-bold">
-          <v.iconoDesplegarMenu />
-        </span>
+        <div className="rotate-180">
+          <Icon name="iconoContraerMenu" size="text-xl" />
+        </div>
       )}
       <span
         className={`ml-2 ${!sidebarOpen && !isMobile ? "hidden" : "block"}`}
