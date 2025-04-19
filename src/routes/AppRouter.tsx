@@ -1,3 +1,4 @@
+import { ControlUserOptions } from "@/components/ui/ControlUserOptions";
 import { Catalogs } from "@/pages/PrivateRoutes/Catalogs";
 import { Confi } from "@/pages/PrivateRoutes/Confi";
 import { Evaluations } from "@/pages/PrivateRoutes/Evaluations";
@@ -23,7 +24,7 @@ import { Student } from "../pages/PrivateRoutes/Student";
 import { Teachers } from "../pages/PrivateRoutes/Teachers";
 
 export const AppRouter = () => {
-  const { login } = useAuthStore();
+  const { login, user, token } = useAuthStore();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -33,106 +34,111 @@ export const AppRouter = () => {
   }, [login]);
 
   return (
-    <Routes>
-      <Route
-        path="/login"
-        element={
-          <PublicRouter>
-            <Login />
-          </PublicRouter>
-        }
-      />
-      <Route
-        path="/register"
-        element={
-          <PublicRouter>
-            <Register />
-          </PublicRouter>
-        }
-      />
+    <>
+      <div className={`${user && token ? "block" : "hidden"}`}>
+        <ControlUserOptions />
+      </div>
+      <Routes>
+        <Route
+          path="/login"
+          element={
+            <PublicRouter>
+              <Login />
+            </PublicRouter>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <PublicRouter>
+              <Register />
+            </PublicRouter>
+          }
+        />
 
-      <Route
-        path="/home"
-        element={
-          <PrivateRoute>
-            <Home />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/users"
-        element={
-          <PrivateRoute>
-            <Users />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/teachers"
-        element={
-          <PrivateRoute>
-            <Teachers />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/parents"
-        element={
-          <PrivateRoute>
-            <Parents />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/students"
-        element={
-          <PrivateRoute>
-            <Student />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/reports"
-        element={
-          <PrivateRoute>
-            <Reports />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/evaluations"
-        element={
-          <PrivateRoute>
-            <Evaluations />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/catalogs"
-        element={
-          <PrivateRoute>
-            <Catalogs />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/config"
-        element={
-          <PrivateRoute>
-            <Confi />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/help"
-        element={
-          <PrivateRoute>
-            <Help />
-          </PrivateRoute>
-        }
-      />
-      <Route path="*" element={<NotFound />} />
-      <Route path="/" element={<Navigate to="/login" replace />} />
-    </Routes>
+        <Route
+          path="/home"
+          element={
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/users"
+          element={
+            <PrivateRoute>
+              <Users />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/teachers"
+          element={
+            <PrivateRoute>
+              <Teachers />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/parents"
+          element={
+            <PrivateRoute>
+              <Parents />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/students"
+          element={
+            <PrivateRoute>
+              <Student />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/reports"
+          element={
+            <PrivateRoute>
+              <Reports />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/evaluations"
+          element={
+            <PrivateRoute>
+              <Evaluations />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/catalogs"
+          element={
+            <PrivateRoute>
+              <Catalogs />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/config"
+          element={
+            <PrivateRoute>
+              <Confi />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/help"
+          element={
+            <PrivateRoute>
+              <Help />
+            </PrivateRoute>
+          }
+        />
+        <Route path="*" element={<NotFound />} />
+        <Route path="/" element={<Navigate to="/login" replace />} />
+      </Routes>
+    </>
   );
 };

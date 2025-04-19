@@ -4,7 +4,7 @@ import { controlOptionsuserArray } from "@/utils/dataEstatica";
 import { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router";
 
-import { Icon } from "./Icon";
+import { Icon } from "@components/ui/Icon";
 
 export const ControlUserOptions = () => {
   const { user, logout } = useAuthStore();

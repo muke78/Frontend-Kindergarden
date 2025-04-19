@@ -7,13 +7,13 @@ interface PropsMotionSearch {
 
 export const MotionSearch = ({ value, showError }: PropsMotionSearch) => {
   const badgeClass = showError
-    ? "badge badge-soft badge-error text-error"
+    ? "badge badge-error"
     : value > 0
-      ? "badge badge-soft badge-success text-success"
-      : "badge badge-soft badge-warning text-warning";
+      ? "badge badge-success"
+      : "badge badge-warning";
 
   return (
-    <span className={`flex flex-row gap-2 text-base${badgeClass}`}>
+    <span className={`flex flex-row gap-2  text-base${badgeClass}`}>
       Se encontraron
       <span className={badgeClass} style={{ display: "inline-block" }}>
         <CountUp

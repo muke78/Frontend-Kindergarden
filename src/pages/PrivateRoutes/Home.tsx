@@ -1,4 +1,3 @@
-import { ControlUserOptions } from "@/components/ui/ControlUserOptions";
 import { useSidebar } from "@/hooks/useSidebar";
 
 // import { useAuthStore } from "@/store/authStore";
@@ -14,7 +13,6 @@ export const Home = () => {
       <div className="grid grid-cols-9 grid-rows-9 gap-4 w-full h-screen p-2">
         <div className="flex justify-start items-end col-span-9">
           <span className="text-2xl font-bold">Inicio</span>
-          <ControlUserOptions />
         </div>
         <div className="col-span-2 row-start-2 bg-base-200">1</div>
         <div className="col-span-2 col-start-1 row-start-3 bg-base-200">3</div>

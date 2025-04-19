@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { v } from "../styles/variables";
+import { Icon } from "@components/ui/Icon";
 
 interface PropsPaginacion {
   pagina: number;
@@ -37,7 +37,7 @@ export const Paginacion = ({ pagina, setPagina, maximo }: PropsPaginacion) => {
         onClick={inicio}
         aria-label="Ir hasta el principio"
       >
-        <span>{<v.iconoContraerMenu />}</span>
+        <Icon name="iconoContraerMenu" />
       </button>
       <button
         className="btn btn-secondary btn-sm"
@@ -45,7 +45,7 @@ export const Paginacion = ({ pagina, setPagina, maximo }: PropsPaginacion) => {
         disabled={pagina === 1 || pagina < 1}
         onClick={previousPage}
       >
-        <span className="iconoIzquierda">{<v.iconoFlechaIzquierda />}</span>
+        <Icon name="iconoFlechaIzquierda" />
       </button>
       <span>{input}</span>
       <p> de {Math.round(maximo)} </p>
@@ -55,14 +55,16 @@ export const Paginacion = ({ pagina, setPagina, maximo }: PropsPaginacion) => {
         disabled={pagina === Math.ceil(maximo) || pagina > Math.ceil(maximo)}
         onClick={nextPage}
       >
-        <span>{<v.iconoFlechaDerecha />}</span>
+        <Icon name="iconoFlechaDerecha" />
       </button>
       <button
         className="btn btn-soft btn-secondary btn-sm"
         onClick={final}
         aria-label="Ir hasta el final"
       >
-        <span>{<v.iconoDesplegarMenu />}</span>
+        <div className="rotate-180">
+          <Icon name="iconoContraerMenu" />
+        </div>
       </button>
     </div>
   );
