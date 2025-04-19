@@ -1,6 +1,7 @@
+import { Toast } from "@/components/Toast";
+
 import { useState } from "react";
 import { type FieldError, useForm } from "react-hook-form";
-import { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 import { Icon } from "@components/ui/Icon";
@@ -109,9 +110,9 @@ export const Register = () => {
                     className="btn btn-secondary text-lg join-item"
                   >
                     {showPassword ? (
-                      <v.iconoOjoCerrado />
+                      <Icon name="iconoOjoCerrado" size="text-lg" />
                     ) : (
-                      <v.iconoOjoAbierto />
+                      <Icon name="iconoOjoAbierto" size="text-lg" />
                     )}
                   </span>
                 </div>
@@ -124,7 +125,7 @@ export const Register = () => {
             </div>
 
             <button className="btn btn-primary w-full">Registrarse</button>
-            <Toaster position="bottom-right" reverseOrder={false} />
+            <Toast />
           </div>
         </form>
       </div>

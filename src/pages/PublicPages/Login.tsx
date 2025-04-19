@@ -1,8 +1,9 @@
+import { Toast } from "@/components/Toast";
+import { Icon } from "@/components/ui/Icon";
 import { useAuthGoogleLogin } from "@/hooks/useAuthGoogle";
 
 import { useState } from "react";
 import { type FieldError, useForm } from "react-hook-form";
-import { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 import { useLogin } from "@hooks/useAuth";
@@ -118,9 +119,9 @@ export const Login = () => {
                     className="btn btn-secondary text-lg join-item"
                   >
                     {showPassword ? (
-                      <v.iconoOjoCerrado />
+                      <Icon name="iconoOjoCerrado" size="text-lg" />
                     ) : (
-                      <v.iconoOjoAbierto />
+                      <Icon name="iconoOjoAbierto" size="text-lg" />
                     )}
                   </span>
                 </div>
@@ -132,7 +133,7 @@ export const Login = () => {
               </div>
 
               <button className="btn btn-primary w-full">Iniciar sesión</button>
-              <Toaster position="bottom-right" reverseOrder={false} />
+              <Toast />
             </form>
           </div>
         </div>

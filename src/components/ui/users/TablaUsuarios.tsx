@@ -1,6 +1,7 @@
 import { Paginacion } from "@/components/Paginacion";
 import { useSearch } from "@/hooks/useSearch";
 import { useSidebar } from "@/hooks/useSidebar";
+import { useTheme } from "@/hooks/useTheme";
 import { useUsers } from "@/hooks/useUsers";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -32,6 +33,7 @@ export const TablaUsuarios = ({
   setIsOpenModalAddUser,
 }: PropsModalIsOpen) => {
   const { data, deleteUser } = useUsers();
+  const { changeTheme } = useTheme();
   const { users } = useSearch();
   const { isMobile } = useSidebar();
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -73,14 +75,14 @@ export const TablaUsuarios = ({
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Si, eliminar",
-        theme: "dark",
+        theme: changeTheme === "night" ? "dark" : "light",
       }).then(async (result) => {
         if (result.isConfirmed) {
           await deleteUser(p);
         }
       });
     },
-    [deleteUser],
+    [deleteUser, changeTheme],
   );
 
   // Callback para abrir modal de edición
