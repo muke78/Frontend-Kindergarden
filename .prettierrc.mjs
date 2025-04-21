@@ -1,12 +1,30 @@
 /** @type {import("prettier").Config} */
 export default {
-  plugins: ["prettier-plugin-astro"],
   overrides: [
     {
-      files: "*.astro",
+      files: ["*.js", "*.jsx"],
       options: {
-        parser: "astro",
+        parser: "babel",
+      },
+    },
+    {
+      files: ["*.ts", "*.tsx"],
+      options: {
+        parser: "typescript",
+      },
+    },
+    {
+      files: ["*.html"],
+      options: {
+        parser: "html",
       },
     },
   ],
+  semi: true,
+  singleQuote: true,
+  trailingComma: "es5",
+  printWidth: 80,
+  tabWidth: 2,
+  bracketSpacing: true,
+  arrowParens: "avoid",
 };
