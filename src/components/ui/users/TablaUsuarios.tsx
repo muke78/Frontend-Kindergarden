@@ -183,7 +183,7 @@ export const TablaUsuarios = ({
                 <td>
                   <div className="flex justify-center items-center gap-2">
                     <button
-                      className="text-info text-2xl cursor-pointer"
+                      className="btn btn-info text-base"
                       aria-label="Boton para editar un usuario"
                       onClick={() =>
                         handleOpenModal({
@@ -198,7 +198,7 @@ export const TablaUsuarios = ({
                       <Icon name="iconoEditarButton" />
                     </button>
                     <button
-                      className="text-error text-2xl cursor-pointer"
+                      className="btn btn-error text-base"
                       aria-label="Boton para eliminar un usuario"
                       onClick={() => eliminar(user.ID)}
                     >
