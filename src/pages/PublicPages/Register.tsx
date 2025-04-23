@@ -1,5 +1,3 @@
-import { Toast } from "@/components/Toast";
-
 import { useState } from "react";
 import { type FieldError, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
@@ -125,7 +123,6 @@ export const Register = () => {
             </div>
 
             <button className="btn btn-primary w-full">Registrarse</button>
-            <Toast />
           </div>
         </form>
       </div>

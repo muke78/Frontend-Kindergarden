@@ -1,4 +1,3 @@
-import { Toast } from "@/components/Toast";
 import { Icon } from "@/components/ui/Icon";
 import { useAuthGoogleLogin } from "@/hooks/useAuthGoogle";
 
@@ -133,7 +132,6 @@ export const Login = () => {
               </div>
 
               <button className="btn btn-primary w-full">Iniciar sesión</button>
-              <Toast />
             </form>
           </div>
         </div>
