@@ -1,6 +1,5 @@
 import { ErrorFetching } from "@/components/ErrorFetching";
 import { Spinner } from "@/components/Spinner";
-import { Toast } from "@/components/Toast";
 import { TablaUsuarios } from "@/components/ui/Users/TablaUsuarios";
 import { useSearch } from "@/hooks/useSearch";
 import { useSidebar } from "@/hooks/useSidebar";
@@ -95,7 +94,6 @@ export const Users = () => {
           <MobileCard />
         </div>
       </div>
-      <Toast />
     </main>
   );
 };
