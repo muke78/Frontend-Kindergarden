@@ -78,7 +78,7 @@ export const ModalAgregarUsuario = ({
                 />
 
                 {errors.nameUser && (
-                  <p className="text-primary p-0">
+                  <p className="text-red-500 p-0">
                     {(errors.nameUser as FieldError)?.message}
                   </p>
                 )}
@@ -99,7 +99,7 @@ export const ModalAgregarUsuario = ({
                   })}
                 />
                 {errors.email && (
-                  <p className="text-primary p-0">
+                  <p className="text-red-500 p-0">
                     {(errors.email as FieldError)?.message}
                   </p>
                 )}
@@ -110,12 +110,11 @@ export const ModalAgregarUsuario = ({
                   <input
                     type={showPassword ? "text" : "password"}
                     placeholder="Contraseña"
-                    className="input input-bordered w-full text-base-content rounded-l-lg"
+                    className="input w-full text-base-content rounded-l-lg"
                     {...register("password", {
                       required: inputErrorText,
                     })}
                   />
-
                   <span
                     onClick={() => setShowPassword(!showPassword)}
                     className="btn btn-secondary text-lg join-item"
@@ -128,7 +127,7 @@ export const ModalAgregarUsuario = ({
                   </span>
                 </div>
                 {errors.password && (
-                  <p className="text-primary p-0">
+                  <p className="text-red-500 p-0">
                     {(errors.password as FieldError)?.message}
                   </p>
                 )}
@@ -148,7 +147,7 @@ export const ModalAgregarUsuario = ({
                 </select>
               </div>
               {errors.role && (
-                <p className="text-primary p-0">
+                <p className="text-red-500 p-0">
                   {(errors.role as FieldError)?.message}
                 </p>
               )}

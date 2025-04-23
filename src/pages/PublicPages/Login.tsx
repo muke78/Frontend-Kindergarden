@@ -88,7 +88,7 @@ export const Login = () => {
                 <input
                   type="email"
                   placeholder="Correo electrónico"
-                  className="input input-bordered w-full text-base-content"
+                  className="input validator w-full text-base-content rounded-l-lg"
                   {...register("email", {
                     required: inputErrorText,
                     pattern: {
@@ -98,7 +98,7 @@ export const Login = () => {
                   })}
                 />
                 {errors.email && (
-                  <p className="text-primary p-0">
+                  <p className="text-red-500 p-0">
                     {(errors.email as FieldError)?.message}
                   </p>
                 )}
@@ -107,7 +107,7 @@ export const Login = () => {
                     <input
                       type={showPassword ? "text" : "password"}
                       placeholder="Contraseña"
-                      className="input input-bordered w-full text-base-content rounded-l-lg"
+                      className="input validator w-full text-base-content rounded-l-lg"
                       {...register("password", {
                         required: inputErrorText,
                       })}
@@ -125,7 +125,7 @@ export const Login = () => {
                   </span>
                 </div>
                 {errors.password && (
-                  <p className="text-primary p-0">
+                  <p className="text-red-500 p-0">
                     {(errors.password as FieldError)?.message}
                   </p>
                 )}
