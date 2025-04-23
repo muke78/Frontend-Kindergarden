@@ -18,13 +18,19 @@ export const useLogin = () => {
       const lastPath = pathname + search;
       localStorage.setItem("lastPath", lastPath);
       navigate(lastPath, { replace: true });
+      toast.success(`Bienvenid@, has iniciado sesión correctamente`, {
+        duration: 9000,
+      });
     },
     onError: (error: {
       response?: { data?: { error?: { message?: string } } };
+      message?: string;
     }) => {
-      toast.error(error.response?.data?.error?.message || "An error occurred", {
-        duration: 5000,
-      });
+      const message =
+        error?.response?.data?.error?.message ||
+        error?.message ||
+        "Ocurrió un error de red";
+      toast.error(message, { duration: 5000 });
     },
   });
   return mutation;
