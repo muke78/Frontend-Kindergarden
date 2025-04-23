@@ -42,7 +42,7 @@ export const TablaUsuarios = ({
 
   // Paginacion para la tabla
   const [pagina, setPagina] = useState<number>(1);
-  const [porPagina] = useState<number>(7);
+  const [porPagina] = useState<number>(6);
   const totalItems =
     users.users.length > 0 ? users.users.length : (data?.data?.length ?? 0);
   const maximo = Math.max(1, Math.ceil(totalItems / porPagina));
@@ -230,7 +230,7 @@ export const TablaUsuarios = ({
       />
 
       <div
-        className={`flex justify-end mt-2 w-full ${isMobile ? "hidden" : "block"}`}
+        className={`flex justify-end p-5 w-full ${isMobile ? "hidden" : "block"}`}
       >
         <span className="badge badge-soft badge-secondary">
           Total de registros {countData}

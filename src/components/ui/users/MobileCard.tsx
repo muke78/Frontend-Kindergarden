@@ -28,7 +28,7 @@ export const MobileCard = () => {
 
   // Paginacuion para la tabla
   const [pagina, setPagina] = useState<number>(1);
-  const [porPagina] = useState<number>(7);
+  const [porPagina] = useState<number>(6);
   const totalItems =
     users.users.length > 0 ? users.users.length : (data?.data?.length ?? 0);
   const maximo = Math.max(1, Math.ceil(totalItems / porPagina));
