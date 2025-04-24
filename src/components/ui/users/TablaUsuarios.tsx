@@ -42,7 +42,7 @@ export const TablaUsuarios = ({
 
   // Paginacion para la tabla
   const [pagina, setPagina] = useState<number>(1);
-  const [porPagina] = useState<number>(7);
+  const [porPagina] = useState<number>(6);
   const totalItems =
     users.users.length > 0 ? users.users.length : (data?.data?.length ?? 0);
   const maximo = Math.max(1, Math.ceil(totalItems / porPagina));
@@ -93,7 +93,7 @@ export const TablaUsuarios = ({
 
   return (
     <>
-      <div className="hidden md:block overflow-x-auto rounded-md border-t-4 border-neutral bg-base-100 shadow-sm row-start-3">
+      <div className="hidden md:block overflow-x-auto rounded-md border-t-4 border-neutral/60 row-start-3">
         <table className="table table-zebra w-full animate__animated animate__fadeIn">
           <thead>
             <tr className="text-left text-md">
@@ -140,11 +140,11 @@ export const TablaUsuarios = ({
                 <td>{formatDate(user.LastLogin)}</td>
                 <td>
                   <div className="flex flex-col space-y-1">
-                    <div className="flex items-center text-sm text-base-content/70">
+                    <div className="flex items-center text-sm">
                       <Icon
                         name="iconoCreadoRegistro"
                         size="text-sm"
-                        className="mr-2 text-base-content/50"
+                        className="mr-2"
                       />
                       <span className="mr-1">Registrado:</span>
                       <span className="font-semibold">
@@ -155,7 +155,7 @@ export const TablaUsuarios = ({
                       <Icon
                         name="iconoActualizadoRegistro"
                         size="text-sm"
-                        className="mr-2 text-base-content/50"
+                        className="mr-2"
                       />
                       <span className="mr-1">Actualizado:</span>
                       <span className="font-semibold">
@@ -230,7 +230,7 @@ export const TablaUsuarios = ({
       />
 
       <div
-        className={`flex justify-end mt-2 w-full ${isMobile ? "hidden" : "block"}`}
+        className={`flex justify-end p-5 w-full ${isMobile ? "hidden" : "block"}`}
       >
         <span className="badge badge-soft badge-secondary">
           Total de registros {countData}

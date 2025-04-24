@@ -66,7 +66,7 @@ export const ControlUserOptions = () => {
       {/* Dropdown */}
       {openDropDownUser && (
         <div>
-          <ul className="min-w-[200px] max-w-xs px-2 bg-base-300 rounded-b-3xl border-t border-neutral-500/50 shadow-lg">
+          <ul className="min-w-[200px] max-w-xs  bg-base-300 rounded-b-3xl border-t border-neutral-500/50 shadow-lg">
             {controlOptionsuserArray.map((item) => (
               <li key={item.label} className="p-2">
                 {item.to ? (
@@ -81,7 +81,7 @@ export const ControlUserOptions = () => {
                 ) : (
                   <button
                     onClick={logout}
-                    className="flex items-center gap-2 btn btn-soft btn-error hover:text-white p-1 rounded-lg w-full transition-all"
+                    className="flex items-center gap-2 btn btn-soft btn-error hover:text-white p-1 rounded-3xl w-full transition-all"
                     aria-label="Cerrar sesión"
                   >
                     <span className="text-2xl">{item.icon}</span>
