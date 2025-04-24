@@ -1,10 +1,12 @@
 import { useUsers } from "@/hooks/useUsers";
+import { createUserSchema } from "@/schemas/ModalUsers/createUserSchema";
 
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 import { type FieldError, useForm } from "react-hook-form";
 
 import { Icon } from "@components/ui/Icon";
 import { Modal } from "@components/ui/Modal/Modal";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 interface FormData {
   nameUser: string;
@@ -34,10 +36,10 @@ export const ModalAgregarUsuario = ({
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<FormData>();
-  // Constantes memoizadas
-  const inputErrorText = useMemo(() => "Este campo es obligatorio", []);
-  const invalidPatterEmail = useMemo(() => "Formato de correo inválido", []);
+  } = useForm<FormData>({
+    resolver: zodResolver(createUserSchema()),
+  });
+
   // Callback para submit de crear usuario
   const onSubmit = useCallback(
     async (data: FormData) => {
@@ -72,9 +74,7 @@ export const ModalAgregarUsuario = ({
                   type="text"
                   placeholder="Nombre"
                   className="input input-bordered w-full text-base-content"
-                  {...register("nameUser", {
-                    required: inputErrorText,
-                  })}
+                  {...register("nameUser")}
                 />
 
                 {errors.nameUser && (
@@ -90,13 +90,7 @@ export const ModalAgregarUsuario = ({
                   type="email"
                   placeholder="email"
                   className="input input-bordered w-full text-base-content"
-                  {...register("email", {
-                    required: inputErrorText,
-                    pattern: {
-                      value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                      message: invalidPatterEmail,
-                    },
-                  })}
+                  {...register("email")}
                 />
                 {errors.email && (
                   <p className="text-red-500 p-0">
@@ -111,9 +105,7 @@ export const ModalAgregarUsuario = ({
                     type={showPassword ? "text" : "password"}
                     placeholder="Contraseña"
                     className="input w-full text-base-content rounded-l-lg"
-                    {...register("password", {
-                      required: inputErrorText,
-                    })}
+                    {...register("password")}
                   />
                   <span
                     onClick={() => setShowPassword(!showPassword)}
@@ -135,12 +127,7 @@ export const ModalAgregarUsuario = ({
 
               <div>
                 <label className="label">Rol</label>
-                <select
-                  className="select w-full"
-                  {...register("role", {
-                    required: inputErrorText,
-                  })}
-                >
+                <select className="select w-full" {...register("role")}>
                   <option disabled={true}>Elije un rol</option>
                   <option value="admin">Admin</option>
                   <option value="user">User</option>
