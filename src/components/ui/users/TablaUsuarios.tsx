@@ -1,96 +1,78 @@
 import { Paginacion } from "@/components/Paginacion";
-import { useSearch } from "@/hooks/useSearch";
-import { useSidebar } from "@/hooks/useSidebar";
-import { useTheme } from "@/hooks/useTheme";
-import { useUsers } from "@/hooks/useUsers";
-
-import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { Icon } from "@components/ui/Icon";
+import { useSidebar } from "@hooks/useSidebar";
 import { formatDate } from "@utils/formatDate";
 import { getStatusBadge } from "@utils/statusBadge";
-import Swal from "sweetalert2";
 
 import { ModalAgregarUsuario } from "./ModalAgregarUsuario";
 import { ModalEditarUsuario } from "./ModalEditarUsuario";
 
-interface PropsModalIsOpen {
-  isOpenModalAddUser: boolean;
-  setIsOpenModalAddUser: React.Dispatch<React.SetStateAction<boolean>>;
+interface User {
+  message: string;
+  ID: string;
+  NameUser: string;
+  Email: string;
+  Password?: string;
+  ProfilePicture: string;
+  Role: string;
+  AccountType: string;
+  LastLogin: string;
+  AccountStatus: string;
+  Created: string;
+  Updated: string;
 }
 
-interface FormDataEdit {
+interface UserData {
   id: string;
   nameUser: string;
   email: string;
-  password?: string;
   role: string;
   accountStatus: string;
+  password?: string;
 }
 
-export const TablaUsuarios = ({
-  isOpenModalAddUser,
-  setIsOpenModalAddUser,
-}: PropsModalIsOpen) => {
-  const { data, deleteUser } = useUsers();
-  const { changeTheme } = useTheme();
-  const { users } = useSearch();
+interface TablaUsuariosProps {
+  dataToShow: User[];
+  pagina: number;
+  setPagina: React.Dispatch<React.SetStateAction<number>>;
+  maximo: number;
+  countData?: number;
+  eliminar: (id: string) => void;
+
+  showPassword: boolean;
+  setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
+  isModalOpen: boolean;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedUser: UserData | undefined;
+  setSelectedUser: React.Dispatch<React.SetStateAction<UserData | undefined>>;
+  handleOpenModal: (user: FormData) => void;
+  // Props originales que ya le pasabas
+  isOpenModalAddUser: boolean; // Estado del modal de añadir usuario
+  setIsOpenModalAddUser: React.Dispatch<React.SetStateAction<boolean>>; // Setter del modal de añadir usuario
+}
+
+export const TablaUsuarios = (props: TablaUsuariosProps) => {
+  // Desestructura las props recibidas en lugar de llamar a useTableTask()
+  const {
+    dataToShow,
+    pagina,
+    setPagina,
+    maximo,
+    countData,
+    eliminar,
+    showPassword,
+    setShowPassword,
+    isModalOpen,
+    setIsModalOpen,
+    selectedUser,
+    setSelectedUser,
+    handleOpenModal,
+    isOpenModalAddUser,
+    setIsOpenModalAddUser,
+  } = props;
+
   const { isMobile } = useSidebar();
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [selectedUser, setSelectedUser] = useState<FormDataEdit>();
-
-  // Paginacion para la tabla
-  const [pagina, setPagina] = useState<number>(1);
-  const [porPagina] = useState<number>(6);
-  const totalItems =
-    users.users.length > 0 ? users.users.length : (data?.data?.length ?? 0);
-  const maximo = Math.max(1, Math.ceil(totalItems / porPagina));
-
-  // Constantes memoizadas
-  const countData = useMemo(() => data?.metadata?.dataCount ?? 0, [data]);
-
-  const dataToShow = useMemo(() => {
-    const startIndex = (pagina - 1) * porPagina;
-    const endIndex = startIndex + porPagina;
-    return users.users.length > 0
-      ? users.users.slice(startIndex, endIndex)
-      : (data?.data?.slice(startIndex, endIndex) ?? []);
-  }, [data, users, pagina, porPagina]);
-
-  useEffect(() => {
-    if (!dataToShow.length) {
-      setPagina(1);
-    }
-  }, [dataToShow]);
-
-  // Callback para eliminar usuario con confirmación
-  const eliminar = useCallback(
-    (p: string) => {
-      Swal.fire({
-        title: "¿Estás seguro(a)?",
-        text: "Una vez eliminado, ¡no podrá recuperar este registro!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Si, eliminar",
-        theme: changeTheme === "night" ? "dark" : "light",
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          await deleteUser(p);
-        }
-      });
-    },
-    [deleteUser, changeTheme],
-  );
-
-  // Callback para abrir modal de edición
-  const handleOpenModal = useCallback((user: FormDataEdit) => {
-    setSelectedUser(user);
-    setIsModalOpen(true);
-  }, []);
-
   return (
     <>
       <div className="hidden md:block overflow-x-auto rounded-md border-t-4 border-neutral/60 row-start-3 shadow-2xl">

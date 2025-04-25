@@ -3,17 +3,35 @@ import { Spinner } from "@/components/Spinner";
 import { TablaUsuarios } from "@/components/ui/Users/TablaUsuarios";
 import { useSearch } from "@/hooks/useSearch";
 import { useSidebar } from "@/hooks/useSidebar";
-import { useUsers } from "@/hooks/useUsers";
 
 import { useState } from "react";
 
 import { Icon } from "@components/ui/Icon";
 import { MobileCard } from "@components/ui/Users/MobileCard";
-
-import { MotionSearch } from "../../components/ui/Users/MotionSearch";
+import { MotionSearch } from "@components/ui/Users/MotionSearch";
+import { useTableTask } from "@hooks/useTableTask";
 
 export const Users = () => {
   const { isMobile, sidebarOpen } = useSidebar();
+  const {
+    activeFilter,
+    handleStatusFilter,
+    isLoading,
+    error,
+    dataToShow,
+    pagina,
+    setPagina,
+    maximo,
+    countData,
+    eliminar,
+    showPassword,
+    setShowPassword,
+    isModalOpen,
+    setIsModalOpen,
+    selectedUser,
+    setSelectedUser,
+    handleOpenModal,
+  } = useTableTask();
   const {
     onInputChange,
     onSearchSubmit,
@@ -22,7 +40,6 @@ export const Users = () => {
     showError,
     usersCount,
   } = useSearch();
-  const { isLoading, error } = useUsers();
   const [isOpenModalAddUser, setIsOpenModalAddUser] = useState(false);
 
   if (error)
@@ -59,31 +76,35 @@ export const Users = () => {
                 <Icon name="iconoBuscar" size="text-lg" />
                 <span>Buscar</span>
               </button>
-
-              <select className="select join-item rounded-none" defaultValue="">
-                <option value="" disabled>
-                  Filtrar por status
-                </option>
-                <option value="Activo">Activos</option>
-                <option value="Inactivo">Inactivos</option>
-              </select>
-
-              <select className="select join-item rounded-none" defaultValue="">
-                <option value="" disabled>
-                  Filtrar por correo
-                </option>
-                <option value="normal">Por aplicación</option>
-                <option value="google">Google</option>
-              </select>
-
-              <select className="select join-item rounded-none" defaultValue="">
-                <option value="" disabled>
-                  Filtrar por rol
-                </option>
-                <option value="admin">Administrador</option>
-                <option value="user">Usuario</option>
-              </select>
             </form>
+            <select
+              className="select join-item rounded-none"
+              value={activeFilter}
+              onChange={handleStatusFilter}
+            >
+              <option value="" disabled>
+                Filtrar por status
+              </option>
+              <option value="All">Todos</option>
+              <option value="Activo">Activos</option>
+              <option value="Inactivo">Inactivos</option>
+            </select>
+
+            <select className="select join-item rounded-none" defaultValue="">
+              <option value="" disabled>
+                Filtrar por correo
+              </option>
+              <option value="normal">Por aplicación</option>
+              <option value="google">Google</option>
+            </select>
+
+            <select className="select join-item rounded-none" defaultValue="">
+              <option value="" disabled>
+                Filtrar por rol
+              </option>
+              <option value="admin">Administrador</option>
+              <option value="user">Usuario</option>
+            </select>
 
             <button
               className="btn btn-warning text-2 rounded-r-lg"
@@ -111,11 +132,26 @@ export const Users = () => {
             <Spinner />
           ) : (
             <TablaUsuarios
+              dataToShow={dataToShow}
+              pagina={pagina}
+              setPagina={setPagina}
+              maximo={maximo}
+              countData={countData}
+              eliminar={eliminar}
+              isMobile={isMobile}
+              showPassword={showPassword}
+              setShowPassword={setShowPassword}
+              isModalOpen={isModalOpen}
+              setIsModalOpen={setIsModalOpen}
+              selectedUser={selectedUser}
+              setSelectedUser={setSelectedUser}
+              handleOpenModal={handleOpenModal}
               isOpenModalAddUser={isOpenModalAddUser}
               setIsOpenModalAddUser={setIsOpenModalAddUser}
+              isLoading={isLoading}
+              error={error}
             />
           )}
-
           <MobileCard />
         </div>
       </div>
