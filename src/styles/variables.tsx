@@ -1,13 +1,15 @@
 import { BsFillMoonStarsFill } from "react-icons/bs";
+import { FaSearch } from "react-icons/fa";
+import { FaPlusCircle } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
 import { FaClockRotateLeft } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
-import { FiEdit } from "react-icons/fi";
 import { GrUserManager } from "react-icons/gr";
 import { HiChevronDoubleLeft } from "react-icons/hi";
 import { IoMdHelp } from "react-icons/io";
 import { IoMdCreate } from "react-icons/io";
 import { LuLogOut } from "react-icons/lu";
-import { LuTrash2 } from "react-icons/lu";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { RiArrowRightSLine } from "react-icons/ri";
 import { RiArrowLeftLine } from "react-icons/ri";
@@ -21,7 +23,6 @@ import { RiUser3Line } from "react-icons/ri";
 import { RiFileList3Line } from "react-icons/ri";
 import { RiBookReadLine } from "react-icons/ri";
 import { RiSettings5Line } from "react-icons/ri";
-import { RiEditLine } from "react-icons/ri";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { RiUserStarLine } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -53,9 +54,9 @@ export const v = {
   iconoFlechaAbajo: RiArrowDownSLine,
   iconoFlechaDerecha: RiArrowRightSLine,
   iconoFlechaIzquierda: RiArrowLeftSLine,
-  iconoBasuraButton: LuTrash2,
-  iconoEditarButton: FiEdit,
-  iconoCrearButton: RiEditLine,
+  iconoBasuraButton: FaTrashAlt,
+  iconoEditarButton: FaEdit,
+  iconoCrearButton: FaPlusCircle,
   iconoMasOpciones: SlOptions,
   iconoGoogle: FcGoogle,
   iconoPapas: RiUserStarLine,
@@ -63,4 +64,5 @@ export const v = {
   iconoSol: TbSunFilled,
   iconoCreadoRegistro: IoMdCreate,
   iconoActualizadoRegistro: FaClockRotateLeft,
+  iconoBuscar: FaSearch,
 };
