@@ -27,7 +27,7 @@ export const ControlUserOptions = () => {
   return (
     <div ref={dropdownRef} className="absolute right-7 top-7 z-10">
       <div
-        className={`flex items-center gap-4 p-2 bg-base-300 transition-all duration-200 
+        className={`flex items-center gap-4 p-2 bg-base-300
                   ${openDropDownUser ? "rounded-t-4xl" : "rounded-4xl"} shadow-lg`}
       >
         {/* Avatar */}
