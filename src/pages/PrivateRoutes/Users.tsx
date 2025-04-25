@@ -43,29 +43,54 @@ export const Users = () => {
           <span className="text-6xl font-bold">Usuarios</span>
         </div>
 
-        <div className="col-span-5 row-start-2 h-1/2 flex flex-col gap-4">
-          <div className="flex flex-row justify-start items-end gap-2 w-full">
-            <form
-              className="flex gap-2 lg:w-1/2 w-full"
-              onSubmit={onSearchSubmit}
-            >
+        <div className="col-span-5 row-start-2 h-1/2 flex flex-col gap-4 join">
+          <div className="flex flex-row justify-start items-end w-full">
+            <form className="flex w-full" onSubmit={onSearchSubmit}>
               <input
                 type="text"
-                placeholder="Buscar correo"
-                className="input input-bordered text-base-content w-full"
+                placeholder="Buscar por correo"
+                className="input join-item input-bordered text-base-content w-full"
                 name="searchText"
                 autoComplete="off"
                 value={searchText}
                 onChange={onInputChange}
               />
-              <button className="btn btn-primary">Buscar</button>
+              <button className="btn btn-primary">
+                <Icon name="iconoBuscar" size="text-lg" />
+                <span>Buscar</span>
+              </button>
+
+              <select className="select join-item rounded-none" defaultValue="">
+                <option value="" disabled>
+                  Filtrar por status
+                </option>
+                <option value="Activo">Activos</option>
+                <option value="Inactivo">Inactivos</option>
+              </select>
+
+              <select className="select join-item rounded-none" defaultValue="">
+                <option value="" disabled>
+                  Filtrar por correo
+                </option>
+                <option value="normal">Por aplicación</option>
+                <option value="google">Google</option>
+              </select>
+
+              <select className="select join-item rounded-none" defaultValue="">
+                <option value="" disabled>
+                  Filtrar por rol
+                </option>
+                <option value="admin">Administrador</option>
+                <option value="user">Usuario</option>
+              </select>
             </form>
 
             <button
-              className="btn btn-warning text-2"
+              className="btn btn-warning text-2 rounded-r-lg"
               onClick={() => setIsOpenModalAddUser(!isOpenModalAddUser)}
             >
               <Icon name="iconoCrearButton" size="text-lg" />
+              <span>Nuevo usuario</span>
             </button>
           </div>
 
