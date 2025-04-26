@@ -1,12 +1,11 @@
 import { Paginacion } from "@/components/Paginacion";
+import { useSidebar } from "@/hooks/Sidebar/useSidebar";
 
 import { Icon } from "@components/ui/Icon";
-import { useSidebar } from "@hooks/useSidebar";
-import { formatDate } from "@utils/formatDate";
-import { getStatusBadge } from "@utils/statusBadge";
-
-import { ModalAgregarUsuario } from "./ModalAgregarUsuario";
-import { ModalEditarUsuario } from "./ModalEditarUsuario";
+import { TableHeader } from "@components/ui/Table/TableHeader";
+import { TableRow } from "@components/ui/Table/TableRow";
+import { ModalAgregarUsuario } from "@components/ui/Users/ModalAgregarUsuario";
+import { ModalEditarUsuario } from "@components/ui/Users/ModalEditarUsuario";
 
 interface User {
   message: string;
@@ -47,13 +46,12 @@ interface TablaUsuariosProps {
   selectedUser: UserData | undefined;
   setSelectedUser: React.Dispatch<React.SetStateAction<UserData | undefined>>;
   handleOpenModal: (user: FormData) => void;
-  // Props originales que ya le pasabas
-  isOpenModalAddUser: boolean; // Estado del modal de añadir usuario
-  setIsOpenModalAddUser: React.Dispatch<React.SetStateAction<boolean>>; // Setter del modal de añadir usuario
+
+  isOpenModalAddUser: boolean;
+  setIsOpenModalAddUser: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const TablaUsuarios = (props: TablaUsuariosProps) => {
-  // Desestructura las props recibidas en lugar de llamar a useTableTask()
   const {
     dataToShow,
     pagina,
@@ -86,120 +84,13 @@ export const TablaUsuarios = (props: TablaUsuariosProps) => {
       ) : (
         <div className="hidden md:block overflow-x-auto rounded-md border-t-4 border-neutral/60 row-start-3 shadow-2xl">
           <table className="table table-zebra w-full animate__animated animate__fadeIn">
-            <thead>
-              <tr className="text-left text-md">
-                <th>ID</th>
-                <th>Avatar</th>
-                <th>Nombre de usuario</th>
-                {/* <th>Email</th> */}
-                <th>Rol</th>
-                <th>Último inicio</th>
-                <th>Informacion</th>
-                <th>Tipo</th>
-                <th>Status</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody className="animate__animated animate__fadeIn">
-              {dataToShow.map((user) => (
-                <tr key={user.ID} className="hover:bg-base-300 font-medium">
-                  <td>{user.ID.slice(0, 6)}</td>
-                  <td>
-                    <div className="w-10 h-10 flex items-center justify-center bg-neutral text-neutral-content rounded-full">
-                      <span className="font-bold text-lg">
-                        {user?.ProfilePicture ? (
-                          <img
-                            src={user.ProfilePicture}
-                            alt={user.NameUser}
-                            className="rounded-full w-full object-cover"
-                          />
-                        ) : (
-                          user?.NameUser?.charAt(0)
-                        )}
-                      </span>
-                    </div>
-                  </td>
-                  <td>
-                    <div className="flex flex-col">
-                      <span> {user.NameUser}</span>
-                      <span className="text-sm text-base-content/70">
-                        {user.Email}
-                      </span>
-                    </div>
-                  </td>
-                  <td>{user.Role}</td>
-                  <td>{formatDate(user.LastLogin)}</td>
-                  <td>
-                    <div className="flex flex-col space-y-1">
-                      <div className="flex items-center text-sm">
-                        <Icon
-                          name="iconoCreadoRegistro"
-                          size="text-sm"
-                          className="mr-2"
-                        />
-                        <span className="mr-1">Registrado:</span>
-                        <span className="font-semibold">
-                          {formatDate(user.Created)}
-                        </span>
-                      </div>
-                      <div className="flex items-center text-sm text-base-content/70">
-                        <Icon
-                          name="iconoActualizadoRegistro"
-                          size="text-sm"
-                          className="mr-2"
-                        />
-                        <span className="mr-1">Actualizado:</span>
-                        <span className="font-semibold">
-                          {formatDate(user.Updated)}
-                        </span>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    {user.AccountType === "google" ? (
-                      <span
-                        className="badge text-white"
-                        style={{
-                          background:
-                            "linear-gradient(90deg, rgba(66, 134, 244, 0.7), rgba(234, 68, 53, 0.726), rgba(251, 189, 5, 0.7), rgba(52, 168, 83, 0.7))",
-                        }}
-                      >
-                        Google
-                      </span>
-                    ) : (
-                      <span className="badge badge-secondary">Email</span>
-                    )}
-                  </td>
-                  <td>{getStatusBadge(user.AccountStatus)}</td>
-                  <td>
-                    <div className="flex justify-center items-center gap-2">
-                      <button
-                        className="btn btn-info text-base"
-                        aria-label="Boton para editar un usuario"
-                        onClick={() =>
-                          handleOpenModal({
-                            id: user.ID,
-                            nameUser: user.NameUser,
-                            email: user.Email,
-                            role: user.Role,
-                            accountStatus: user.AccountStatus,
-                          })
-                        }
-                      >
-                        <Icon name="iconoEditarButton" />
-                      </button>
-                      <button
-                        className="btn btn-error text-base"
-                        aria-label="Boton para eliminar un usuario"
-                        onClick={() => eliminar(user.ID)}
-                      >
-                        <Icon name="iconoBasuraButton" />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
+            <TableHeader />
+
+            <TableRow
+              dataToShow={dataToShow}
+              eliminar={eliminar}
+              handleOpenModal={handleOpenModal}
+            />
           </table>
           <Paginacion pagina={pagina} setPagina={setPagina} maximo={maximo} />
         </div>

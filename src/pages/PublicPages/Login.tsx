@@ -1,11 +1,11 @@
 import { Icon } from "@/components/ui/Icon";
-import { useAuthGoogleLogin } from "@/hooks/useAuthGoogle";
+import { useLogin } from "@/hooks/Auth/useAuth";
+import { useAuthGoogleLogin } from "@/hooks/Auth/useAuthGoogle";
 
 import { useState } from "react";
 import { type FieldError, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
-import { useLogin } from "@hooks/useAuth";
 import { GoogleLogin } from "@react-oauth/google";
 import { v } from "@styles/variables";
 

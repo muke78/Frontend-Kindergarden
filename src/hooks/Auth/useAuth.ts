@@ -1,8 +1,9 @@
+import { loginService } from "@/services/Auth/authService";
+import { useAuthStore } from "@/store/Auth/authStore";
+
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router";
 
-import { loginService } from "@services/auth/authService";
-import { useAuthStore } from "@store/authStore";
 import { useMutation } from "@tanstack/react-query";
 
 export const useLogin = () => {

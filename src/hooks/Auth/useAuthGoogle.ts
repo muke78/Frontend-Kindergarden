@@ -1,5 +1,5 @@
-import { googleLoginService } from "@/services/auth/googleLoginService";
-import { useAuthStore } from "@/store/authStore";
+import { googleLoginService } from "@/services/Auth/googleLoginService";
+import { useAuthStore } from "@/store/Auth/authStore";
 
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router";

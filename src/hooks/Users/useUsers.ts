@@ -3,8 +3,8 @@ import {
   deleteUserService,
   listUsersService,
   updateUserService,
-} from "@/services/userService";
-import { useUserStore } from "@/store/useUserStore";
+} from "@/services/Users/userService";
+import { useUserStore } from "@/store/Users/useUserStore";
 
 import toast from "react-hot-toast";
 

@@ -1,4 +1,4 @@
-import { useSidebar } from "@/hooks/useSidebar";
+import { useSidebar } from "@/hooks/Sidebar/useSidebar";
 
 export const Parents = () => {
   const { isMobile, sidebarOpen } = useSidebar();

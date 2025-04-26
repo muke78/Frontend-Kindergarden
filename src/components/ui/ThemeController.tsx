@@ -1,6 +1,6 @@
 import { Icon } from "@/components/ui/Icon";
-import { useSidebar } from "@/hooks/useSidebar";
-import { useTheme } from "@/hooks/useTheme";
+import { useSidebar } from "@/hooks/Sidebar/useSidebar";
+import { useTheme } from "@/hooks/Theme/useTheme";
 
 export const ThemeController = () => {
   const { changeTheme, toggleTheme } = useTheme();

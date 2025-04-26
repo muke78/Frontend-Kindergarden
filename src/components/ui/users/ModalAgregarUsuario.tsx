@@ -1,4 +1,4 @@
-import { useUsers } from "@/hooks/useUsers";
+import { useUsers } from "@/hooks/Users/useUsers";
 import { createUserSchema } from "@/schemas/ModalUsers/createUserSchema";
 
 import { useCallback } from "react";

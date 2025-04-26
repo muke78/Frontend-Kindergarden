@@ -1,5 +1,5 @@
-import { useSidebar } from "@/hooks/useSidebar";
-import { useUsers } from "@/hooks/useUsers";
+import { useSidebar } from "@/hooks/Sidebar/useSidebar";
+import { useUsers } from "@/hooks/Users/useUsers";
 
 import { v } from "@styles/variables";
 

@@ -1,4 +1,4 @@
-import { listUsersService } from "@/services/userService";
+import { listUsersService } from "@/services/Users/userService";
 
 import { create } from "zustand";
 

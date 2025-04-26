@@ -1,6 +1,6 @@
 import { Paginacion } from "@/components/Paginacion";
-import { useSearch } from "@/hooks/useSearch";
-import { useUsers } from "@/hooks/useUsers";
+import { useSearch } from "@/hooks/Search/useSearch";
+import { useUsers } from "@/hooks/Users/useUsers";
 import { formatDate } from "@/utils/formatDate";
 import { getStatusBadge } from "@/utils/statusBadge";
 
