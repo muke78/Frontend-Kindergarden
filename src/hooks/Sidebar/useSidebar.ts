@@ -1,4 +1,4 @@
-import { useSidebarStore } from "@/store/sidebarStore";
+import { useSidebarStore } from "@/store/Sidebar/sidebarStore";
 
 import { useEffect, useState } from "react";
 

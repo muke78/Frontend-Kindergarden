@@ -1,4 +1,4 @@
-import { useAuthStore } from "@/store/authStore";
+import { useAuthStore } from "@/store/Auth/authStore";
 import { controlOptionsuserArray } from "@/utils/dataEstatica";
 
 import { useEffect, useRef, useState } from "react";

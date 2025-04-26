@@ -1,15 +1,15 @@
-import { ErrorFetching } from "@/components/ErrorFetching";
 import { Spinner } from "@/components/Spinner";
+import { FiltersTableUsers } from "@/components/ui/Users/FiltersTableUsers";
 import { TablaUsuarios } from "@/components/ui/Users/TablaUsuarios";
-import { useSearch } from "@/hooks/useSearch";
-import { useSidebar } from "@/hooks/useSidebar";
+import { useSearch } from "@/hooks/Search/useSearch";
+import { useSidebar } from "@/hooks/Sidebar/useSidebar";
+import { useTableUsers } from "@/hooks/Users/useTableUsers";
 
 import { useState } from "react";
 
 import { Icon } from "@components/ui/Icon";
 import { MobileCard } from "@components/ui/Users/MobileCard";
 import { MotionSearch } from "@components/ui/Users/MotionSearch";
-import { useTableTask } from "@hooks/useTableTask";
 
 export const Users = () => {
   const { isMobile, sidebarOpen } = useSidebar();
@@ -36,7 +36,7 @@ export const Users = () => {
     handleStatusFilterCorreo,
     handleStatusFilterRol,
     resetFiltersAll,
-  } = useTableTask();
+  } = useTableUsers();
   const {
     onInputChange,
     onSearchSubmit,
@@ -45,14 +45,8 @@ export const Users = () => {
     showError,
     usersCount,
   } = useSearch();
-  const [isOpenModalAddUser, setIsOpenModalAddUser] = useState(false);
 
-  // if (error)
-  //   return (
-  //     <>
-  //       <ErrorFetching />
-  //     </>
-  //   );
+  const [isOpenModalAddUser, setIsOpenModalAddUser] = useState(false);
 
   return (
     <main
@@ -67,71 +61,18 @@ export const Users = () => {
 
         <div className="col-span-5 row-start-2 h-1/2 flex flex-col gap-4">
           <div className="flex flex-row justify-start items-end join w-full lg:w-3/4">
-            <form className="flex w-full" onSubmit={onSearchSubmit}>
-              <label className="input rounded-lg">
-                <input
-                  type="text"
-                  placeholder="Buscar por correo"
-                  className="input join-item text-base-content"
-                  name="searchText"
-                  autoComplete="off"
-                  value={searchText}
-                  onChange={onInputChange}
-                />
-                <kbd className="kbd kbd-sm">Enter</kbd>
-              </label>
-            </form>
-            <select
-              className="select join-item rounded-l-lg"
-              value={activeFilter}
-              onChange={handleStatusFilter}
-            >
-              <option value="" disabled>
-                Filtrar por status
-              </option>
-              <option value="All">Todos</option>
-              <option value="Activo">Activos</option>
-              <option value="Inactivo">Inactivos</option>
-            </select>
-
-            <select
-              className="select join-item rounded-none"
-              value={activateFilterCorreo}
-              onChange={handleStatusFilterCorreo}
-            >
-              <option value="" disabled>
-                Filtrar por correo
-              </option>
-              <option value="All">Todos los tipos</option>
-              <option value="normal">Por aplicación</option>
-              <option value="google">Google</option>
-            </select>
-
-            <select
-              className="select join-item rounded-none"
-              value={activateFilterRol}
-              onChange={handleStatusFilterRol}
-            >
-              <option value="" disabled>
-                Filtrar por rol
-              </option>
-              <option value="All">Todos los roles</option>
-              <option value="admin">Administrador</option>
-              <option value="user">Usuario</option>
-            </select>
-
-            <button
-              className="btn btn-secondary join-item rounded-none"
-              disabled={
-                activeFilter === "All" &&
-                activateFilterCorreo === "All" &&
-                activateFilterRol === "All"
-              }
-              onClick={resetFiltersAll}
-            >
-              <Icon name="iconoResetearFiltro" size="text-lg" />
-            </button>
-
+            <FiltersTableUsers
+              onSearchSubmit={onSearchSubmit}
+              searchText={searchText}
+              onInputChange={onInputChange}
+              activeFilter={activeFilter}
+              handleStatusFilter={handleStatusFilter}
+              activateFilterCorreo={activateFilterCorreo}
+              handleStatusFilterCorreo={handleStatusFilterCorreo}
+              activateFilterRol={activateFilterRol}
+              handleStatusFilterRol={handleStatusFilterRol}
+              resetFiltersAll={resetFiltersAll}
+            />
             <button
               className="btn btn-warning text-2 rounded-r-lg"
               onClick={() => setIsOpenModalAddUser(!isOpenModalAddUser)}

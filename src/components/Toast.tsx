@@ -1,4 +1,4 @@
-import { useTheme } from "@/hooks/useTheme";
+import { useTheme } from "@/hooks/Theme/useTheme";
 
 import { Toaster } from "react-hot-toast";
 

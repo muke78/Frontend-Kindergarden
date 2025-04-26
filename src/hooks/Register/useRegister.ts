@@ -1,7 +1,8 @@
+import { registerService } from "@/services/Register/registerService";
+
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 
-import { registerService } from "@services/register/registerService";
 import { useMutation } from "@tanstack/react-query";
 
 export const useRegister = () => {

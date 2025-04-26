@@ -1,5 +1,5 @@
-import { useSidebar } from "@/hooks/useSidebar";
-import { useAuthStore } from "@/store/authStore";
+import { useSidebar } from "@/hooks/Sidebar/useSidebar";
+import { useAuthStore } from "@/store/Auth/authStore";
 
 import { useLocation } from "react-router-dom";
 

@@ -1,6 +1,6 @@
-import { useSearch } from "@/hooks/useSearch";
-import { useTheme } from "@/hooks/useTheme";
-import { useUsers } from "@/hooks/useUsers";
+import { useSearch } from "@/hooks/Search/useSearch";
+import { useTheme } from "@/hooks/Theme/useTheme";
+import { useUsers } from "@/hooks/Users/useUsers";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 
@@ -15,7 +15,7 @@ interface FormDataEdit {
   accountStatus: string;
 }
 
-export const useTableTask = () => {
+export const useTableUsers = () => {
   const { changeTheme } = useTheme();
 
   // Estado para el filtro de estado (controlado por el select)

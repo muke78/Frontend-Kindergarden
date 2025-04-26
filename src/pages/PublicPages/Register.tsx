@@ -1,9 +1,10 @@
+import { useRegister } from "@/hooks/Register/useRegister";
+
 import { useState } from "react";
 import { type FieldError, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 import { Icon } from "@components/ui/Icon";
-import { useRegister } from "@hooks/useRegister";
 import { v } from "@styles/variables";
 
 interface FormData {
