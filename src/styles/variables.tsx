@@ -10,6 +10,8 @@ import { HiChevronDoubleLeft } from "react-icons/hi";
 import { IoMdHelp } from "react-icons/io";
 import { IoMdCreate } from "react-icons/io";
 import { LuLogOut } from "react-icons/lu";
+import { MdFilterAltOff } from "react-icons/md";
+import { PiWarningCircleFill } from "react-icons/pi";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { RiArrowRightSLine } from "react-icons/ri";
 import { RiArrowLeftLine } from "react-icons/ri";
@@ -65,4 +67,6 @@ export const v = {
   iconoCreadoRegistro: IoMdCreate,
   iconoActualizadoRegistro: FaClockRotateLeft,
   iconoBuscar: FaSearch,
+  iconoAdvertencia: PiWarningCircleFill,
+  iconoResetearFiltro: MdFilterAltOff,
 };

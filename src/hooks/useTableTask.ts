@@ -20,6 +20,9 @@ export const useTableTask = () => {
 
   // Estado para el filtro de estado (controlado por el select)
   const [activeFilter, setActiveFilter] = useState<string>("All");
+  const [activateFilterCorreo, setActivateFilterCorreo] =
+    useState<string>("All");
+  const [activateFilterRol, setActivateFilterRol] = useState<string>("All");
 
   // Otros estados...
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -30,11 +33,11 @@ export const useTableTask = () => {
 
   const { data, deleteUser, isLoading, error } = useUsers({
     status: activeFilter,
+    correo: activateFilterCorreo,
+    rol: activateFilterRol,
   });
 
   const { users } = useSearch();
-
-  console.log("Filtro (dentro del hook):", activeFilter);
 
   // Paginacion para la tabla
   const [pagina, setPagina] = useState<number>(1);
@@ -53,8 +56,6 @@ export const useTableTask = () => {
       ? users.users.slice(startIndex, endIndex)
       : (data?.data?.slice(startIndex, endIndex) ?? []);
   }, [data, users, pagina, porPagina]);
-
-  console.log(dataToShow);
 
   useEffect(() => {
     if (!dataToShow.length) {
@@ -97,8 +98,32 @@ export const useTableTask = () => {
     [],
   );
 
+  const handleStatusFilterCorreo = useCallback(
+    ({ target }: { target: HTMLSelectElement }) => {
+      console.log("handleStatusFilter llamado con valor:", target.value);
+      setActivateFilterCorreo(target.value);
+    },
+    [],
+  );
+
+  const handleStatusFilterRol = useCallback(
+    ({ target }: { target: HTMLSelectElement }) => {
+      console.log("handleStatusFilter llamado con valor:", target.value);
+      setActivateFilterRol(target.value);
+    },
+    [],
+  );
+
+  const resetFiltersAll = () => {
+    setActiveFilter("All");
+    setActivateFilterCorreo("All");
+    setActivateFilterRol("All");
+  };
+
   return {
     activeFilter,
+    activateFilterCorreo,
+    activateFilterRol,
     dataToShow,
     pagina,
     setPagina,
@@ -116,5 +141,8 @@ export const useTableTask = () => {
     setSelectedUser,
     handleOpenModal,
     handleStatusFilter,
+    handleStatusFilterCorreo,
+    handleStatusFilterRol,
+    resetFiltersAll,
   };
 };
