@@ -3,17 +3,40 @@ import { Spinner } from "@/components/Spinner";
 import { TablaUsuarios } from "@/components/ui/Users/TablaUsuarios";
 import { useSearch } from "@/hooks/useSearch";
 import { useSidebar } from "@/hooks/useSidebar";
-import { useUsers } from "@/hooks/useUsers";
 
 import { useState } from "react";
 
 import { Icon } from "@components/ui/Icon";
 import { MobileCard } from "@components/ui/Users/MobileCard";
-
-import { MotionSearch } from "../../components/ui/Users/MotionSearch";
+import { MotionSearch } from "@components/ui/Users/MotionSearch";
+import { useTableTask } from "@hooks/useTableTask";
 
 export const Users = () => {
   const { isMobile, sidebarOpen } = useSidebar();
+  const {
+    activeFilter,
+    activateFilterCorreo,
+    activateFilterRol,
+    isLoading,
+    error,
+    dataToShow,
+    pagina,
+    setPagina,
+    maximo,
+    countData,
+    eliminar,
+    showPassword,
+    setShowPassword,
+    isModalOpen,
+    setIsModalOpen,
+    selectedUser,
+    setSelectedUser,
+    handleOpenModal,
+    handleStatusFilter,
+    handleStatusFilterCorreo,
+    handleStatusFilterRol,
+    resetFiltersAll,
+  } = useTableTask();
   const {
     onInputChange,
     onSearchSubmit,
@@ -22,15 +45,14 @@ export const Users = () => {
     showError,
     usersCount,
   } = useSearch();
-  const { isLoading, error } = useUsers();
   const [isOpenModalAddUser, setIsOpenModalAddUser] = useState(false);
 
-  if (error)
-    return (
-      <>
-        <ErrorFetching />
-      </>
-    );
+  // if (error)
+  //   return (
+  //     <>
+  //       <ErrorFetching />
+  //     </>
+  //   );
 
   return (
     <main
@@ -43,47 +65,72 @@ export const Users = () => {
           <span className="text-6xl font-bold">Usuarios</span>
         </div>
 
-        <div className="col-span-5 row-start-2 h-1/2 flex flex-col gap-4 join">
-          <div className="flex flex-row justify-start items-end w-full">
+        <div className="col-span-5 row-start-2 h-1/2 flex flex-col gap-4">
+          <div className="flex flex-row justify-start items-end join w-full lg:w-3/4">
             <form className="flex w-full" onSubmit={onSearchSubmit}>
-              <input
-                type="text"
-                placeholder="Buscar por correo"
-                className="input join-item input-bordered text-base-content w-full"
-                name="searchText"
-                autoComplete="off"
-                value={searchText}
-                onChange={onInputChange}
-              />
-              <button className="btn btn-primary">
-                <Icon name="iconoBuscar" size="text-lg" />
-                <span>Buscar</span>
-              </button>
-
-              <select className="select join-item rounded-none" defaultValue="">
-                <option value="" disabled>
-                  Filtrar por status
-                </option>
-                <option value="Activo">Activos</option>
-                <option value="Inactivo">Inactivos</option>
-              </select>
-
-              <select className="select join-item rounded-none" defaultValue="">
-                <option value="" disabled>
-                  Filtrar por correo
-                </option>
-                <option value="normal">Por aplicación</option>
-                <option value="google">Google</option>
-              </select>
-
-              <select className="select join-item rounded-none" defaultValue="">
-                <option value="" disabled>
-                  Filtrar por rol
-                </option>
-                <option value="admin">Administrador</option>
-                <option value="user">Usuario</option>
-              </select>
+              <label className="input rounded-lg">
+                <input
+                  type="text"
+                  placeholder="Buscar por correo"
+                  className="input join-item text-base-content"
+                  name="searchText"
+                  autoComplete="off"
+                  value={searchText}
+                  onChange={onInputChange}
+                />
+                <kbd className="kbd kbd-sm">Enter</kbd>
+              </label>
             </form>
+            <select
+              className="select join-item rounded-l-lg"
+              value={activeFilter}
+              onChange={handleStatusFilter}
+            >
+              <option value="" disabled>
+                Filtrar por status
+              </option>
+              <option value="All">Todos</option>
+              <option value="Activo">Activos</option>
+              <option value="Inactivo">Inactivos</option>
+            </select>
+
+            <select
+              className="select join-item rounded-none"
+              value={activateFilterCorreo}
+              onChange={handleStatusFilterCorreo}
+            >
+              <option value="" disabled>
+                Filtrar por correo
+              </option>
+              <option value="All">Todos los tipos</option>
+              <option value="normal">Por aplicación</option>
+              <option value="google">Google</option>
+            </select>
+
+            <select
+              className="select join-item rounded-none"
+              value={activateFilterRol}
+              onChange={handleStatusFilterRol}
+            >
+              <option value="" disabled>
+                Filtrar por rol
+              </option>
+              <option value="All">Todos los roles</option>
+              <option value="admin">Administrador</option>
+              <option value="user">Usuario</option>
+            </select>
+
+            <button
+              className="btn btn-secondary join-item rounded-none"
+              disabled={
+                activeFilter === "All" &&
+                activateFilterCorreo === "All" &&
+                activateFilterRol === "All"
+              }
+              onClick={resetFiltersAll}
+            >
+              <Icon name="iconoResetearFiltro" size="text-lg" />
+            </button>
 
             <button
               className="btn btn-warning text-2 rounded-r-lg"
@@ -111,11 +158,26 @@ export const Users = () => {
             <Spinner />
           ) : (
             <TablaUsuarios
+              dataToShow={dataToShow}
+              pagina={pagina}
+              setPagina={setPagina}
+              maximo={maximo}
+              countData={countData}
+              eliminar={eliminar}
+              isMobile={isMobile}
+              showPassword={showPassword}
+              setShowPassword={setShowPassword}
+              isModalOpen={isModalOpen}
+              setIsModalOpen={setIsModalOpen}
+              selectedUser={selectedUser}
+              setSelectedUser={setSelectedUser}
+              handleOpenModal={handleOpenModal}
               isOpenModalAddUser={isOpenModalAddUser}
               setIsOpenModalAddUser={setIsOpenModalAddUser}
+              isLoading={isLoading}
+              error={error}
             />
           )}
-
           <MobileCard />
         </div>
       </div>

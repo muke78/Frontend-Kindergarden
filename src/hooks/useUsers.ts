@@ -28,16 +28,24 @@ interface UserUpdatePayload {
   AccountStatus?: string;
 }
 
-export const useUsers = () => {
+// Interfaz para los parámetros de búsqueda
+interface GetUsersParams {
+  status: string; // status ahora es OBLIGATORIO para la ruta /:status
+  correo?: string; // correo es OPCIONAL (query param)
+  rol?: string; // rol es OPCIONAL (query param)
+}
+
+export const useUsers = (params: GetUsersParams) => {
   const { addUser, updateUser, deleteUser } = useUserStore();
   const queryClient = useQueryClient();
 
   // Obtener usuarios
   const { data, isLoading, error } = useQuery({
-    queryKey: ["users"],
-    queryFn: listUsersService,
-    staleTime: 1000 * 60, // Datos frescos durante 1 minutos
-    retry: 2,
+    queryKey: ["users", params],
+    queryFn: () => listUsersService(params),
+    staleTime: 1000 * 60 * 5,
+    refetchOnWindowFocus: false,
+    enabled: !!params,
   });
 
   // Crear usuario

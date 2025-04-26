@@ -28,6 +28,13 @@ interface ApiResponse<T> {
   };
 }
 
+// Interfaz para los parámetros de búsqueda
+interface GetUsersParams {
+  status: string; // status ahora es OBLIGATORIO para la ruta /:status
+  correo?: string; // correo es OPCIONAL (query param)
+  rol?: string; // rol es OPCIONAL (query param)
+}
+
 interface UserUpdatePayload {
   NameUser?: string;
   Email?: string;
@@ -52,12 +59,23 @@ const getAuthHeaders = () => ({
   },
 });
 
-// Listar todos los usuarios que hya en la abse de datos
-export const listUsersService = async (): Promise<ApiResponse<User[]>> => {
-  const response = await api.get<ApiResponse<User[]>>(
-    "/lista-de-usuarios",
-    getAuthHeaders(),
-  );
+// Listar todos los usuarios que hay en la abse de datos
+export const listUsersService = async (
+  params: GetUsersParams,
+): Promise<ApiResponse<User[]>> => {
+  // console.log(params);
+  const url = `/lista-de-usuarios/${params.status}`;
+
+  const queryParams: { [key: string]: string | undefined } = {
+    correo: params.correo,
+    rol: params.rol,
+  };
+
+  const response = await api.get<ApiResponse<User[]>>(url, {
+    ...getAuthHeaders(),
+    params: queryParams,
+  });
+
   return response.data;
 };
 
