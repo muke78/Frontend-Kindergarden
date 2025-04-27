@@ -25,6 +25,9 @@ export const Users = () => {
     maximo,
     countData,
     eliminar,
+    eliminarSeleccionados,
+    isChecked,
+    selectedIds,
     showPassword,
     setShowPassword,
     isModalOpen,
@@ -35,7 +38,9 @@ export const Users = () => {
     handleStatusFilter,
     handleStatusFilterCorreo,
     handleStatusFilterRol,
-    resetFiltersAll,
+    handleResetFiltersAll,
+    handleCheckUser,
+    handleCheckAllUsers,
   } = useTableUsers();
   const {
     onInputChange,
@@ -71,8 +76,22 @@ export const Users = () => {
               handleStatusFilterCorreo={handleStatusFilterCorreo}
               activateFilterRol={activateFilterRol}
               handleStatusFilterRol={handleStatusFilterRol}
-              resetFiltersAll={resetFiltersAll}
+              handleResetFiltersAll={handleResetFiltersAll}
             />
+            {Object.keys(selectedIds).filter((id) => selectedIds[id]).length >
+              0 && (
+              <button
+                className="btn btn-error"
+                onClick={() => eliminarSeleccionados()}
+              >
+                Eliminar (
+                {
+                  Object.keys(selectedIds).filter((id) => selectedIds[id])
+                    .length
+                }
+                )
+              </button>
+            )}
             <button
               className="btn btn-warning text-2 rounded-r-lg"
               onClick={() => setIsOpenModalAddUser(!isOpenModalAddUser)}
@@ -105,6 +124,11 @@ export const Users = () => {
               maximo={maximo}
               countData={countData}
               eliminar={eliminar}
+              eliminarSeleccionados={eliminarSeleccionados}
+              isChecked={isChecked}
+              onCheckAll={handleCheckAllUsers}
+              selectedIds={selectedIds}
+              onCheckTask={handleCheckUser}
               isMobile={isMobile}
               showPassword={showPassword}
               setShowPassword={setShowPassword}

@@ -18,14 +18,22 @@ interface User {
   Updated: string;
 }
 
+interface HandleCheckUserParams {
+  id: string;
+  checked: boolean;
+}
+
 interface PropsTableRow {
   dataToShow: User[];
   eliminar: (id: string) => void;
   handleOpenModal: (user: FormData) => void;
+  selectedIds: string[];
+  onCheckTask: ({ id, checked }: HandleCheckUserParams) => void;
 }
 
 export const TableRow = (props: PropsTableRow) => {
-  const { dataToShow, eliminar, handleOpenModal } = props;
+  const { dataToShow, eliminar, handleOpenModal, onCheckTask, selectedIds } =
+    props;
   return (
     <tbody className="animate__animated animate__fadeIn">
       {dataToShow.map((user) => (
@@ -38,8 +46,10 @@ export const TableRow = (props: PropsTableRow) => {
               <input
                 id="checkAll"
                 type="checkbox"
-                // checked={selectedIds.includes(user.id)}
-                // onChange={(e) => onCheckTask(user.id, e.target.checked)}
+                checked={selectedIds.includes(user.ID)}
+                onChange={(e) =>
+                  onCheckTask({ id: user.ID, checked: e.target.checked })
+                }
                 className="checkbox checkbox-primary"
               />
             </label>

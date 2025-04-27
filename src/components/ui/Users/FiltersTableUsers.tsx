@@ -12,7 +12,7 @@ interface PropsFiltersTable {
   ) => void;
   activateFilterRol: string;
   handleStatusFilterRol: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  resetFiltersAll: () => void;
+  handleResetFiltersAll: () => void;
 }
 
 export const FiltersTableUsers = (props: PropsFiltersTable) => {
@@ -26,7 +26,7 @@ export const FiltersTableUsers = (props: PropsFiltersTable) => {
     handleStatusFilterCorreo,
     activateFilterRol,
     handleStatusFilterRol,
-    resetFiltersAll,
+    handleResetFiltersAll,
   } = props;
   return (
     <>
@@ -103,7 +103,7 @@ export const FiltersTableUsers = (props: PropsFiltersTable) => {
           activateFilterCorreo === "All" &&
           activateFilterRol === "All"
         }
-        onClick={resetFiltersAll}
+        onClick={handleResetFiltersAll}
         aria-label="Resetear filtros"
         title="Resetear filtros"
       >

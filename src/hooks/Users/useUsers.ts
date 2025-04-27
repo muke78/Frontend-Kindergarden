@@ -45,7 +45,8 @@ export const useUsers = (params: GetUsersParams) => {
     queryKey: ["users", params],
     queryFn: () => listUsersService(params),
     staleTime: 1000 * 60 * 5,
-    refetchOnWindowFocus: false,
+    refetchInterval: 1000 * 60 * 5,
+    refetchOnWindowFocus: true,
     enabled: !!params,
   });
 
@@ -126,6 +127,13 @@ export const useUsers = (params: GetUsersParams) => {
         duration: 5000,
       });
     },
+    onError: (error: {
+      response?: { data?: { error?: { message?: string } } };
+    }) => {
+      toast.error(error.response?.data?.error?.message || "An error occurred", {
+        duration: 5000,
+      });
+    },
   });
 
   // Eliminar usuario
@@ -160,7 +168,7 @@ export const useUsers = (params: GetUsersParams) => {
       response?: { data?: { error?: { message?: string } } };
     }) => {
       toast.error(error.response?.data?.error?.message || "An error occurred", {
-        duration: 5000,
+        duration: 15000,
       });
     },
   });

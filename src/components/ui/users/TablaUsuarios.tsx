@@ -31,6 +31,11 @@ interface UserData {
   password?: string;
 }
 
+interface HandleCheckUserParams {
+  id: string;
+  checked: boolean;
+}
+
 interface TablaUsuariosProps {
   dataToShow: User[];
   pagina: number;
@@ -38,6 +43,12 @@ interface TablaUsuariosProps {
   maximo: number;
   countData?: number;
   eliminar: (id: string) => void;
+
+  eliminarSeleccionados: (id: string) => void;
+  isChecked: boolean;
+  selectedIds: string[];
+  onCheckTask: ({ id, checked }: HandleCheckUserParams) => void;
+  onCheckAll: (checked: boolean) => void;
 
   showPassword: boolean;
   setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
@@ -59,6 +70,11 @@ export const TablaUsuarios = (props: TablaUsuariosProps) => {
     maximo,
     countData,
     eliminar,
+    eliminarSeleccionados,
+    isChecked,
+    onCheckAll,
+    onCheckTask,
+    selectedIds,
     showPassword,
     setShowPassword,
     isModalOpen,
@@ -84,12 +100,14 @@ export const TablaUsuarios = (props: TablaUsuariosProps) => {
       ) : (
         <div className="hidden md:block overflow-x-auto rounded-md border-t-4 border-neutral/60 row-start-3 shadow-2xl">
           <table className="table table-zebra w-full animate__animated animate__fadeIn">
-            <TableHeader />
+            <TableHeader isChecked={isChecked} onCheckAll={onCheckAll} />
 
             <TableRow
               dataToShow={dataToShow}
               eliminar={eliminar}
               handleOpenModal={handleOpenModal}
+              selectedIds={selectedIds}
+              onCheckTask={onCheckTask}
             />
           </table>
           <Paginacion pagina={pagina} setPagina={setPagina} maximo={maximo} />
