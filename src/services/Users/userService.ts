@@ -30,9 +30,9 @@ interface ApiResponse<T> {
 
 // Interfaz para los parámetros de búsqueda
 interface GetUsersParams {
-  status: string; // status ahora es OBLIGATORIO para la ruta /:status
-  correo?: string; // correo es OPCIONAL (query param)
-  rol?: string; // rol es OPCIONAL (query param)
+  status: string;
+  correo?: string;
+  rol?: string;
 }
 
 interface UserUpdatePayload {
@@ -63,20 +63,24 @@ const getAuthHeaders = () => ({
 export const listUsersService = async (
   params: GetUsersParams,
 ): Promise<ApiResponse<User[]>> => {
-  // console.log(params);
-  const url = `/lista-de-usuarios/${params.status}`;
+  try {
+    const url = `/lista-de-usuarios/${params.status}`;
 
-  const queryParams: { [key: string]: string | undefined } = {
-    correo: params.correo,
-    rol: params.rol,
-  };
+    const queryParams: { [key: string]: string | undefined } = {
+      correo: params.correo,
+      rol: params.rol,
+    };
 
-  const response = await api.get<ApiResponse<User[]>>(url, {
-    ...getAuthHeaders(),
-    params: queryParams,
-  });
+    const response = await api.get<ApiResponse<User[]>>(url, {
+      ...getAuthHeaders(),
+      params: queryParams,
+    });
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    console.error("Ocurrio un error listing users", error);
+    throw error;
+  }
 };
 
 // Crear un usuario
@@ -86,12 +90,17 @@ export const createUserService = async (
   password: string,
   role: string,
 ): Promise<ApiResponse<User>> => {
-  const response = await api.post<ApiResponse<User>>(
-    "/crear-usuario",
-    { nameUser, email, password, role },
-    getAuthHeaders(),
-  );
-  return response.data;
+  try {
+    const response = await api.post<ApiResponse<User>>(
+      "/crear-usuario",
+      { nameUser, email, password, role },
+      getAuthHeaders(),
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Ocurrio un error create", error);
+    throw error;
+  }
 };
 
 // Actualizar un usuario
@@ -100,35 +109,62 @@ export const updateUserService = async (
   updates: UserUpdatePayload,
 ): Promise<ApiResponse<User>> => {
   // Crear un objeto de actualización sin la contraseña
-  const updatePayload: UpdateUserPayload = {
-    id,
-    nameUser: updates.NameUser,
-    email: updates.Email,
-    role: updates.Role,
-    accountStatus: updates.AccountStatus,
-  };
+  try {
+    const updatePayload: UpdateUserPayload = {
+      id,
+      nameUser: updates.NameUser,
+      email: updates.Email,
+      role: updates.Role,
+      accountStatus: updates.AccountStatus,
+    };
 
-  // Solo agregar la contraseña si se proporciona una nueva
-  if (updates.Password && updates.Password.trim() !== "") {
-    updatePayload.password = updates.Password;
+    // Solo agregar la contraseña si se proporciona una nueva
+    if (updates.Password && updates.Password.trim() !== "") {
+      updatePayload.password = updates.Password;
+    }
+
+    const response = await api.put<ApiResponse<User>>(
+      "/actualizar-usuario",
+      updatePayload,
+      getAuthHeaders(),
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Ocurrio un error update", error);
+    throw error;
   }
-
-  const response = await api.put<ApiResponse<User>>(
-    "/actualizar-usuario",
-    updatePayload,
-    getAuthHeaders(),
-  );
-
-  return response.data;
 };
 
 // Eliminar usuario
 export const deleteUserService = async (
   id: string,
 ): Promise<ApiResponse<{ message: string }>> => {
-  const response = await api.delete<ApiResponse<{ message: string }>>(
-    `/eliminar-usuario/${id}`,
-    getAuthHeaders(),
-  );
-  return response.data;
+  try {
+    const response = await api.delete<ApiResponse<{ message: string }>>(
+      `/eliminar-usuario/${id}`,
+      getAuthHeaders(),
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Ocurrio un error delete", error);
+    throw error;
+  }
+};
+
+// Eliminar usarios de forma masiva
+export const deleteUserBulkService = async ({ ids }: { ids: string[] }) => {
+  try {
+    const response = await api.delete<ApiResponse<{ message: string }>>(
+      "/bulk-delete-users",
+      {
+        ...getAuthHeaders(),
+        data: { ids },
+      },
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Ocurrio un error deleteBulk", error);
+    throw error;
+  }
 };
