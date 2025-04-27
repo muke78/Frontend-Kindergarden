@@ -1,5 +1,6 @@
 import {
   createUserService,
+  deleteUserBulkService,
   deleteUserService,
   listUsersService,
   updateUserService,
@@ -30,9 +31,9 @@ interface UserUpdatePayload {
 
 // Interfaz para los parámetros de búsqueda
 interface GetUsersParams {
-  status: string; // status ahora es OBLIGATORIO para la ruta /:status
-  correo?: string; // correo es OPCIONAL (query param)
-  rol?: string; // rol es OPCIONAL (query param)
+  status: string;
+  correo?: string;
+  rol?: string;
 }
 
 export const useUsers = (params: GetUsersParams) => {
@@ -146,6 +147,24 @@ export const useUsers = (params: GetUsersParams) => {
     },
   });
 
+  // Eliminacion de usuario por medio de eliminacion masiva
+  const deleteTaskBulkMutation = useMutation({
+    mutationFn: (ids: string[]) => deleteUserBulkService({ ids }),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      toast.success(data.data.message, {
+        duration: 5000,
+      });
+    },
+    onError: (error: {
+      response?: { data?: { error?: { message?: string } } };
+    }) => {
+      toast.error(error.response?.data?.error?.message || "An error occurred", {
+        duration: 5000,
+      });
+    },
+  });
+
   return {
     data,
     isLoading,
@@ -153,5 +172,6 @@ export const useUsers = (params: GetUsersParams) => {
     createUser: createUserMutation.mutate,
     updateUser: updateUserMutation.mutate,
     deleteUser: deleteUserMutation.mutate,
+    deleteUserBulk: deleteTaskBulkMutation.mutate,
   };
 };
