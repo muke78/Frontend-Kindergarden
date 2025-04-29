@@ -35,7 +35,7 @@ El proyecto está desarrollado con las siguientes tecnologías y librerías:
 ### 🔄 **Estado y Manejo de Datos**
 
 - [`@tanstack/react-query`](https://tanstack.com/query/latest) - Manejo eficiente del estado de datos asíncronos.
-- [`@tanstack/react-query-devtools`](https://tanstack.com/query/latest/docs/react/devtools) - Herramientas de desarrollo para React Query.
+- [`@tanstack/react-table`](https://tanstack.com/table/latest) - Tablas dinámicas y personalizables.
 - [`zustand`](https://zustand-demo.pmnd.rs/) - Gestión de estado global simple y eficiente.
 
 ### 🔐 **Autenticación y Seguridad**
@@ -48,6 +48,7 @@ El proyecto está desarrollado con las siguientes tecnologías y librerías:
 - [`axios`](https://axios-http.com/) - Cliente HTTP para realizar peticiones a la API.
 - [`query-string`](https://www.npmjs.com/package/query-string) - Manejo y manipulación de query strings en URLs.
 - [`sweetalert2`](https://sweetalert2.github.io/) - Alertas y modales personalizables.
+- [`zod`](https://zod.dev/) - Validación de esquemas de datos.
 - [`motion-number`](https://motion-number.barvian.me/) - Contadores animados numéricos.
 
 ### 📊 **Visualización de Datos**
@@ -153,7 +154,6 @@ El proyecto está desarrollado con las siguientes tecnologías y librerías:
 │
 ├── main.jsx         # Punto de entrada
 ├── app.jsx          # Componente raíz
-└── index.js         # Punto de montaje
 ```
 
 ## 🛠 Instalación y Configuración
