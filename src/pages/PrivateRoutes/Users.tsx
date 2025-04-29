@@ -84,7 +84,7 @@ export const Users = () => {
                 className="btn btn-error"
                 onClick={() => eliminarSeleccionados()}
               >
-                Eliminar (
+                <Icon name="iconoEliminacionMasiva" size="text-2xl" /> (
                 {
                   Object.keys(selectedIds).filter((id) => selectedIds[id])
                     .length
@@ -93,7 +93,7 @@ export const Users = () => {
               </button>
             )}
             <button
-              className="btn btn-warning text-2 rounded-r-lg"
+              className="btn btn-warning text-md rounded-r-lg"
               onClick={() => setIsOpenModalAddUser(!isOpenModalAddUser)}
             >
               <Icon name="iconoCrearButton" size="text-lg" />

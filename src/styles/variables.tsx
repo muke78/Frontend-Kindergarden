@@ -11,6 +11,7 @@ import { IoMdHelp } from "react-icons/io";
 import { IoMdCreate } from "react-icons/io";
 import { LuLogOut } from "react-icons/lu";
 import { MdFilterAltOff } from "react-icons/md";
+import { MdDeleteSweep } from "react-icons/md";
 import { PiWarningCircleFill } from "react-icons/pi";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { RiArrowRightSLine } from "react-icons/ri";
@@ -57,6 +58,7 @@ export const v = {
   iconoFlechaDerecha: RiArrowRightSLine,
   iconoFlechaIzquierda: RiArrowLeftSLine,
   iconoBasuraButton: FaTrashAlt,
+  iconoEliminacionMasiva: MdDeleteSweep,
   iconoEditarButton: FaEdit,
   iconoCrearButton: FaPlusCircle,
   iconoMasOpciones: SlOptions,

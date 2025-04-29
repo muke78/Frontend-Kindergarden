@@ -3,6 +3,7 @@ import { useTheme } from "@/hooks/Theme/useTheme";
 import { useUsers } from "@/hooks/Users/useUsers";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import toast from "react-hot-toast";
 
 import Swal from "sweetalert2";
 
@@ -68,24 +69,38 @@ export const useTableUsers = () => {
     }
   }, [dataToShow]);
 
-  console.log(dataToShow);
-
   // Callback para manejar el cambio de checkbox
   const handleCheckUser = useCallback(
     ({ id, checked }: HandleCheckUserParams) => {
-      setSelectedIds((prev) =>
-        checked ? [...prev, id] : prev.filter((prevId) => prevId !== id),
-      );
+      setSelectedIds((prev) => {
+        if (checked) {
+          if (prev.length >= 600) {
+            toast.error(
+              "Solo puedes seleccionar un máximo de 600 usuarios para la eliminación masiva.",
+              {
+                duration: 5000,
+              },
+            );
+            return prev;
+          }
+          return [...prev, id];
+        } else {
+          return prev.filter((prevId) => prevId !== id);
+        }
+      });
     },
     [],
   );
+
   // Callback para manejar el cambio de checkbox "Seleccionar todos"
   const handleCheckAllUsers = useCallback(
     (checked: boolean) => {
       const allChecked = checked;
       setIsChecked(allChecked);
       setSelectedIds(
-        allChecked && data?.data ? data.data.map((d) => d.ID) : [],
+        allChecked && data?.data
+          ? data.data.map((d) => d.ID).slice(0, 600)
+          : [],
       );
     },
     [data],
