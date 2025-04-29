@@ -1,4 +1,9 @@
-export const TableHeader = () => {
+interface TableHeaderProps {
+  isChecked: boolean;
+  onCheckAll: (checked: boolean) => void;
+}
+
+export const TableHeader = ({ isChecked, onCheckAll }: TableHeaderProps) => {
   return (
     <thead>
       <tr className="text-left text-md">
@@ -10,8 +15,8 @@ export const TableHeader = () => {
             <input
               id="checkAll"
               type="checkbox"
-              // checked={isChecked}
-              // onChange={onCheckAll}
+              checked={isChecked}
+              onChange={(event) => onCheckAll(event.target.checked)}
               className="checkbox checkbox-primary"
             />
             <span className="sr-only">Seleccionar todos</span>

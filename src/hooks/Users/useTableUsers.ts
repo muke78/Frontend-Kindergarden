@@ -15,6 +15,11 @@ interface FormDataEdit {
   accountStatus: string;
 }
 
+interface HandleCheckUserParams {
+  id: string;
+  checked: boolean;
+}
+
 export const useTableUsers = () => {
   const { changeTheme } = useTheme();
 
@@ -31,7 +36,7 @@ export const useTableUsers = () => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
-  const { data, deleteUser, isLoading, error } = useUsers({
+  const { data, deleteUser, deleteUserBulk, isLoading, error } = useUsers({
     status: activeFilter,
     correo: activateFilterCorreo,
     rol: activateFilterRol,
@@ -63,6 +68,66 @@ export const useTableUsers = () => {
     }
   }, [dataToShow]);
 
+  console.log(dataToShow);
+
+  // Callback para manejar el cambio de checkbox
+  const handleCheckUser = useCallback(
+    ({ id, checked }: HandleCheckUserParams) => {
+      setSelectedIds((prev) =>
+        checked ? [...prev, id] : prev.filter((prevId) => prevId !== id),
+      );
+    },
+    [],
+  );
+  // Callback para manejar el cambio de checkbox "Seleccionar todos"
+  const handleCheckAllUsers = useCallback(
+    (checked: boolean) => {
+      const allChecked = checked;
+      setIsChecked(allChecked);
+      setSelectedIds(
+        allChecked && data?.data ? data.data.map((d) => d.ID) : [],
+      );
+    },
+    [data],
+  );
+
+  // Callback para abrir modal de edición
+  const handleOpenModal = useCallback((user: FormDataEdit) => {
+    setSelectedUser(user);
+    setIsModalOpen(true);
+  }, []);
+
+  // Callback para cerrar modal de edición
+  const handleStatusFilter = useCallback(
+    ({ target }: { target: HTMLSelectElement }) => {
+      setActiveFilter(target.value);
+    },
+    [],
+  );
+
+  // Callback para filtrar por correo
+  const handleStatusFilterCorreo = useCallback(
+    ({ target }: { target: HTMLSelectElement }) => {
+      setActivateFilterCorreo(target.value);
+    },
+    [],
+  );
+
+  // Callback para filtrar por rol
+  const handleStatusFilterRol = useCallback(
+    ({ target }: { target: HTMLSelectElement }) => {
+      setActivateFilterRol(target.value);
+    },
+    [],
+  );
+
+  // Callback para resetear todos los filtros
+  const handleResetFiltersAll = useCallback(() => {
+    setActiveFilter("All");
+    setActivateFilterCorreo("All");
+    setActivateFilterRol("All");
+  }, []);
+
   // Callback para eliminar usuario con confirmación
   const eliminar = useCallback(
     (p: string) => {
@@ -84,41 +149,48 @@ export const useTableUsers = () => {
     [deleteUser, changeTheme],
   );
 
-  // Callback para abrir modal de edición
-  const handleOpenModal = useCallback((user: FormDataEdit) => {
-    setSelectedUser(user);
-    setIsModalOpen(true);
-  }, []);
+  const eliminarSeleccionados = useCallback(() => {
+    if (selectedIds.length === 0) return;
 
-  const handleStatusFilter = useCallback(
-    ({ target }: { target: HTMLSelectElement }) => {
-      console.log("handleStatusFilter llamado con valor:", target.value);
-      setActiveFilter(target.value);
-    },
-    [],
-  );
-
-  const handleStatusFilterCorreo = useCallback(
-    ({ target }: { target: HTMLSelectElement }) => {
-      console.log("handleStatusFilter llamado con valor:", target.value);
-      setActivateFilterCorreo(target.value);
-    },
-    [],
-  );
-
-  const handleStatusFilterRol = useCallback(
-    ({ target }: { target: HTMLSelectElement }) => {
-      console.log("handleStatusFilter llamado con valor:", target.value);
-      setActivateFilterRol(target.value);
-    },
-    [],
-  );
-
-  const resetFiltersAll = () => {
-    setActiveFilter("All");
-    setActivateFilterCorreo("All");
-    setActivateFilterRol("All");
-  };
+    const UMBRAL_DOBLE_CONFIRMACION = 150;
+    Swal.fire({
+      title: "¿Eliminar seleccionados?",
+      text: `Eliminarás ${selectedIds.length} registros.`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+      theme: changeTheme === "night" ? "dark" : "light",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        if (selectedIds.length > UMBRAL_DOBLE_CONFIRMACION) {
+          Swal.fire({
+            title: "¿Estás MUY seguro?",
+            text: `Vas a eliminar permanentemente ${selectedIds.length} registros. Esta acción no se puede deshacer.`,
+            icon: "error",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, eliminar definitivamente",
+            cancelButtonText: "No, prefiero cancelar",
+            theme: changeTheme === "night" ? "dark" : "light",
+          }).then(async (resultSegundoSwal) => {
+            if (resultSegundoSwal.isConfirmed) {
+              await deleteUserBulk(selectedIds);
+              setSelectedIds([]);
+              setIsChecked(false);
+            }
+          });
+        } else {
+          await deleteUserBulk(selectedIds);
+          setSelectedIds([]);
+          setIsChecked(false);
+        }
+      }
+    });
+  }, [deleteUserBulk, selectedIds, changeTheme]);
 
   return {
     activeFilter,
@@ -131,6 +203,9 @@ export const useTableUsers = () => {
     maximo,
     countData,
     eliminar,
+    eliminarSeleccionados,
+    isChecked,
+    selectedIds,
     isLoading,
     error,
     showPassword,
@@ -143,6 +218,8 @@ export const useTableUsers = () => {
     handleStatusFilter,
     handleStatusFilterCorreo,
     handleStatusFilterRol,
-    resetFiltersAll,
+    handleResetFiltersAll,
+    handleCheckUser,
+    handleCheckAllUsers,
   };
 };
