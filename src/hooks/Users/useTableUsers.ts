@@ -1,4 +1,5 @@
 import { useTheme } from "@/hooks/Theme/useTheme";
+import { useListUsers } from "@/hooks/Users/Queries/useListUsers";
 import { useUserSearch } from "@/hooks/Users/useUserSearch";
 import { useUsers } from "@/hooks/Users/useUsers";
 
@@ -44,7 +45,9 @@ export const useTableUsers = () => {
   const [pagina, setPagina] = useState<number>(1);
   const [porPagina] = useState<number>(6);
 
-  const { data, deleteUser, deleteUserBulk, isLoading, error } = useUsers({
+  const { deleteUser, deleteUserBulk } = useUsers();
+
+  const { data, isLoading, error } = useListUsers({
     status: activeFilter,
     correo: activateFilterCorreo,
     rol: activateFilterRol,
@@ -65,9 +68,6 @@ export const useTableUsers = () => {
 
   const results = searchUserData?.data ?? [];
   const showError = q.length > 0 && results.length === 0;
-
-  console.log("Cadena", searchUserData?.data);
-  console.log("Errro", showError);
 
   const onSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

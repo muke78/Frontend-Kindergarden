@@ -106,7 +106,7 @@ export const TableRow = (props: PropsTableRow) => {
           <td>
             {user.AccountType === "google" ? (
               <span
-                className="badge text-white"
+                className="badge text-white contrast-125"
                 style={{
                   background:
                     "linear-gradient(90deg, rgba(66, 134, 244, 0.7), rgba(234, 68, 53, 0.726), rgba(251, 189, 5, 0.7), rgba(52, 168, 83, 0.7))",
