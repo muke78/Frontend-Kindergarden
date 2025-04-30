@@ -1,5 +1,5 @@
 import { useUsers } from "@/hooks/Users/useUsers";
-import { createUserSchema } from "@/schemas/ModalUsers/createUserSchema";
+import { createUserSchema } from "@/schemas/Users/createUserSchema";
 
 import { useCallback } from "react";
 import { type FieldError, useForm } from "react-hook-form";

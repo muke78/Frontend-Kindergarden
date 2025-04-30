@@ -1,10 +1,13 @@
-import { useSearch } from "@/hooks/Search/useSearch";
 import { useTheme } from "@/hooks/Theme/useTheme";
+import { useUserSearch } from "@/hooks/Users/useUserSearch";
 import { useUsers } from "@/hooks/Users/useUsers";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
+import { useLocation, useNavigate } from "react-router-dom";
 
+import { useFormSearch } from "@hooks/Search/useFormSearch";
+import queryString from "query-string";
 import Swal from "sweetalert2";
 
 interface FormDataEdit {
@@ -37,20 +40,46 @@ export const useTableUsers = () => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
+  // Paginacion para la tabla
+  const [pagina, setPagina] = useState<number>(1);
+  const [porPagina] = useState<number>(6);
+
   const { data, deleteUser, deleteUserBulk, isLoading, error } = useUsers({
     status: activeFilter,
     correo: activateFilterCorreo,
     rol: activateFilterRol,
   });
 
-  const { users } = useSearch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  // Paginacion para la tabla
-  const [pagina, setPagina] = useState<number>(1);
-  const [porPagina] = useState<number>(6);
+  const { q = "" } = queryString.parse(location.search) as {
+    q: string;
+  };
+
+  const { searchText, onInputChange } = useFormSearch({
+    searchText: q,
+  });
+
+  const { data: searchUserData } = useUserSearch(q);
+
+  const results = searchUserData?.data ?? [];
+  const showError = q.length > 0 && results.length === 0;
+
+  console.log("Cadena", searchUserData?.data);
+  console.log("Errro", showError);
+
+  const onSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    navigate(`?q=${searchText}`);
+  };
+
   const totalItems =
-    users.users.length > 0 ? users.users.length : (data?.data?.length ?? 0);
-  const maximo = Math.max(1, Math.ceil(totalItems / porPagina));
+    (searchUserData?.data.length ?? 0) > 0
+      ? searchUserData?.data.length
+      : (data?.data?.length ?? 0);
+
+  const maximo = Math.max(1, Math.ceil((totalItems ?? 0) / porPagina));
 
   // Constantes memoizadas
   const countData = useMemo(() => data?.metadata?.dataCount ?? 0, [data]);
@@ -58,10 +87,15 @@ export const useTableUsers = () => {
   const dataToShow = useMemo(() => {
     const startIndex = (pagina - 1) * porPagina;
     const endIndex = startIndex + porPagina;
-    return users.users.length > 0
-      ? users.users.slice(startIndex, endIndex)
-      : (data?.data?.slice(startIndex, endIndex) ?? []);
-  }, [data, users, pagina, porPagina]);
+
+    if (searchUserData) {
+      // Si la búsqueda está activa y devolvió un usuario, regresamos un array con ese único usuario
+      return searchUserData.data.slice(startIndex, endIndex);
+    }
+
+    // Si no hay búsqueda, usamos la lista general paginada
+    return data?.data?.slice(startIndex, endIndex) ?? [];
+  }, [data, searchUserData, pagina, porPagina]);
 
   useEffect(() => {
     if (!dataToShow.length) {
@@ -236,5 +270,12 @@ export const useTableUsers = () => {
     handleResetFiltersAll,
     handleCheckUser,
     handleCheckAllUsers,
+
+    totalItems,
+    onSearchSubmit,
+    searchText,
+    onInputChange,
+    showError,
+    q,
   };
 };

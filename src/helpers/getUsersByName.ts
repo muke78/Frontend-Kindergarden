@@ -14,7 +14,11 @@ interface User {
 }
 
 export const useUsersByName = (name: string) => {
-  const { data } = useUsers();
+  const { data } = useUsers({
+    status: "All",
+    correo: "All",
+    rol: "All",
+  });
   const dataFilter = data?.data as User[] | undefined;
 
   const filteredUsers = (dataFilter ?? []).filter((user) =>
