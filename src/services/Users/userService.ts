@@ -83,6 +83,20 @@ export const listUsersService = async (
   }
 };
 
+// Buscar usuario por medio de su correo electronico
+export const searchUserService = async (correo: string) => {
+  try {
+    const response = await api.get<ApiResponse<User[]>>(
+      `/busqueda-usuario/${correo}`,
+      getAuthHeaders(),
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Ocurrio un error al bucar el usuario", error);
+    throw error;
+  }
+};
+
 // Crear un usuario
 export const createUserService = async (
   nameUser: string,

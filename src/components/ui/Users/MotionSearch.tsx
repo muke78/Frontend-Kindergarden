@@ -19,7 +19,7 @@ export const MotionSearch = ({ value, showError }: PropsMotionSearch) => {
         <CountUp
           start={0}
           end={value}
-          duration={3}
+          duration={1.5}
           useEasing={true}
           separator=","
           className="account-balance"

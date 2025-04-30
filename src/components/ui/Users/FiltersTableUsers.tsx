@@ -1,4 +1,4 @@
-import { Icon } from "../Icon";
+import { Icon } from "@components/ui/Icon";
 
 interface PropsFiltersTable {
   onSearchSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
@@ -17,9 +17,6 @@ interface PropsFiltersTable {
 
 export const FiltersTableUsers = (props: PropsFiltersTable) => {
   const {
-    onSearchSubmit,
-    searchText,
-    onInputChange,
     activeFilter,
     handleStatusFilter,
     activateFilterCorreo,
@@ -27,21 +24,25 @@ export const FiltersTableUsers = (props: PropsFiltersTable) => {
     activateFilterRol,
     handleStatusFilterRol,
     handleResetFiltersAll,
+    onInputChange,
+    onSearchSubmit,
+    searchText,
   } = props;
+
   return (
     <>
       <form className="flex w-full" onSubmit={onSearchSubmit}>
-        <label className="input rounded-lg">
+        <label className="input rounded-lg p-0">
           <input
             type="text"
-            placeholder="Buscar por correo"
-            className="input join-item text-base-content"
+            placeholder="Busqueda por correo electronico"
+            className="input join-item text-base-content "
             name="searchText"
             autoComplete="off"
             value={searchText}
             onChange={onInputChange}
           />
-          <kbd className="kbd kbd-sm">Enter</kbd>
+          <kbd className="kbd kbd-sm border border-none p-4">Enter</kbd>
         </label>
       </form>
       {/* Filtro para el estatus de los usuarios */}

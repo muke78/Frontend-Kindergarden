@@ -1,14 +1,13 @@
 import { Spinner } from "@/components/Spinner";
 import { FiltersTableUsers } from "@/components/ui/Users/FiltersTableUsers";
 import { TablaUsuarios } from "@/components/ui/Users/TablaUsuarios";
-import { useSearch } from "@/hooks/Search/useSearch";
 import { useSidebar } from "@/hooks/Sidebar/useSidebar";
 import { useTableUsers } from "@/hooks/Users/useTableUsers";
 
 import { useState } from "react";
 
 import { Icon } from "@components/ui/Icon";
-import { MobileCard } from "@components/ui/Users/MobileCard";
+// import { MobileCard } from "@components/ui/Users/MobileCard";
 import { MotionSearch } from "@components/ui/Users/MotionSearch";
 
 export const Users = () => {
@@ -41,15 +40,13 @@ export const Users = () => {
     handleResetFiltersAll,
     handleCheckUser,
     handleCheckAllUsers,
-  } = useTableUsers();
-  const {
-    onInputChange,
     onSearchSubmit,
-    q,
     searchText,
+    onInputChange,
     showError,
-    usersCount,
-  } = useSearch();
+    q,
+    totalItems,
+  } = useTableUsers();
 
   const [isOpenModalAddUser, setIsOpenModalAddUser] = useState(false);
 
@@ -102,7 +99,7 @@ export const Users = () => {
           </div>
 
           <div className="w-full flex flex-row gap-4 animate__animated animate__fadeIn">
-            <MotionSearch value={usersCount} showError={showError} />
+            <MotionSearch value={totalItems ?? 0} showError={showError} />
             <div
               className="badge badge-soft badge-error animate__animated animate__fadeIn"
               style={{ display: showError ? "" : "none" }}
@@ -124,7 +121,6 @@ export const Users = () => {
               maximo={maximo}
               countData={countData}
               eliminar={eliminar}
-              eliminarSeleccionados={eliminarSeleccionados}
               isChecked={isChecked}
               onCheckAll={handleCheckAllUsers}
               selectedIds={selectedIds}
@@ -143,7 +139,7 @@ export const Users = () => {
               error={error}
             />
           )}
-          <MobileCard />
+          {/* <MobileCard /> */}
         </div>
       </div>
     </main>

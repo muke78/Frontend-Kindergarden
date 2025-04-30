@@ -43,13 +43,10 @@ interface TablaUsuariosProps {
   maximo: number;
   countData?: number;
   eliminar: (id: string) => void;
-
-  eliminarSeleccionados: (id: string) => void;
   isChecked: boolean;
   selectedIds: string[];
   onCheckTask: ({ id, checked }: HandleCheckUserParams) => void;
   onCheckAll: (checked: boolean) => void;
-
   showPassword: boolean;
   setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
   isModalOpen: boolean;
@@ -57,7 +54,6 @@ interface TablaUsuariosProps {
   selectedUser: UserData | undefined;
   setSelectedUser: React.Dispatch<React.SetStateAction<UserData | undefined>>;
   handleOpenModal: (user: FormData) => void;
-
   isOpenModalAddUser: boolean;
   setIsOpenModalAddUser: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -70,7 +66,6 @@ export const TablaUsuarios = (props: TablaUsuariosProps) => {
     maximo,
     countData,
     eliminar,
-    eliminarSeleccionados,
     isChecked,
     onCheckAll,
     onCheckTask,
