@@ -5,7 +5,7 @@ import { useCallback } from "react";
 import { Icon } from "@components/ui/Icon";
 import { Modal } from "@components/ui/Modal/Modal";
 
-export interface UserData {
+interface UserData {
   id: string;
   nameUser: string;
   email: string;

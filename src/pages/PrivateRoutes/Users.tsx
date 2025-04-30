@@ -10,6 +10,8 @@ import { Icon } from "@components/ui/Icon";
 // import { MobileCard } from "@components/ui/Users/MobileCard";
 import { MotionSearch } from "@components/ui/Users/MotionSearch";
 
+// import { ErrorFetching } from "@/components/ErrorFetching";
+
 export const Users = () => {
   const { isMobile, sidebarOpen } = useSidebar();
   const {
@@ -49,6 +51,13 @@ export const Users = () => {
   } = useTableUsers();
 
   const [isOpenModalAddUser, setIsOpenModalAddUser] = useState(false);
+
+  // if (error)
+  //   return (
+  //     <>
+  //       <ErrorFetching />
+  //     </>
+  //   );
 
   return (
     <main

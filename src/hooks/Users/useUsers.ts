@@ -2,14 +2,13 @@ import {
   createUserService,
   deleteUserBulkService,
   deleteUserService,
-  listUsersService,
   updateUserService,
 } from "@/services/Users/userService";
 import { useUserStore } from "@/store/Users/useUserStore";
 
 import toast from "react-hot-toast";
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface User {
   id: string;
@@ -29,26 +28,9 @@ interface UserUpdatePayload {
   AccountStatus?: string;
 }
 
-// Interfaz para los parámetros de búsqueda
-interface GetUsersParams {
-  status: string;
-  correo?: string;
-  rol?: string;
-}
-
-export const useUsers = (params: GetUsersParams) => {
+export const useUsers = () => {
   const { addUser, updateUser, deleteUser } = useUserStore();
   const queryClient = useQueryClient();
-
-  // Obtener usuarios
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["users", params],
-    queryFn: () => listUsersService(params),
-    staleTime: 1000 * 60 * 5,
-    refetchInterval: 1000 * 60 * 5,
-    refetchOnWindowFocus: true,
-    enabled: !!params,
-  });
 
   // Crear usuario
   const createUserMutation = useMutation({
@@ -174,9 +156,6 @@ export const useUsers = (params: GetUsersParams) => {
   });
 
   return {
-    data,
-    isLoading,
-    error,
     createUser: createUserMutation.mutate,
     updateUser: updateUserMutation.mutate,
     deleteUser: deleteUserMutation.mutate,

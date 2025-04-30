@@ -61,7 +61,7 @@ const getAuthHeaders = () => ({
 
 // Listar todos los usuarios que hay en la abse de datos
 export const listUsersService = async (
-  params: GetUsersParams,
+  params: GetUsersParams = { status: "Activo" },
 ): Promise<ApiResponse<User[]>> => {
   try {
     const url = `/lista-de-usuarios/${params.status}`;
@@ -92,7 +92,7 @@ export const searchUserService = async (correo: string) => {
     );
     return response.data;
   } catch (error) {
-    console.error("Ocurrio un error al bucar el usuario", error);
+    console.error("Ocurrio un error al buscar el usuario", error);
     throw error;
   }
 };
