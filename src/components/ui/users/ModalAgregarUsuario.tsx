@@ -43,18 +43,22 @@ export const ModalAgregarUsuario = ({
   // Callback para submit de crear usuario
   const onSubmit = useCallback(
     async (data: FormData) => {
-      await createUser({
-        nameUser: data.nameUser,
-        email: data.email,
-        profilePicture: data.profilePicture,
-        password: data.password,
-        role: data.role,
-        accountType: data.accountType,
-      });
-      reset();
-      setIsOpenModalAddUser(!isOpenModalAddUser);
+      try {
+        await createUser({
+          nameUser: data.nameUser,
+          email: data.email,
+          profilePicture: data.profilePicture,
+          password: data.password,
+          role: data.role,
+          accountType: data.accountType,
+        });
+        reset();
+        setIsOpenModalAddUser(false);
+      } catch (error) {
+        console.error("Error al crear usuario:", error);
+      }
     },
-    [createUser, reset, setIsOpenModalAddUser, isOpenModalAddUser],
+    [createUser, reset, setIsOpenModalAddUser],
   );
   return (
     <div>

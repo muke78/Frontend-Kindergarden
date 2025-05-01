@@ -19,7 +19,6 @@ export const Users = () => {
     activateFilterCorreo,
     activateFilterRol,
     isLoading,
-    error,
     dataToShow,
     pagina,
     setPagina,
@@ -84,18 +83,13 @@ export const Users = () => {
               handleStatusFilterRol={handleStatusFilterRol}
               handleResetFiltersAll={handleResetFiltersAll}
             />
-            {Object.keys(selectedIds).filter((id) => selectedIds[id]).length >
-              0 && (
+            {selectedIds.length > 0 && (
               <button
                 className="btn btn-error"
                 onClick={() => eliminarSeleccionados()}
               >
                 <Icon name="iconoEliminacionMasiva" size="text-2xl" /> (
-                {
-                  Object.keys(selectedIds).filter((id) => selectedIds[id])
-                    .length
-                }
-                )
+                {selectedIds.length})
               </button>
             )}
             <button
@@ -134,7 +128,6 @@ export const Users = () => {
               onCheckAll={handleCheckAllUsers}
               selectedIds={selectedIds}
               onCheckTask={handleCheckUser}
-              isMobile={isMobile}
               showPassword={showPassword}
               setShowPassword={setShowPassword}
               isModalOpen={isModalOpen}
@@ -144,8 +137,6 @@ export const Users = () => {
               handleOpenModal={handleOpenModal}
               isOpenModalAddUser={isOpenModalAddUser}
               setIsOpenModalAddUser={setIsOpenModalAddUser}
-              isLoading={isLoading}
-              error={error}
             />
           )}
           {/* <MobileCard /> */}

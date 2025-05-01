@@ -33,29 +33,32 @@ export const ModalEditarUsuario = ({
 }: PropsModalEditarUsuario) => {
   const { updateUser } = useUsers();
 
-  // Callback para guardar cambios de usuario
+  // Callback para editar un usuario
   const handleSaveChangesToEdit = useCallback(async () => {
-    const dataToUpdate: {
-      id: string;
-      nameUser: string;
-      email: string;
-      password?: string;
-      role: string;
-      accountStatus: string;
-    } = {
-      id: selectedUser?.id || "",
-      nameUser: selectedUser?.nameUser || "",
-      email: selectedUser?.email || "",
-      role: selectedUser?.role || "",
-      accountStatus: selectedUser?.accountStatus || "",
-    };
-
-    // Solo agregar la contraseña si fue modificada y no está vacía
-    if (selectedUser?.password && selectedUser.password.trim() !== "") {
-      dataToUpdate.password = selectedUser.password;
+    try {
+      const dataToUpdate: {
+        id: string;
+        nameUser: string;
+        email: string;
+        password?: string;
+        role: string;
+        accountStatus: string;
+      } = {
+        id: selectedUser?.id || "",
+        nameUser: selectedUser?.nameUser || "",
+        email: selectedUser?.email || "",
+        role: selectedUser?.role || "",
+        accountStatus: selectedUser?.accountStatus || "",
+      };
+      // Solo agregar la contraseña si fue modificada y no está vacía
+      if (selectedUser?.password && selectedUser.password.trim() !== "") {
+        dataToUpdate.password = selectedUser.password;
+      }
+      await updateUser(dataToUpdate);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("Error al actualizar un usuario", error);
     }
-    updateUser(dataToUpdate);
-    setIsModalOpen(false);
   }, [selectedUser, updateUser, setIsModalOpen]);
 
   // Cierra el modal
@@ -75,6 +78,7 @@ export const ModalEditarUsuario = ({
           saveButtonText={"Editar usuario"}
         >
           <div className="grid grid-cols-1 grid-rows-4 lg:grid-cols-2 lg:grid-rows-2 gap-4 mt-6">
+            {/* Input para acualizar el nombre de usuario */}
             <div>
               <label className="label">Nombre</label>
               <input
@@ -89,6 +93,7 @@ export const ModalEditarUsuario = ({
                 }
               />
             </div>
+            {/* Input para actualizar el correo de usuario */}
             <div>
               <label className="label">Correo</label>
               <input
@@ -103,21 +108,24 @@ export const ModalEditarUsuario = ({
                 }
               />
             </div>
+            {/* Select para actualizar el rol del usuario */}
             <div>
               <label className="label">Rol</label>
               <select
                 className="select w-full"
                 value={selectedUser.role}
-                onChange={(e) => ({
-                  ...selectedUser,
-                  role: e.target.value,
-                })}
+                onChange={(e) =>
+                  setSelectedUser({
+                    ...selectedUser,
+                    role: e.target.value,
+                  })
+                }
               >
-                <option disabled={true}>Elije un rol</option>
                 <option value="admin">Admin</option>
                 <option value="user">User</option>
               </select>
             </div>
+            {/* Input para actualizar la contraseña de usuario */}
             <div className="join w-full h-10 flex flex-col">
               <label className="label">Contraseña</label>
               <div className="flex flex-row">
@@ -143,6 +151,7 @@ export const ModalEditarUsuario = ({
                 </span>
               </div>
             </div>
+            {/* Select para actualizar el estatus de usuario */}
             <div>
               <label className="label">Estatus</label>
               <select

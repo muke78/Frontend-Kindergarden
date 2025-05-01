@@ -1,7 +1,7 @@
 import { formatDate } from "@/utils/formatDate";
 import { getStatusBadge } from "@/utils/statusBadge";
 
-import { Icon } from "../Icon";
+import { Icon } from "@components/ui/Icon";
 
 interface User {
   message: string;
@@ -23,10 +23,19 @@ interface HandleCheckUserParams {
   checked: boolean;
 }
 
+interface FormDataEdit {
+  id: string;
+  nameUser: string;
+  email: string;
+  password?: string;
+  role: string;
+  accountStatus: string;
+}
+
 interface PropsTableRow {
   dataToShow: User[];
   eliminar: (id: string) => void;
-  handleOpenModal: (user: FormData) => void;
+  handleOpenModal: (user: FormDataEdit) => void;
   selectedIds: string[];
   onCheckTask: ({ id, checked }: HandleCheckUserParams) => void;
 }
@@ -39,12 +48,8 @@ export const TableRow = (props: PropsTableRow) => {
       {dataToShow.map((user) => (
         <tr key={user.ID} className="hover:bg-base-300 font-medium">
           <td>
-            <label
-              id="checkAll"
-              className="flex items-center space-x-2 cursor-pointer"
-            >
+            <label className="flex items-center space-x-2 cursor-pointer">
               <input
-                id="checkAll"
                 type="checkbox"
                 checked={selectedIds.includes(user.ID)}
                 onChange={(e) =>
@@ -55,7 +60,7 @@ export const TableRow = (props: PropsTableRow) => {
             </label>
           </td>
           <td>
-            <div className="w-10 h-10 flex items-center justify-center bg-neutral text-neutral-content rounded-full">
+            <div className="w-11 h-10 flex items-center justify-center bg-neutral text-neutral-content rounded-full">
               <span className="font-bold text-lg">
                 {user?.ProfilePicture ? (
                   <img

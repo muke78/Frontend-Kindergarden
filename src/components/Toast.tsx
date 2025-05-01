@@ -6,7 +6,7 @@ export const Toast = () => {
   const { changeTheme } = useTheme();
   return (
     <Toaster
-      position="bottom-center"
+      position="bottom-right"
       reverseOrder={false}
       toastOptions={{
         style: {

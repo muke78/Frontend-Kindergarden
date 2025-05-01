@@ -43,9 +43,6 @@ export default defineConfig({
             if (id.includes("react-hot-toast")) {
               return "react-hot-toast";
             }
-            if (id.includes("react-hook-form")) {
-              return "react-hook-form";
-            }
             if (id.includes("react-icons")) {
               return "react-icons";
             }
