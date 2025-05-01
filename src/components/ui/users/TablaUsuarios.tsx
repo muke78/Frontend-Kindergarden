@@ -36,6 +36,15 @@ interface HandleCheckUserParams {
   checked: boolean;
 }
 
+interface FormDataEdit {
+  id: string;
+  nameUser: string;
+  email: string;
+  password?: string;
+  role: string;
+  accountStatus: string;
+}
+
 interface TablaUsuariosProps {
   dataToShow: User[];
   pagina: number;
@@ -53,7 +62,7 @@ interface TablaUsuariosProps {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   selectedUser: UserData | undefined;
   setSelectedUser: React.Dispatch<React.SetStateAction<UserData | undefined>>;
-  handleOpenModal: (user: FormData) => void;
+  handleOpenModal: (user: FormDataEdit) => void;
   isOpenModalAddUser: boolean;
   setIsOpenModalAddUser: React.Dispatch<React.SetStateAction<boolean>>;
 }

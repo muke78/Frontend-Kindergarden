@@ -156,9 +156,9 @@ export const useUsers = () => {
   });
 
   return {
-    createUser: createUserMutation.mutate,
-    updateUser: updateUserMutation.mutate,
-    deleteUser: deleteUserMutation.mutate,
-    deleteUserBulk: deleteTaskBulkMutation.mutate,
+    createUser: createUserMutation.mutateAsync,
+    updateUser: updateUserMutation.mutateAsync,
+    deleteUser: deleteUserMutation.mutateAsync,
+    deleteUserBulk: deleteTaskBulkMutation.mutateAsync,
   };
 };

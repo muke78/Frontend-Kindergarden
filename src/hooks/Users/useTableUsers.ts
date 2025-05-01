@@ -201,7 +201,15 @@ export const useTableUsers = () => {
   const eliminarSeleccionados = useCallback(() => {
     if (selectedIds.length === 0) return;
 
-    const UMBRAL_DOBLE_CONFIRMACION = 150;
+    // Umbral del tamaño de datos seleccionados maximo para mostrar un segundo
+    // mensaje de confirmacion para borrar los datos seleccioandos
+    const UMBRAL_DOBLE_CONFIRMACION = 10;
+
+    // Capturamos la cantidad de elementos ANTES de la eliminación y en el filtro actual
+    const currentFilteredCount = data?.data?.length ?? 0;
+    const deletingAllFiltered =
+      selectedIds.length > 0 && selectedIds.length === currentFilteredCount;
+
     Swal.fire({
       title: "¿Eliminar seleccionados?",
       text: `Eliminarás ${selectedIds.length} registros.`,
@@ -230,16 +238,31 @@ export const useTableUsers = () => {
               await deleteUserBulk(selectedIds);
               setSelectedIds([]);
               setIsChecked(false);
+
+              if (deletingAllFiltered) {
+                setActiveFilter("All");
+                setActivateFilterCorreo("All");
+                setActivateFilterRol("All");
+                // Opcional: resetear paginación solo si cambias el filtro principal
+                setPagina(1);
+              }
             }
           });
         } else {
           await deleteUserBulk(selectedIds);
           setSelectedIds([]);
           setIsChecked(false);
+          if (deletingAllFiltered) {
+            setActiveFilter("All");
+            setActivateFilterCorreo("All");
+            setActivateFilterRol("All");
+            // Opcional: resetear paginación solo si cambias el filtro principal
+            setPagina(1);
+          }
         }
       }
     });
-  }, [deleteUserBulk, selectedIds, changeTheme]);
+  }, [deleteUserBulk, selectedIds, changeTheme, data?.data?.length]);
 
   return {
     activeFilter,
