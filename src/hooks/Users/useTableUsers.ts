@@ -188,7 +188,7 @@ export const useTableUsers = () => {
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Si, eliminar",
-        theme: changeTheme === "dracula" ? "dark" : "light",
+        theme: changeTheme === "dim" ? "dark" : "light",
       }).then(async (result) => {
         if (result.isConfirmed) {
           await deleteUser(p);
@@ -219,7 +219,7 @@ export const useTableUsers = () => {
       cancelButtonColor: "#d33",
       confirmButtonText: "Sí, eliminar",
       cancelButtonText: "Cancelar",
-      theme: changeTheme === "dracula" ? "dark" : "light",
+      theme: changeTheme === "dim" ? "dark" : "light",
     }).then(async (result) => {
       if (result.isConfirmed) {
         if (selectedIds.length > UMBRAL_DOBLE_CONFIRMACION) {
@@ -232,7 +232,7 @@ export const useTableUsers = () => {
             cancelButtonColor: "#d33",
             confirmButtonText: "Sí, eliminar definitivamente",
             cancelButtonText: "No, prefiero cancelar",
-            theme: changeTheme === "dracula" ? "dark" : "light",
+            theme: changeTheme === "dim" ? "dark" : "light",
           }).then(async (resultSegundoSwal) => {
             if (resultSegundoSwal.isConfirmed) {
               await deleteUserBulk(selectedIds);

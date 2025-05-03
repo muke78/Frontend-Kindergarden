@@ -10,8 +10,8 @@ export const Toast = () => {
       reverseOrder={false}
       toastOptions={{
         style: {
-          background: `${changeTheme === "dracula" ? "#1d283a" : changeTheme === "pastel" ? "#021431" : "#021431"}`,
-          color: `${changeTheme === "dracula" ? "#eceff4" : changeTheme === "pastel" ? "#eceff4" : "#0f172a"}`,
+          background: `${changeTheme === "dim" ? "#20252e" : changeTheme === "emerald" ? "#333c4d" : "#333c4d"}`,
+          color: `${changeTheme === "dim" ? "#eceff4" : changeTheme === "emerald" ? "#eceff4" : "#0f172a"}`,
         },
       }}
     />
