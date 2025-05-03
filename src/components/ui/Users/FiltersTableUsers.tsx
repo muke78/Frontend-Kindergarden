@@ -32,7 +32,7 @@ export const FiltersTableUsers = (props: PropsFiltersTable) => {
   return (
     <>
       <form className="flex w-full" onSubmit={onSearchSubmit}>
-        <label className="input rounded-lg p-0">
+        <label className="input rounded-lg p-1">
           <input
             type="text"
             placeholder="Busqueda por correo electronico"

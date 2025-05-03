@@ -10,8 +10,8 @@ interface ThemeState {
 export const useThemeStore = create<ThemeState>((set, get) => ({
   theme:
     typeof window !== "undefined"
-      ? localStorage.getItem("theme") || "pastel"
-      : "pastel",
+      ? localStorage.getItem("theme") || "emerald"
+      : "emerald",
 
   setTheme: (newTheme) => {
     // Determina el tema a establecer, ya sea directamente o usando la función
@@ -27,7 +27,7 @@ export const useThemeStore = create<ThemeState>((set, get) => ({
 
   toggleTheme: () => {
     set((state) => {
-      const newTheme = state.theme === "pastel" ? "dracula" : "pastel";
+      const newTheme = state.theme === "emerald" ? "dim" : "emerald";
       if (typeof window !== "undefined") {
         document.documentElement.setAttribute("data-theme", newTheme);
         localStorage.setItem("theme", newTheme);
