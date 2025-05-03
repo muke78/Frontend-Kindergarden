@@ -12,7 +12,7 @@ export const ThemeController = () => {
       className="w-full flex  items-center justify-center text-white font-medium btn btn-neutral btn-circle rounded-full"
       aria-label="Cambio de tema"
     >
-      {changeTheme === "night" ? (
+      {changeTheme === "dracula" ? (
         <Icon name="iconoLuna" size="text-xl" />
       ) : (
         <Icon name="iconoSol" size="text-xl" />
