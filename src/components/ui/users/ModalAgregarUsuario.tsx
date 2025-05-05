@@ -92,7 +92,7 @@ export const ModalAgregarUsuario = ({
                 <label className="label">Correo</label>
                 <input
                   type="email"
-                  placeholder="email"
+                  placeholder="Correo electrónico"
                   className="input input-bordered w-full text-base-content"
                   {...register("email")}
                 />

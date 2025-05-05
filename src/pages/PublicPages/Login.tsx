@@ -1,12 +1,18 @@
 import { Icon } from "@/components/ui/Icon";
 import { useLogin } from "@/hooks/Auth/useAuth";
 import { useAuthGoogleLogin } from "@/hooks/Auth/useAuthGoogle";
+import { loginUserSchema } from "@/schemas/Login/loginUserSchema";
 
 import { useState } from "react";
 import { type FieldError, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
-import { GoogleLogin } from "@react-oauth/google";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  CredentialResponse,
+  GoogleLogin,
+  useGoogleOneTapLogin,
+} from "@react-oauth/google";
 import { v } from "@styles/variables";
 
 interface FormData {
@@ -14,23 +20,18 @@ interface FormData {
   password: string;
 }
 
-interface CredentialResponse {
-  credential: string;
-}
-
 export const Login = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const { mutate } = useLogin();
-  const { mutate: googleLogin } = useAuthGoogleLogin();
-
-  const inputErrorText = "Este campo es obligatorio";
-  const invalidPatterEmail = "Formato de correo inválido";
+  const { createUserGoogle } = useAuthGoogleLogin();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormData>({
+    resolver: zodResolver(loginUserSchema()),
+  });
 
   const onSubmit = async (data: FormData) => {
     await mutate({
@@ -45,14 +46,28 @@ export const Login = () => {
     if (credentialResponse.credential) {
       try {
         // Llamamos a la mutación de Google Login
-        await googleLogin(credentialResponse.credential); // Le pasamos el token de Google
+        await createUserGoogle(credentialResponse.credential); // Le pasamos el token de Google
       } catch (error) {
-        console.error("Error al autenticar con Google", error);
+        console.error(
+          "Error al autenticar con Google (mutación fallida):",
+          error,
+        );
       }
     } else {
-      console.error("Credential is undefined");
+      console.error("Credential is undefined in the success response.");
     }
   };
+
+  // Manejador Común para Errores de Google Login (para One Tap y Botón)
+  const handleGoogleLoginError = () => {
+    console.log("Google Login Failed");
+  };
+
+  useGoogleOneTapLogin({
+    onSuccess: handleGoogleLoginSuccess,
+    onError: handleGoogleLoginError,
+    auto_select: true,
+  });
 
   return (
     <div className="h-screen flex flex-col justify-center items-center p-4 bg-base-200 animate__animated animate__fadeIn">
@@ -71,14 +86,15 @@ export const Login = () => {
               ¡Bienvenido de nuevo! Inicia sesión para continuar.
             </span>
             {/* Google Login Button */}
+
             <GoogleLogin
-              onSuccess={(e) =>
-                handleGoogleLoginSuccess({ credential: e.credential || "" })
-              }
-              onError={() => {
-                console.log("Login Failed");
-              }}
+              onSuccess={handleGoogleLoginSuccess}
+              onError={handleGoogleLoginError}
+              theme="filled_black"
+              size="large"
+              shape="pill"
             />
+
             <div className="divider divider-secondary text-white m-0">O</div>
             <form
               className="flex flex-col gap-4"
@@ -89,14 +105,8 @@ export const Login = () => {
                 <input
                   type="email"
                   placeholder="Correo electrónico"
-                  className="input validator w-full text-base-content rounded-l-lg"
-                  {...register("email", {
-                    required: inputErrorText,
-                    pattern: {
-                      value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                      message: invalidPatterEmail,
-                    },
-                  })}
+                  className="input input-bordered w-full text-base-content"
+                  {...register("email", {})}
                 />
                 {errors.email && (
                   <p className="text-red-500 p-0">
@@ -108,10 +118,8 @@ export const Login = () => {
                     <input
                       type={showPassword ? "text" : "password"}
                       placeholder="Contraseña"
-                      className="input validator w-full text-base-content rounded-l-lg"
-                      {...register("password", {
-                        required: inputErrorText,
-                      })}
+                      className="input w-full text-base-content rounded-l-lg"
+                      {...register("password")}
                     />
                   </div>
                   <span

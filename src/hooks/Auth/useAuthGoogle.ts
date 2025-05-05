@@ -11,13 +11,19 @@ export const useAuthGoogleLogin = () => {
   const { login } = useAuthStore();
   const { pathname, search } = useLocation();
 
-  const mutation = useMutation({
+  const singInUserByGoogle = useMutation({
     mutationFn: (credential: string) => googleLoginService(credential),
     onSuccess: (data) => {
       login(data.data.token);
       const lastPath = pathname + search;
       localStorage.setItem("lastPath", lastPath);
       navigate(lastPath, { replace: true });
+      toast.success(
+        `Bienvenid@, has iniciado sesión correctamente con Google`,
+        {
+          duration: 9000,
+        },
+      );
     },
     onError: (error: {
       response?: { data?: { error?: { message?: string } } };
@@ -27,5 +33,5 @@ export const useAuthGoogleLogin = () => {
       });
     },
   });
-  return mutation;
+  return { createUserGoogle: singInUserByGoogle.mutateAsync };
 };
