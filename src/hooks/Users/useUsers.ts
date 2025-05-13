@@ -16,7 +16,6 @@ interface User {
   email: string;
   profilePicture: string;
   role: string;
-  accountType: string;
   accountStatus: string;
 }
 
@@ -40,9 +39,15 @@ export const useUsers = () => {
       password: string;
       role: string;
       profilePicture: string;
-      accountType: string;
+      accountStatus: string;
     }) =>
-      createUserService(data.nameUser, data.email, data.password, data.role),
+      createUserService(
+        data.nameUser,
+        data.email,
+        data.password,
+        data.role,
+        data.accountStatus,
+      ),
     onSuccess: (newUser) => {
       const userToAdd: User = {
         id: Date.now().toString(),
@@ -50,7 +55,6 @@ export const useUsers = () => {
         email: newUser.data.Email,
         profilePicture: newUser.data.ProfilePicture,
         role: newUser.data.Role,
-        accountType: newUser.data.AccountType,
         accountStatus: newUser.data.AccountStatus,
       };
 

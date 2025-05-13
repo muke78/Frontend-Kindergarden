@@ -3,6 +3,13 @@ import { FaSearch } from "react-icons/fa";
 import { FaPlusCircle } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 import { FaTrashAlt } from "react-icons/fa";
+import { FaSave } from "react-icons/fa";
+import { FaCalendarAlt } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
+import { FaBan } from "react-icons/fa";
+import { FaCheckCircle } from "react-icons/fa";
+import { FaEnvelope } from "react-icons/fa";
+import { FaChrome } from "react-icons/fa";
 import { FaClockRotateLeft } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { GrUserManager } from "react-icons/gr";
@@ -71,4 +78,11 @@ export const v = {
   iconoBuscar: FaSearch,
   iconoAdvertencia: PiWarningCircleFill,
   iconoResetearFiltro: MdFilterAltOff,
+  iconoGuardar: FaSave,
+  iconoCalendario: FaCalendarAlt,
+  iconoUsuario: FaUser,
+  iconoUsuarioInactivo: FaBan,
+  iconoUsuarioActivo: FaCheckCircle,
+  iconoCorreo: FaEnvelope,
+  iconoChrome: FaChrome,
 };

@@ -14,7 +14,7 @@ interface FormData {
   profilePicture: string;
   password: string;
   role: string;
-  accountType: string;
+  accountStatus: string;
 }
 
 interface PropsModalAgregarUsuario {
@@ -50,7 +50,7 @@ export const ModalAgregarUsuario = ({
           profilePicture: data.profilePicture,
           password: data.password,
           role: data.role,
-          accountType: data.accountType,
+          accountStatus: data.accountStatus,
         });
         reset();
         setIsOpenModalAddUser(false);
@@ -129,6 +129,22 @@ export const ModalAgregarUsuario = ({
                 )}
               </div>
 
+              <div>
+                <label className="label">Estatus</label>
+                <select
+                  className="select w-full"
+                  {...register("accountStatus")}
+                >
+                  <option disabled={true}>Elije un rol</option>
+                  <option value="Activo">Activo</option>
+                  <option value="Inactivo">Inactivo</option>
+                </select>
+              </div>
+              {errors.accountStatus && (
+                <p className="text-red-500 p-0">
+                  {(errors.accountStatus as FieldError)?.message}
+                </p>
+              )}
               <div>
                 <label className="label">Rol</label>
                 <select className="select w-full" {...register("role")}>

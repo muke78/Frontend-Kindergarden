@@ -61,7 +61,7 @@ export const Users = () => {
   return (
     <main
       className={`min-h-screen transition-all duration-300 ${
-        isMobile ? "ml-0 mt-32" : sidebarOpen ? "ml-64" : "ml-20"
+        isMobile ? "ml-0" : sidebarOpen ? "ml-64" : "ml-20"
       } animate__animated animate__fadeIn`}
     >
       <div className="grid grid-cols-5 grid-rows-5 gap-4 w-full h-screen p-4 md:p-6 max-w-[86rem] mx-auto">
@@ -111,8 +111,9 @@ export const Users = () => {
             </div>
           </div>
         </div>
+
         <div
-          className={`col-span-5 row-span-3 row-start-3  ${isLoading ? "-mt-80" : "-mt-12"}`}
+          className={`gap-4 col-span-5 row-span-3 row-start-3  ${isLoading ? "-mt-80" : "-mt-12"}`}
         >
           {isLoading ? (
             <Spinner />
@@ -139,7 +140,6 @@ export const Users = () => {
               setIsOpenModalAddUser={setIsOpenModalAddUser}
             />
           )}
-          {/* <MobileCard /> */}
         </div>
       </div>
     </main>

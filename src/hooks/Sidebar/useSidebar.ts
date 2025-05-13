@@ -9,7 +9,7 @@ export const useSidebar = () => {
   // Detectar si es dispositivo móvil
   useEffect(() => {
     const checkIfMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth < 1243);
     };
 
     // Comprobar al cargar y al cambiar el tamaño de la ventana

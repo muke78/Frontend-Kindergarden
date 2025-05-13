@@ -15,13 +15,11 @@ export const registerService = async (
   nameUser: string,
   email: string,
   password: string,
-  role: string,
 ): Promise<RegisterResponse> => {
-  const response = await api.post<RegisterResponse>("/crear-usuario", {
+  const response = await api.post<RegisterResponse>("/registrar-usuario", {
     nameUser,
     email,
     password,
-    role,
   });
   return response.data;
 };

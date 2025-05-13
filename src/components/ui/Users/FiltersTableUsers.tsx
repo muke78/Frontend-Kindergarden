@@ -58,7 +58,7 @@ export const FiltersTableUsers = (props: PropsFiltersTable) => {
         <option value="" disabled>
           Filtrar por status
         </option>
-        <option value="All">Todos</option>
+        <option value="All">Todos los</option>
         <option value="Activo">Activos</option>
         <option value="Inactivo">Inactivos</option>
       </select>

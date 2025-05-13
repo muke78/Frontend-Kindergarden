@@ -55,12 +55,19 @@ export const TableRow = (props: PropsTableRow) => {
                 onChange={(e) =>
                   onCheckTask({ id: user.ID, checked: e.target.checked })
                 }
-                className="checkbox checkbox-primary"
+                className="checkbox checkbox-error"
+                aria-label="Seleccionar todos los usuarios"
               />
             </label>
           </td>
           <td>
-            <div className="w-11 h-10 flex items-center justify-center bg-neutral text-neutral-content rounded-full">
+            <div
+              className={`w-12 h-12 rounded-full flex items-center justify-center ${
+                selectedIds.includes(user.ID)
+                  ? "bg-error text-neutral"
+                  : "bg-neutral text-white"
+              }`}
+            >
               <span className="font-bold text-lg">
                 {user?.ProfilePicture ? (
                   <img
