@@ -1,27 +1,28 @@
 import { useRegister } from "@/hooks/Register/useRegister";
+import { registerUserSchema } from "@/schemas/Users/registerUserSchema";
 
 import { useState } from "react";
 import { type FieldError, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 import { Icon } from "@components/ui/Icon";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { v } from "@styles/variables";
 
 interface FormData {
   nameUser: string;
   email: string;
   password: string;
-  role: string;
 }
 export const Register = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const inputErrorText = "Este campo es obligatorio";
-  const invalidPatterEmail = "Formato de correo inválido";
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormData>({
+    resolver: zodResolver(registerUserSchema()),
+  });
   const { mutate } = useRegister();
 
   const onSubmit = async (data: FormData) => {
@@ -29,7 +30,6 @@ export const Register = () => {
       nameUser: data.nameUser,
       email: data.email,
       password: data.password,
-      role: data.role,
     });
   };
   return (
@@ -63,13 +63,11 @@ export const Register = () => {
                   type="text"
                   placeholder="Nombre de usuario"
                   className="input input-bordered w-full text-base-content"
-                  {...register("nameUser", {
-                    required: inputErrorText,
-                  })}
+                  {...register("nameUser")}
                 />
-                {errors.email && (
+                {errors.nameUser && (
                   <p className="text-primary p-0">
-                    {(errors.email as FieldError)?.message}
+                    {(errors.nameUser as FieldError)?.message}
                   </p>
                 )}
               </div>
@@ -78,13 +76,7 @@ export const Register = () => {
                   type="email"
                   placeholder="Correo electrónico"
                   className="input input-bordered w-full text-base-content"
-                  {...register("email", {
-                    required: inputErrorText,
-                    pattern: {
-                      value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                      message: invalidPatterEmail,
-                    },
-                  })}
+                  {...register("email")}
                 />
                 {errors.email && (
                   <p className="text-primary p-0">
@@ -99,9 +91,7 @@ export const Register = () => {
                       type={showPassword ? "text" : "password"}
                       placeholder="Contraseña"
                       className="input input-bordered w-full text-base-content rounded-l-lg"
-                      {...register("password", {
-                        required: inputErrorText,
-                      })}
+                      {...register("password")}
                     />
                   </div>
                   <span
@@ -117,10 +107,14 @@ export const Register = () => {
                 </div>
                 {errors.password && (
                   <p className="text-primary p-0">
-                    {(errors.email as FieldError)?.message}
+                    {(errors.password as FieldError)?.message}
                   </p>
                 )}
               </div>
+              <small className="text-balance text-white block">
+                *NOTA los usuarios registrados se crearan como Inactivos, un
+                administrador verificara su ingreso a la plataforma
+              </small>
             </div>
 
             <button className="btn btn-primary w-full">Registrarse</button>

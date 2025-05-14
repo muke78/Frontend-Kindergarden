@@ -17,7 +17,7 @@ export const TableHeader = ({ isChecked, onCheckAll }: TableHeaderProps) => {
               type="checkbox"
               checked={isChecked}
               onChange={(event) => onCheckAll(event.target.checked)}
-              className="checkbox checkbox-primary"
+              className="checkbox checkbox-error"
             />
             <span className="sr-only">Seleccionar todos</span>
             {/* Este span es invisible visualmente pero accesible para lectores de pantalla */}
@@ -29,7 +29,7 @@ export const TableHeader = ({ isChecked, onCheckAll }: TableHeaderProps) => {
         <th>Último inicio</th>
         <th>Informacion</th>
         <th>Tipo</th>
-        <th>Status</th>
+        <th>Estatus</th>
         <th>Acciones</th>
       </tr>
     </thead>

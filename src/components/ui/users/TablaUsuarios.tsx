@@ -7,6 +7,8 @@ import { TableRow } from "@components/ui/Table/TableRow";
 import { ModalAgregarUsuario } from "@components/ui/Users/ModalAgregarUsuario";
 import { ModalEditarUsuario } from "@components/ui/Users/ModalEditarUsuario";
 
+import { MobileUsers } from "./MobileUsers";
+
 interface User {
   message: string;
   ID: string;
@@ -101,8 +103,21 @@ export const TablaUsuarios = (props: TablaUsuariosProps) => {
           </span>
           <span>No usuarios que mostrar</span>
         </div>
+      ) : isMobile ? (
+        <>
+          <Paginacion pagina={pagina} setPagina={setPagina} maximo={maximo} />
+          <MobileUsers
+            dataToShow={dataToShow}
+            eliminar={eliminar}
+            handleOpenModal={handleOpenModal}
+            selectedIds={selectedIds}
+            onCheckTask={onCheckTask}
+            isChecked={isChecked}
+            onCheckAll={onCheckAll}
+          />
+        </>
       ) : (
-        <div className="hidden md:block overflow-x-auto rounded-md border-t-4 border-neutral/60 row-start-3 shadow-2xl">
+        <div className="overflow-x-auto rounded-md border-t-4 border-neutral/60 row-start-3 shadow-2xl">
           <table className="table table-zebra w-full animate__animated animate__fadeIn">
             <TableHeader isChecked={isChecked} onCheckAll={onCheckAll} />
 
@@ -135,7 +150,7 @@ export const TablaUsuarios = (props: TablaUsuariosProps) => {
       />
 
       <div
-        className={`flex justify-end p-5 w-full ${isMobile ? "hidden" : "block"}`}
+        className={`flex justify-end p-5 w-full ${isMobile ? "block" : "block"}`}
       >
         <span className="badge badge-soft badge-secondary">
           Total de registros {countData}

@@ -103,11 +103,12 @@ export const createUserService = async (
   email: string,
   password: string,
   role: string,
+  accountStatus: string,
 ): Promise<ApiResponse<User>> => {
   try {
     const response = await api.post<ApiResponse<User>>(
       "/crear-usuario",
-      { nameUser, email, password, role },
+      { nameUser, email, password, role, accountStatus },
       getAuthHeaders(),
     );
     return response.data;

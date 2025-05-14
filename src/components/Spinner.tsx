@@ -14,7 +14,7 @@ export const Spinner = () => {
       } animate__animated animate__fadeIn`}
     >
       <HashLoader
-        color={changeTheme === "dracula" ? "#818cf8" : "#463aa2"}
+        color={changeTheme === "dim" ? "#ff7d5d" : "#377cfb"}
         size={200}
       />
     </div>
