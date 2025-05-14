@@ -1,9 +1,14 @@
 interface TableHeaderProps {
   isChecked: boolean;
   onCheckAll: (checked: boolean) => void;
+  usersColumns: { key: string; label: string }[];
 }
 
-export const TableHeader = ({ isChecked, onCheckAll }: TableHeaderProps) => {
+export const TableHeader = ({
+  isChecked,
+  onCheckAll,
+  usersColumns,
+}: TableHeaderProps) => {
   return (
     <thead>
       <tr className="text-left text-md">
@@ -23,14 +28,9 @@ export const TableHeader = ({ isChecked, onCheckAll }: TableHeaderProps) => {
             {/* Este span es invisible visualmente pero accesible para lectores de pantalla */}
           </label>
         </th>
-        <th>Avatar</th>
-        <th>Nombre de usuario</th>
-        <th>Rol</th>
-        <th>Último inicio</th>
-        <th>Informacion</th>
-        <th>Tipo</th>
-        <th>Estatus</th>
-        <th>Acciones</th>
+        {usersColumns.map((col) => (
+          <th key={col.key}>{col.label}</th>
+        ))}
       </tr>
     </thead>
   );

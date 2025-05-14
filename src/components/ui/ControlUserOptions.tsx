@@ -66,7 +66,7 @@ export const ControlUserOptions = () => {
       {/* Dropdown */}
       {openDropDownUser && (
         <div>
-          <ul className="min-w-[200px] max-w-xs  bg-base-300 rounded-b-3xl border-t border-neutral-500/50 shadow-lg">
+          <ul className="min-w-full max-w-xs  bg-base-300 rounded-b-3xl border-t border-neutral-500/50 shadow-lg">
             {controlOptionsuserArray.map((item) => (
               <li key={item.label} className="p-2">
                 {item.to ? (

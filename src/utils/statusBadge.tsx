@@ -4,21 +4,21 @@ export const getStatusBadge = (status: string) => {
   switch (status?.toLowerCase()) {
     case "activo":
       return (
-        <span className="badge badge-success w-full">
-          <Icon name="iconoUsuarioActivo" /> {status}
+        <span className="badge  w-full">
+          <Icon name="iconoUsuarioActivo" className="text-success" /> {status}
         </span>
       );
     case "inactivo":
       return (
-        <span className="badge badge-neutral w-full">
-          <Icon name="iconoUsuarioInactivo" /> {status}
+        <span className="badge w-full">
+          <Icon name="iconoUsuarioInactivo" className="text-error" /> {status}
         </span>
       );
     case "suspended":
       return (
-        <span className="badge badge-error w-full">
+        <span className="badge w-full">
           {" "}
-          <Icon name="iconoCerrar" /> {status}
+          <Icon name="iconoCerrar" className="text-warning" /> {status}
           {status}
         </span>
       );

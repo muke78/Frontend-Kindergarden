@@ -1,4 +1,4 @@
-## Sistema de Gestión Escolar
+# 🏫 AKT - CRM para Administración de Kinder
 
 Un sistema de gestión diseñado para administrar eficientemente una escuela, permitiendo gestionar datos clave dentro de la plataforma mediante un CRM. Incluye distintos módulos y catálogos para un control óptimo de la información almacenada en la base de datos.
 
