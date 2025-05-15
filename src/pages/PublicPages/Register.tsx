@@ -1,28 +1,28 @@
-import { Toast } from "@/components/Toast";
+import { useRegister } from "@/hooks/Register/useRegister";
+import { registerUserSchema } from "@/schemas/Users/registerUserSchema";
 
 import { useState } from "react";
-import { type FieldError, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 import { Icon } from "@components/ui/Icon";
-import { useRegister } from "@hooks/useRegister";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { v } from "@styles/variables";
 
 interface FormData {
   nameUser: string;
   email: string;
   password: string;
-  role: string;
 }
 export const Register = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const inputErrorText = "Este campo es obligatorio";
-  const invalidPatterEmail = "Formato de correo inválido";
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormData>({
+    resolver: zodResolver(registerUserSchema()),
+  });
   const { mutate } = useRegister();
 
   const onSubmit = async (data: FormData) => {
@@ -30,7 +30,6 @@ export const Register = () => {
       nameUser: data.nameUser,
       email: data.email,
       password: data.password,
-      role: data.role,
     });
   };
   return (
@@ -59,50 +58,44 @@ export const Register = () => {
             </span>
 
             <div className="grid grid-cols-1 grid-rows-2 gap-4">
+              {/* Input para registrar tu nombre de usuario */}
               <div>
                 <input
                   type="text"
                   placeholder="Nombre de usuario"
-                  className="input input-bordered w-full text-base-content"
-                  {...register("nameUser", {
-                    required: inputErrorText,
-                  })}
+                  className={`input input-bordered w-full text-base-content rounded-l-lg ${errors.nameUser ? "input-error" : ""}`}
+                  {...register("nameUser")}
                 />
-                {errors.email && (
-                  <p className="text-primary p-0">
-                    {(errors.email as FieldError)?.message}
-                  </p>
+                {errors.nameUser && (
+                  <span className="text-error text-sm">
+                    {errors.nameUser.message?.toString()}
+                  </span>
                 )}
               </div>
+
+              {/* Input para registrar un correo electronico */}
               <div>
                 <input
                   type="email"
                   placeholder="Correo electrónico"
-                  className="input input-bordered w-full text-base-content"
-                  {...register("email", {
-                    required: inputErrorText,
-                    pattern: {
-                      value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                      message: invalidPatterEmail,
-                    },
-                  })}
+                  className={`input input-bordered w-full text-base-content rounded-l-lg ${errors.email ? "input-error" : ""}`}
+                  {...register("email")}
                 />
                 {errors.email && (
-                  <p className="text-primary p-0">
-                    {(errors.email as FieldError)?.message}
-                  </p>
+                  <span className="text-error text-sm">
+                    {errors.email.message?.toString()}
+                  </span>
                 )}
               </div>
+              {/* Input para registrar una contraseña */}
               <div>
                 <div className="join w-full">
                   <div className="w-full">
                     <input
                       type={showPassword ? "text" : "password"}
                       placeholder="Contraseña"
-                      className="input input-bordered w-full text-base-content rounded-l-lg"
-                      {...register("password", {
-                        required: inputErrorText,
-                      })}
+                      className={`input input-bordered w-full text-base-content rounded-l-lg ${errors.password ? "input-error" : ""}`}
+                      {...register("password")}
                     />
                   </div>
                   <span
@@ -117,15 +110,19 @@ export const Register = () => {
                   </span>
                 </div>
                 {errors.password && (
-                  <p className="text-primary p-0">
-                    {(errors.email as FieldError)?.message}
-                  </p>
+                  <span className="text-error text-sm">
+                    {errors.password.message?.toString()}
+                  </span>
                 )}
               </div>
+
+              <small className="text-balance text-white">
+                *NOTA los usuarios registrados se crearan como Inactivos, un
+                administrador verificara su ingreso a la plataforma
+              </small>
             </div>
 
             <button className="btn btn-primary w-full">Registrarse</button>
-            <Toast />
           </div>
         </form>
       </div>

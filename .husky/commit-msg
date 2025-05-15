@@ -2,7 +2,7 @@
 echo "🔍 Validando mensaje de commit..."
 
 # Expresión regular del formato: tipo: descripción mínima de 10 caracteres
-commit_regex="^(feat|fix|docs|style|refactor|perf|test|chore|ci|build|revert): .{10,}$"
+commit_regex="^(feat|fix|docs|style|refactor|perf|test|chore|ci|build|revert|config): .{15,}$"
 commit_msg=$(cat "$1")
 
 if ! echo "$commit_msg" | grep -Eq "$commit_regex"; then

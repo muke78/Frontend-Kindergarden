@@ -1,36 +1,37 @@
-import { Toast } from "@/components/Toast";
 import { Icon } from "@/components/ui/Icon";
-import { useAuthGoogleLogin } from "@/hooks/useAuthGoogle";
+import { useLogin } from "@/hooks/Auth/useAuth";
+import { useAuthGoogleLogin } from "@/hooks/Auth/useAuthGoogle";
+import { loginUserSchema } from "@/schemas/Login/loginUserSchema";
 
 import { useState } from "react";
-import { type FieldError, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
-import { useLogin } from "@hooks/useAuth";
-import { GoogleLogin } from "@react-oauth/google";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  CredentialResponse,
+  GoogleLogin,
+  useGoogleOneTapLogin,
+} from "@react-oauth/google";
 import { v } from "@styles/variables";
 
 interface FormData {
   email: string;
   password: string;
 }
-interface CredentialResponse {
-  credential: string; // Es un string, no un `string | undefined`
-}
 
 export const Login = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const { mutate } = useLogin();
-  const { mutate: googleLogin } = useAuthGoogleLogin();
-
-  const inputErrorText = "Este campo es obligatorio";
-  const invalidPatterEmail = "Formato de correo inválido";
+  const { createUserGoogle } = useAuthGoogleLogin();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormData>({
+    resolver: zodResolver(loginUserSchema()),
+  });
 
   const onSubmit = async (data: FormData) => {
     await mutate({
@@ -45,14 +46,28 @@ export const Login = () => {
     if (credentialResponse.credential) {
       try {
         // Llamamos a la mutación de Google Login
-        await googleLogin(credentialResponse.credential); // Le pasamos el token de Google
+        await createUserGoogle(credentialResponse.credential); // Le pasamos el token de Google
       } catch (error) {
-        console.error("Error al autenticar con Google", error);
+        console.error(
+          "Error al autenticar con Google (mutación fallida):",
+          error,
+        );
       }
     } else {
-      console.error("Credential is undefined");
+      console.error("Credential is undefined in the success response.");
     }
   };
+
+  // Manejador Común para Errores de Google Login (para One Tap y Botón)
+  const handleGoogleLoginError = () => {
+    console.log("Google Login Failed");
+  };
+
+  useGoogleOneTapLogin({
+    onSuccess: handleGoogleLoginSuccess,
+    onError: handleGoogleLoginError,
+    auto_select: true,
+  });
 
   return (
     <div className="h-screen flex flex-col justify-center items-center p-4 bg-base-200 animate__animated animate__fadeIn">
@@ -70,70 +85,70 @@ export const Login = () => {
             <span className="text-md text-balance text-white block">
               ¡Bienvenido de nuevo! Inicia sesión para continuar.
             </span>
+
             {/* Google Login Button */}
             <GoogleLogin
-              onSuccess={(e) =>
-                handleGoogleLoginSuccess({ credential: e.credential || "" })
-              }
-              onError={() => {
-                console.log("Login Failed");
-              }}
+              onSuccess={handleGoogleLoginSuccess}
+              onError={handleGoogleLoginError}
+              theme="filled_black"
+              size="large"
+              shape="pill"
             />
+
             <div className="divider divider-secondary text-white m-0">O</div>
+
             <form
               className="flex flex-col gap-4"
               onSubmit={handleSubmit(onSubmit)}
               method="POST"
             >
-              <div className="space-y-4">
-                <input
-                  type="email"
-                  placeholder="Correo electrónico"
-                  className="input input-bordered w-full text-base-content"
-                  {...register("email", {
-                    required: inputErrorText,
-                    pattern: {
-                      value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                      message: invalidPatterEmail,
-                    },
-                  })}
-                />
-                {errors.email && (
-                  <p className="text-primary p-0">
-                    {(errors.email as FieldError)?.message}
-                  </p>
-                )}
-                <div className="join w-full">
-                  <div className="w-full">
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      placeholder="Contraseña"
-                      className="input input-bordered w-full text-base-content rounded-l-lg"
-                      {...register("password", {
-                        required: inputErrorText,
-                      })}
-                    />
-                  </div>
-                  <span
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="btn btn-secondary text-lg join-item"
-                  >
-                    {showPassword ? (
-                      <Icon name="iconoOjoCerrado" size="text-lg" />
-                    ) : (
-                      <Icon name="iconoOjoAbierto" size="text-lg" />
-                    )}
-                  </span>
+              <div className="grid grid-cols-1 grid-rows-1 gap-4">
+                {/* Input de cooreo para poder loguearse */}
+                <div>
+                  <input
+                    type="email"
+                    placeholder="Correo electrónico"
+                    className={`input input-bordered w-full text-base-content rounded-l-lg ${errors.email ? "input-error" : ""}`}
+                    {...register("email")}
+                  />
+                  {errors.email && (
+                    <span className="text-error text-sm">
+                      {errors.email.message?.toString()}
+                    </span>
+                  )}
                 </div>
-                {errors.password && (
-                  <p className="text-primary p-0">
-                    {(errors.password as FieldError)?.message}
-                  </p>
-                )}
+
+                {/* Input de contraseña para poder loguearse */}
+                <div>
+                  <div className="join w-full">
+                    <div className="w-full">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Contraseña"
+                        className={`input input-bordered w-full text-base-content rounded-l-lg ${errors.password ? "input-error" : ""}`}
+                        {...register("password")}
+                      />
+                    </div>
+                    <span
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="btn btn-secondary text-lg join-item"
+                    >
+                      {showPassword ? (
+                        <Icon name="iconoOjoCerrado" size="text-lg" />
+                      ) : (
+                        <Icon name="iconoOjoAbierto" size="text-lg" />
+                      )}
+                    </span>
+                  </div>
+                  {errors.password && (
+                    <span className="text-error text-sm">
+                      {errors.password.message?.toString()}
+                    </span>
+                  )}
+                </div>
               </div>
 
               <button className="btn btn-primary w-full">Iniciar sesión</button>
-              <Toast />
             </form>
           </div>
         </div>

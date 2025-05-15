@@ -1,4 +1,4 @@
-import { useSidebar } from "@/hooks/useSidebar";
+import { useSidebar } from "@/hooks/Sidebar/useSidebar";
 
 // import { useAuthStore } from "@/store/authStore";
 export const Teachers = () => {

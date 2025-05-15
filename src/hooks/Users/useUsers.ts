@@ -1,14 +1,14 @@
 import {
   createUserService,
+  deleteUserBulkService,
   deleteUserService,
-  listUsersService,
   updateUserService,
-} from "@/services/userService";
-import { useUserStore } from "@/store/useUserStore";
+} from "@/services/Users/userService";
+import { useUserStore } from "@/store/Users/useUserStore";
 
 import toast from "react-hot-toast";
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface User {
   id: string;
@@ -16,7 +16,6 @@ interface User {
   email: string;
   profilePicture: string;
   role: string;
-  accountType: string;
   accountStatus: string;
 }
 
@@ -32,14 +31,6 @@ export const useUsers = () => {
   const { addUser, updateUser, deleteUser } = useUserStore();
   const queryClient = useQueryClient();
 
-  // Obtener usuarios
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["users"],
-    queryFn: listUsersService,
-    staleTime: 1000 * 60, // Datos frescos durante 1 minutos
-    retry: 2,
-  });
-
   // Crear usuario
   const createUserMutation = useMutation({
     mutationFn: (data: {
@@ -48,9 +39,15 @@ export const useUsers = () => {
       password: string;
       role: string;
       profilePicture: string;
-      accountType: string;
+      accountStatus: string;
     }) =>
-      createUserService(data.nameUser, data.email, data.password, data.role),
+      createUserService(
+        data.nameUser,
+        data.email,
+        data.password,
+        data.role,
+        data.accountStatus,
+      ),
     onSuccess: (newUser) => {
       const userToAdd: User = {
         id: Date.now().toString(),
@@ -58,7 +55,6 @@ export const useUsers = () => {
         email: newUser.data.Email,
         profilePicture: newUser.data.ProfilePicture,
         role: newUser.data.Role,
-        accountType: newUser.data.AccountType,
         accountStatus: newUser.data.AccountStatus,
       };
 
@@ -117,6 +113,13 @@ export const useUsers = () => {
         duration: 5000,
       });
     },
+    onError: (error: {
+      response?: { data?: { error?: { message?: string } } };
+    }) => {
+      toast.error(error.response?.data?.error?.message || "An error occurred", {
+        duration: 5000,
+      });
+    },
   });
 
   // Eliminar usuario
@@ -138,12 +141,28 @@ export const useUsers = () => {
     },
   });
 
+  // Eliminacion de usuario por medio de eliminacion masiva
+  const deleteTaskBulkMutation = useMutation({
+    mutationFn: (ids: string[]) => deleteUserBulkService({ ids }),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      toast.success(data.data.message, {
+        duration: 5000,
+      });
+    },
+    onError: (error: {
+      response?: { data?: { error?: { message?: string } } };
+    }) => {
+      toast.error(error.response?.data?.error?.message || "An error occurred", {
+        duration: 15000,
+      });
+    },
+  });
+
   return {
-    data,
-    isLoading,
-    error,
-    createUser: createUserMutation.mutate,
-    updateUser: updateUserMutation.mutate,
-    deleteUser: deleteUserMutation.mutate,
+    createUser: createUserMutation.mutateAsync,
+    updateUser: updateUserMutation.mutateAsync,
+    deleteUser: deleteUserMutation.mutateAsync,
+    deleteUserBulk: deleteTaskBulkMutation.mutateAsync,
   };
 };

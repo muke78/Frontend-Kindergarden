@@ -9,20 +9,25 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src/"),
+      "@assets": path.resolve(__dirname, "./src/assets"),
       "@components": path.resolve(__dirname, "./src/components"),
-      "@features": path.resolve(__dirname, "./src/features"),
+      "@config": path.resolve(__dirname, "./src/config"),
+      "@helpers": path.resolve(__dirname, "./src/helpers"),
       "@hooks": path.resolve(__dirname, "./src/hooks"),
       "@pages": path.resolve(__dirname, "./src/pages"),
       "@routes": path.resolve(__dirname, "./src/routes"),
+      "@schemas": path.resolve(__dirname, "./src/schemas"),
       "@services": path.resolve(__dirname, "./src/services"),
       "@store": path.resolve(__dirname, "./src/store"),
-      "@utils": path.resolve(__dirname, "./src/utils"),
       "@styles": path.resolve(__dirname, "./src/styles"),
-      "@config": path.resolve(__dirname, "./src/config"),
       "@type": path.resolve(__dirname, "./src/type"),
-      "@context": path.resolve(__dirname, "./src/context"),
-      "@assets": path.resolve(__dirname, "./src/assets"),
+      "@utils": path.resolve(__dirname, "./src/utils"),
     },
+  },
+  server: {
+    port: 5173,
+    open: true,
+    proxy: {},
   },
   build: {
     rollupOptions: {
@@ -37,9 +42,6 @@ export default defineConfig({
             }
             if (id.includes("react-hot-toast")) {
               return "react-hot-toast";
-            }
-            if (id.includes("react-hook-form")) {
-              return "react-hook-form";
             }
             if (id.includes("react-icons")) {
               return "react-icons";

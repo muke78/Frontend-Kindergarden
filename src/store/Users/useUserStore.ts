@@ -1,4 +1,4 @@
-import { listUsersService } from "@/services/userService";
+import { listUsersService } from "@/services/Users/userService";
 
 import { create } from "zustand";
 
@@ -7,7 +7,6 @@ interface User {
   nameUser: string;
   email: string;
   role: string;
-  accountType: string;
   accountStatus: string;
 }
 

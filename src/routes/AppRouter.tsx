@@ -6,6 +6,7 @@ import { Help } from "@/pages/PrivateRoutes/Help";
 import { Parents } from "@/pages/PrivateRoutes/Parents";
 import { Reports } from "@/pages/PrivateRoutes/Reports";
 import { Users } from "@/pages/PrivateRoutes/Users";
+import { useAuthStore } from "@/store/Auth/authStore";
 
 // import { Evaluations } from "@/pages/PrivateRoutes/evaluations";
 
@@ -18,7 +19,6 @@ import { Login } from "@pages/PublicPages/Login";
 import { Register } from "@pages/PublicPages/Register";
 import { PrivateRoute } from "@routes/PrivateRoute";
 import { PublicRouter } from "@routes/PublicRouter";
-import { useAuthStore } from "@store/authStore";
 
 import { Student } from "../pages/PrivateRoutes/Student";
 import { Teachers } from "../pages/PrivateRoutes/Teachers";

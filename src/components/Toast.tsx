@@ -1,4 +1,4 @@
-import { useTheme } from "@/hooks/useTheme";
+import { useTheme } from "@/hooks/Theme/useTheme";
 
 import { Toaster } from "react-hot-toast";
 
@@ -10,8 +10,8 @@ export const Toast = () => {
       reverseOrder={false}
       toastOptions={{
         style: {
-          background: `${changeTheme === "night" ? "#1d283a" : changeTheme === "winter" ? "#021431" : "#021431"}`,
-          color: `${changeTheme === "night" ? "#eceff4" : changeTheme === "winter" ? "#eceff4" : "#0f172a"}`,
+          background: `${changeTheme === "dim" ? "#20252e" : changeTheme === "emerald" ? "#333c4d" : "#333c4d"}`,
+          color: `${changeTheme === "dim" ? "#eceff4" : changeTheme === "emerald" ? "#eceff4" : "#0f172a"}`,
         },
       }}
     />

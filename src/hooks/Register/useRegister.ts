@@ -1,18 +1,15 @@
+import { registerService } from "@/services/Register/registerService";
+
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 
-import { registerService } from "@services/register/registerService";
 import { useMutation } from "@tanstack/react-query";
 
 export const useRegister = () => {
   const navigate = useNavigate();
   const mutation = useMutation({
-    mutationFn: (data: {
-      nameUser: string;
-      email: string;
-      password: string;
-      role: string;
-    }) => registerService(data.nameUser, data.email, data.password, data.role),
+    mutationFn: (data: { nameUser: string; email: string; password: string }) =>
+      registerService(data.nameUser, data.email, data.password),
     onSuccess: (_, variables) => {
       toast.success(
         `Se registro exitosamente el usuario ${variables.nameUser}`,

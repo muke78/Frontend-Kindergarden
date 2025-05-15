@@ -1,5 +1,5 @@
-import { useSidebar } from "@/hooks/useSidebar";
-import { useAuthStore } from "@/store/authStore";
+import { useSidebar } from "@/hooks/Sidebar/useSidebar";
+import { useAuthStore } from "@/store/Auth/authStore";
 
 import { Icon } from "@components/ui/Icon";
 
@@ -11,7 +11,7 @@ export const BtnSidebarMobile = () => {
     <button
       id="sidebar-toggle"
       onClick={() => setSidebarOpen(!sidebarOpen)}
-      className={`fixed flex justify-center top-4 left-4 z-50 p-2 btn btn-secondary btn-circle text-white md:hidden ${user && token ? "block" : "hidden"}`}
+      className={`fixed flex justify-center top-4 left-4 z-50 p-2 btn btn-secondary btn-circle text-white min-[1243px]:hidden ${user && token ? "block" : "hidden"}`}
       aria-expanded={sidebarOpen}
       aria-controls="sidebar"
     >

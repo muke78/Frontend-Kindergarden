@@ -1,5 +1,5 @@
-import { useSidebar } from "@/hooks/useSidebar";
-import { useAuthStore } from "@/store/authStore";
+import { useSidebar } from "@/hooks/Sidebar/useSidebar";
+import { useAuthStore } from "@/store/Auth/authStore";
 
 import { useLocation } from "react-router-dom";
 
@@ -35,7 +35,7 @@ export const Sidebar = () => {
           ${isMobile ? "w-64" : ""} ${user && token ? "block" : "hidden"}`}
       >
         {/* Logo */}
-        <div className="flex justify-center items-center h-16 border-b border-base-content/30">
+        <div className="flex justify-center items-center h-16 border-b border-base-content/10">
           <ImageSidebar />
         </div>
 
@@ -43,10 +43,10 @@ export const Sidebar = () => {
         <SidebarItems />
 
         {/* Botón para alternar sidebar en escritorio */}
-        <div className="p-4 border-t border-base-content/30">
+        <div className="p-4 border-t border-base-content/10">
           <ContraerSidebar />
         </div>
-        <div className="p-4 border-t border-base-content/30">
+        <div className="p-4 border-t border-base-content/10">
           <ThemeController />
         </div>
       </aside>

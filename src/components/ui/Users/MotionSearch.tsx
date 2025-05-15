@@ -13,13 +13,13 @@ export const MotionSearch = ({ value, showError }: PropsMotionSearch) => {
       : "badge badge-warning";
 
   return (
-    <span className={`flex flex-row gap-2  text-base${badgeClass}`}>
+    <span className="flex flex-wrap items-center gap-2 text-sm">
       Se encontraron
       <span className={badgeClass} style={{ display: "inline-block" }}>
         <CountUp
           start={0}
           end={value}
-          duration={3}
+          duration={1.5}
           useEasing={true}
           separator=","
           className="account-balance"

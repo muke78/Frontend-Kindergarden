@@ -1,4 +1,4 @@
-import { useSidebar } from "@/hooks/useSidebar";
+import { useSidebar } from "@/hooks/Sidebar/useSidebar";
 import { v } from "@/styles/variables";
 
 export const ImageSidebar = () => {
@@ -8,12 +8,12 @@ export const ImageSidebar = () => {
       <img
         src={v.logoLogin}
         alt="Logo"
-        className={`transition-all duration-300 ${sidebarOpen || isMobile ? "w-16" : "w-10"}`}
+        className={`transition-all duration-300 ${sidebarOpen || isMobile ? "w-8" : "w-14"}`}
       />
       <span
-        className={`text-xl pl-2 ${sidebarOpen || isMobile ? "block" : "hidden"}`}
+        className={`text-2xl font-bold text-base-content pl-2 ${sidebarOpen || isMobile ? "block" : "hidden"}`}
       >
-        Admin Kinder
+        CRM Kinder
       </span>
     </div>
   );
