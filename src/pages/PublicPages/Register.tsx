@@ -2,7 +2,7 @@ import { useRegister } from "@/hooks/Register/useRegister";
 import { registerUserSchema } from "@/schemas/Users/registerUserSchema";
 
 import { useState } from "react";
-import { type FieldError, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 import { Icon } from "@components/ui/Icon";
@@ -58,39 +58,43 @@ export const Register = () => {
             </span>
 
             <div className="grid grid-cols-1 grid-rows-2 gap-4">
+              {/* Input para registrar tu nombre de usuario */}
               <div>
                 <input
                   type="text"
                   placeholder="Nombre de usuario"
-                  className="input input-bordered w-full text-base-content"
+                  className={`input input-bordered w-full text-base-content rounded-l-lg ${errors.nameUser ? "input-error" : ""}`}
                   {...register("nameUser")}
                 />
                 {errors.nameUser && (
-                  <p className="text-primary p-0">
-                    {(errors.nameUser as FieldError)?.message}
-                  </p>
+                  <span className="text-error text-sm">
+                    {errors.nameUser.message?.toString()}
+                  </span>
                 )}
               </div>
+
+              {/* Input para registrar un correo electronico */}
               <div>
                 <input
                   type="email"
                   placeholder="Correo electrónico"
-                  className="input input-bordered w-full text-base-content"
+                  className={`input input-bordered w-full text-base-content rounded-l-lg ${errors.email ? "input-error" : ""}`}
                   {...register("email")}
                 />
                 {errors.email && (
-                  <p className="text-primary p-0">
-                    {(errors.email as FieldError)?.message}
-                  </p>
+                  <span className="text-error text-sm">
+                    {errors.email.message?.toString()}
+                  </span>
                 )}
               </div>
+              {/* Input para registrar una contraseña */}
               <div>
                 <div className="join w-full">
                   <div className="w-full">
                     <input
                       type={showPassword ? "text" : "password"}
                       placeholder="Contraseña"
-                      className="input input-bordered w-full text-base-content rounded-l-lg"
+                      className={`input input-bordered w-full text-base-content rounded-l-lg ${errors.password ? "input-error" : ""}`}
                       {...register("password")}
                     />
                   </div>
@@ -106,12 +110,13 @@ export const Register = () => {
                   </span>
                 </div>
                 {errors.password && (
-                  <p className="text-primary p-0">
-                    {(errors.password as FieldError)?.message}
-                  </p>
+                  <span className="text-error text-sm">
+                    {errors.password.message?.toString()}
+                  </span>
                 )}
               </div>
-              <small className="text-balance text-white block">
+
+              <small className="text-balance text-white">
                 *NOTA los usuarios registrados se crearan como Inactivos, un
                 administrador verificara su ingreso a la plataforma
               </small>

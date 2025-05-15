@@ -4,7 +4,7 @@ import { useAuthGoogleLogin } from "@/hooks/Auth/useAuthGoogle";
 import { loginUserSchema } from "@/schemas/Login/loginUserSchema";
 
 import { useState } from "react";
-import { type FieldError, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -85,8 +85,8 @@ export const Login = () => {
             <span className="text-md text-balance text-white block">
               ¡Bienvenido de nuevo! Inicia sesión para continuar.
             </span>
-            {/* Google Login Button */}
 
+            {/* Google Login Button */}
             <GoogleLogin
               onSuccess={handleGoogleLoginSuccess}
               onError={handleGoogleLoginError}
@@ -96,48 +96,56 @@ export const Login = () => {
             />
 
             <div className="divider divider-secondary text-white m-0">O</div>
+
             <form
               className="flex flex-col gap-4"
               onSubmit={handleSubmit(onSubmit)}
               method="POST"
             >
-              <div className="space-y-4">
-                <input
-                  type="email"
-                  placeholder="Correo electrónico"
-                  className="input input-bordered w-full text-base-content"
-                  {...register("email", {})}
-                />
-                {errors.email && (
-                  <p className="text-red-500 p-0">
-                    {(errors.email as FieldError)?.message}
-                  </p>
-                )}
-                <div className="join w-full">
-                  <div className="w-full">
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      placeholder="Contraseña"
-                      className="input w-full text-base-content rounded-l-lg"
-                      {...register("password")}
-                    />
-                  </div>
-                  <span
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="btn btn-secondary text-lg join-item"
-                  >
-                    {showPassword ? (
-                      <Icon name="iconoOjoCerrado" size="text-lg" />
-                    ) : (
-                      <Icon name="iconoOjoAbierto" size="text-lg" />
-                    )}
-                  </span>
+              <div className="grid grid-cols-1 grid-rows-1 gap-4">
+                {/* Input de cooreo para poder loguearse */}
+                <div>
+                  <input
+                    type="email"
+                    placeholder="Correo electrónico"
+                    className={`input input-bordered w-full text-base-content rounded-l-lg ${errors.email ? "input-error" : ""}`}
+                    {...register("email")}
+                  />
+                  {errors.email && (
+                    <span className="text-error text-sm">
+                      {errors.email.message?.toString()}
+                    </span>
+                  )}
                 </div>
-                {errors.password && (
-                  <p className="text-red-500 p-0">
-                    {(errors.password as FieldError)?.message}
-                  </p>
-                )}
+
+                {/* Input de contraseña para poder loguearse */}
+                <div>
+                  <div className="join w-full">
+                    <div className="w-full">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Contraseña"
+                        className={`input input-bordered w-full text-base-content rounded-l-lg ${errors.password ? "input-error" : ""}`}
+                        {...register("password")}
+                      />
+                    </div>
+                    <span
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="btn btn-secondary text-lg join-item"
+                    >
+                      {showPassword ? (
+                        <Icon name="iconoOjoCerrado" size="text-lg" />
+                      ) : (
+                        <Icon name="iconoOjoAbierto" size="text-lg" />
+                      )}
+                    </span>
+                  </div>
+                  {errors.password && (
+                    <span className="text-error text-sm">
+                      {errors.password.message?.toString()}
+                    </span>
+                  )}
+                </div>
               </div>
 
               <button className="btn btn-primary w-full">Iniciar sesión</button>
