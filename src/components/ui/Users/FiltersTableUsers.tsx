@@ -30,13 +30,13 @@ export const FiltersTableUsers = (props: PropsFiltersTable) => {
   } = props;
 
   return (
-    <>
-      <form className="flex w-full" onSubmit={onSearchSubmit}>
-        <label className="input rounded-lg p-1">
+    <div className="flex flex-col sm:flex-row flex-wrap gap-2 w-full">
+      <form className="" onSubmit={onSearchSubmit}>
+        <label className="input flex items-center rounded-lg p-1 w-full sm:w-auto">
           <input
             type="text"
             placeholder="Busqueda por correo electronico"
-            className="input join-item text-base-content "
+            className="input text-base-content w-full sm:w-64"
             name="searchText"
             autoComplete="off"
             value={searchText}
@@ -51,14 +51,14 @@ export const FiltersTableUsers = (props: PropsFiltersTable) => {
       </label>
       <select
         id="filterStatus"
-        className="select join-item rounded-l-lg"
+        className="select rounded-lg w-full sm:w-auto"
         value={activeFilter}
         onChange={handleStatusFilter}
       >
         <option value="" disabled>
           Filtrar por status
         </option>
-        <option value="All">Todos los</option>
+        <option value="All">Todos los estatus</option>
         <option value="Activo">Activos</option>
         <option value="Inactivo">Inactivos</option>
       </select>
@@ -68,7 +68,7 @@ export const FiltersTableUsers = (props: PropsFiltersTable) => {
       </label>
       <select
         id="filterCorreo"
-        className="select join-item rounded-none"
+        className="select rounded-lg w-full sm:w-auto"
         value={activateFilterCorreo}
         onChange={handleStatusFilterCorreo}
       >
@@ -85,7 +85,7 @@ export const FiltersTableUsers = (props: PropsFiltersTable) => {
       </label>
       <select
         id="filterRol"
-        className="select join-item rounded-none"
+        className="select rounded-lg w-full sm:w-auto"
         value={activateFilterRol}
         onChange={handleStatusFilterRol}
       >
@@ -98,7 +98,7 @@ export const FiltersTableUsers = (props: PropsFiltersTable) => {
       </select>
 
       <button
-        className="btn btn-secondary join-item rounded-none"
+        className="btn btn-secondary join-item rounded-lg"
         disabled={
           activeFilter === "All" &&
           activateFilterCorreo === "All" &&
@@ -109,7 +109,8 @@ export const FiltersTableUsers = (props: PropsFiltersTable) => {
         title="Resetear filtros"
       >
         <Icon name="iconoResetearFiltro" size="text-lg" />
+        <span>Borrar filtros</span>
       </button>
-    </>
+    </div>
   );
 };

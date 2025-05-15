@@ -64,57 +64,59 @@ export const Users = () => {
         isMobile ? "ml-0" : sidebarOpen ? "ml-64" : "ml-20"
       } animate__animated animate__fadeIn`}
     >
-      <div className="grid grid-cols-5 grid-rows-5 gap-4 w-full h-screen p-4 md:p-6 max-w-[86rem] mx-auto">
+      <div className="grid grid-cols-4 grid-rows-5 gap-4 w-full h-screen p-4 md:p-6 max-w-[86rem] mx-auto">
         <div className="col-span-5 flex justify-start items-end">
           <span className="text-6xl font-bold">Usuarios</span>
         </div>
 
-        <div className="col-span-5 row-start-2 h-1/2 flex flex-col gap-4">
-          <div className="flex flex-row justify-start items-end join w-full lg:w-3/4">
-            <FiltersTableUsers
-              onSearchSubmit={onSearchSubmit}
-              searchText={searchText}
-              onInputChange={onInputChange}
-              activeFilter={activeFilter}
-              handleStatusFilter={handleStatusFilter}
-              activateFilterCorreo={activateFilterCorreo}
-              handleStatusFilterCorreo={handleStatusFilterCorreo}
-              activateFilterRol={activateFilterRol}
-              handleStatusFilterRol={handleStatusFilterRol}
-              handleResetFiltersAll={handleResetFiltersAll}
-            />
-            {selectedIds.length > 0 && (
+        <div className="col-span-4 row-start-2 h-fit flex flex-col gap-4">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-start gap-2 w-full">
+            <div className="flex flex-col md:flex-row md:flex-wrap w-full gap-2">
+              <FiltersTableUsers
+                onSearchSubmit={onSearchSubmit}
+                searchText={searchText}
+                onInputChange={onInputChange}
+                activeFilter={activeFilter}
+                handleStatusFilter={handleStatusFilter}
+                activateFilterCorreo={activateFilterCorreo}
+                handleStatusFilterCorreo={handleStatusFilterCorreo}
+                activateFilterRol={activateFilterRol}
+                handleStatusFilterRol={handleStatusFilterRol}
+                handleResetFiltersAll={handleResetFiltersAll}
+              />
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
+              {selectedIds.length > 0 && (
+                <button
+                  className="btn btn-error w-full sm:w-auto"
+                  onClick={() => eliminarSeleccionados()}
+                >
+                  <Icon name="iconoEliminacionMasiva" size="text-2xl" /> (
+                  {selectedIds.length})
+                </button>
+              )}
               <button
-                className="btn btn-error"
-                onClick={() => eliminarSeleccionados()}
+                className="btn btn-warning w-full sm:w-auto text-md"
+                onClick={() => setIsOpenModalAddUser(!isOpenModalAddUser)}
               >
-                <Icon name="iconoEliminacionMasiva" size="text-2xl" /> (
-                {selectedIds.length})
+                <Icon name="iconoCrearButton" size="text-lg" />
+                <span>Nuevo usuario</span>
               </button>
-            )}
-            <button
-              className="btn btn-warning text-md rounded-r-lg"
-              onClick={() => setIsOpenModalAddUser(!isOpenModalAddUser)}
-            >
-              <Icon name="iconoCrearButton" size="text-lg" />
-              <span>Nuevo usuario</span>
-            </button>
+            </div>
           </div>
 
-          <div className="w-full flex flex-row gap-4 animate__animated animate__fadeIn">
+          <div className="w-full flex flex-col sm:flex-row gap-4 animate__animated animate__fadeIn">
             <MotionSearch value={totalItems ?? 0} showError={showError} />
-            <div
-              className="badge badge-soft badge-error animate__animated animate__fadeIn"
-              style={{ display: showError ? "" : "none" }}
-            >
-              No se encontro el usuario <b> {q} </b>
-            </div>
+            {showError && (
+              <div className="badge badge-soft badge-error animate__animated animate__fadeIn">
+                No se encontró el usuario <b>{q}</b>
+              </div>
+            )}
           </div>
         </div>
 
-        <div
-          className={`gap-4 col-span-5 row-span-3 row-start-3  ${isLoading ? "-mt-80" : "-mt-12"}`}
-        >
+        <div className="col-span-5 row-span-3 row-start-3 mt-48 md:-mt-14 lg:-mt-7">
           {isLoading ? (
             <Spinner />
           ) : (

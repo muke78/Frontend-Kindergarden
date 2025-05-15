@@ -118,7 +118,7 @@ export const TableRow = (props: PropsTableRow) => {
           <td>
             {user.AccountType === "google" ? (
               <span
-                className="badge text-white contrast-125"
+                className="px-2 py-0.5 text-xs font-medium rounded text-white w-full"
                 style={{
                   background:
                     "linear-gradient(90deg, rgba(66, 134, 244, 0.7), rgba(234, 68, 53, 0.726), rgba(251, 189, 5, 0.7), rgba(52, 168, 83, 0.7))",
@@ -127,7 +127,9 @@ export const TableRow = (props: PropsTableRow) => {
                 Google
               </span>
             ) : (
-              <span className="badge badge-secondary">Email</span>
+              <span className="px-2 py-0.5 text-xs font-medium bg-purple-100 text-purple-800 rounded w-full">
+                Email
+              </span>
             )}
           </td>
           <td>{getStatusBadge(user.AccountStatus)}</td>

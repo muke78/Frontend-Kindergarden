@@ -2,6 +2,7 @@ import { Paginacion } from "@/components/Paginacion";
 import { useSidebar } from "@/hooks/Sidebar/useSidebar";
 
 import { Icon } from "@components/ui/Icon";
+import { usersColumns } from "@components/ui/Table/TableConfig/userColumns";
 import { TableHeader } from "@components/ui/Table/TableHeader";
 import { TableRow } from "@components/ui/Table/TableRow";
 import { ModalAgregarUsuario } from "@components/ui/Users/ModalAgregarUsuario";
@@ -119,7 +120,11 @@ export const TablaUsuarios = (props: TablaUsuariosProps) => {
       ) : (
         <div className="overflow-x-auto rounded-md border-t-4 border-neutral/60 row-start-3 shadow-2xl">
           <table className="table table-zebra w-full animate__animated animate__fadeIn">
-            <TableHeader isChecked={isChecked} onCheckAll={onCheckAll} />
+            <TableHeader
+              isChecked={isChecked}
+              onCheckAll={onCheckAll}
+              usersColumns={usersColumns}
+            />
 
             <TableRow
               dataToShow={dataToShow}
