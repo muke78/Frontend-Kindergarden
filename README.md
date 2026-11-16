@@ -1,205 +1,253 @@
-# 🏫 AKT - CRM para Administración de Kinder
+# 🏫 Kindergarten Management Frontend (v2)
 
-Un sistema de gestión diseñado para administrar eficientemente una escuela, permitiendo gestionar datos clave dentro de la plataforma mediante un CRM. Incluye distintos módulos y catálogos para un control óptimo de la información almacenada en la base de datos.
+CRM SPA conectada al Backend RESTful Node + MySQL. React 19, shadcn/ui, Tailwind v4, React Query, React Hook Form + Zod, Zustand, Sonner. Soporte dual browser/Tauri para autenticación.
 
-## 🚀 Características
+---
 
-- Gestión de estudiantes, maestros, padres y personal administrativo.
+## 🚀 Stack
 
-- Administración de inscripciones y asignación de clases.
+- **React 19** + **TypeScript 5.7** + **Vite 6.3**
+- **shadcn/ui** (New York style, neutral palette)
+- **Tailwind CSS v4** (vía `@tailwindcss/vite`)
+- **TanStack Query 5** (cache + mutations) + **TanStack Table 8** (data table)
+- **React Hook Form 7** + **Zod 3** (forms + validación)
+- **Zustand 5** (estado global)
+- **Sonner** (toast notifications, reemplaza sweetalert2 + react-hot-toast)
+- **Lucide React** (íconos)
+- **Axios 1.7.9** (CVE-2024-39338 fix)
+- **React Router 7**
+- **Biome 2.2** (lint + format, reemplaza ESLint + Prettier)
+- **Vitest 3** + **Testing Library** (tests)
+- **Tauri 2** ready (auth dual browser/desktop)
 
-- Manejo de permisos y roles de usuario.
+### Deps removidas en v2
+`@react-oauth/google`, `better-auth`, `daisyui`, `sweetalert2`, `react-hot-toast`, `animate.css`, `react-spinners`, `react-router-dom`, `react-icons`, `prettier` + plugins, `eslint` + plugins, `autoprefixer`, `jwt-decode`, `query-string`, `react-countup`.
 
-- Reportes y estadísticas visuales.
+### CVE fixes
+- `axios` 1.8.x → **1.7.9** (CVE-2024-39338 SSRF)
+- `vite` 6.2 → **6.3.5**
+- `typescript` 5.7.2 → **5.7.3**
 
-- Autenticación segura mediante JWT.
+---
 
-- Diseño responsivo y moderno con TailwindCSS y DaisyUI.
-
-## 🛠 Tecnologías Utilizadas
-
-El proyecto está desarrollado con las siguientes tecnologías y librerías:
-
-### 📌 **Frontend y UI**
-
-- [`react`](https://react.dev/) - Biblioteca para la construcción de interfaces de usuario.
-- [`react-dom`](https://react.dev/) - Renderizado de componentes React en el DOM.
-- [`react-router-dom`](https://reactrouter.com/) - Enrutamiento dinámico en aplicaciones React.
-- [`tailwindcss`](https://tailwindcss.com/) - Framework CSS para estilos rápidos y eficientes.
-- [`daisyui`](https://daisyui.com/) - Extensión de TailwindCSS con componentes personalizables.
-- [`framer-motion`](https://www.framer.com/motion/) - Animaciones fluidas y avanzadas en React.
-- [`animate.css`](https://animate.style/) - Animaciones CSS listas para usar.
-- [`react-icons`](https://react-icons.github.io/react-icons/) - Librería de iconos para mejorar la experiencia visual.
-- [`react-spinners`](https://www.davidhu.io/react-spinners/) - Indicadores de carga animados.
-
-### 🔄 **Estado y Manejo de Datos**
-
-- [`@tanstack/react-query`](https://tanstack.com/query/latest) - Manejo eficiente del estado de datos asíncronos.
-- [`@tanstack/react-table`](https://tanstack.com/table/latest) - Tablas dinámicas y personalizables.
-- [`zustand`](https://zustand-demo.pmnd.rs/) - Gestión de estado global simple y eficiente.
-
-### 🔐 **Autenticación y Seguridad**
-
-- [`@react-oauth/google`](https://github.com/MomenSherif/react-oauth) - Autenticación con Google.
-- [`jwt-decode`](https://github.com/auth0/jwt-decode) - Decodificación de tokens JWT.
-
-### 🔧 **Utilidades y Herramientas**
-
-- [`axios`](https://axios-http.com/) - Cliente HTTP para realizar peticiones a la API.
-- [`query-string`](https://www.npmjs.com/package/query-string) - Manejo y manipulación de query strings en URLs.
-- [`sweetalert2`](https://sweetalert2.github.io/) - Alertas y modales personalizables.
-- [`zod`](https://zod.dev/) - Validación de esquemas de datos.
-- [`motion-number`](https://motion-number.barvian.me/) - Contadores animados numéricos.
-
-### 📊 **Visualización de Datos**
-
-- [`recharts`](https://recharts.org/en-US/) - Librería de gráficos interactivos para React.
-
-### 🛠 **Desarrollo y Configuración**
-
-- [`vite`](https://vitejs.dev/) - Herramienta de construcción rápida para proyectos frontend.
-- [`@vitejs/plugin-react-swc`](https://www.npmjs.com/package/@vitejs/plugin-react-swc) - Optimizaciones de compilación para React.
-- [`prettier`](https://prettier.io/) - Formateador de código para mantener consistencia.
-- [`@trivago/prettier-plugin-sort-imports`](https://github.com/trivago/prettier-plugin-sort-imports) - Plugin para ordenar importaciones en Prettier.
-- [`eslint`](https://eslint.org/) - Linter para mejorar la calidad del código.
-- [`typescript`](https://www.typescriptlang.org/) - Tipado estático para JavaScript.
-- [`husky`](https://typicode.github.io/husky/#/) - Hooks para mejorar la calidad del código en commits.
-
-## 📂 Estructura del Proyecto
+## 🗂️ Arquitectura
 
 ```
-/src
-├── /components        # Componentes reutilizables de UI
-│   ├── /ui           # Componentes genéricos como botones, inputs, modales
-│   │   ├── Button.jsx
-│   │   ├── Input.jsx
-│   │   ├── Modal.jsx
-│   │   ├── Card.jsx
-│   │   ├── Table.jsx
-│   │   └── index.js  # Exporta todos los componentes de UI
-│   ├── Navbar.jsx    # Barra de navegación
-│   ├── Sidebar.jsx   # Menú lateral
-│   ├── Footer.jsx    # Pie de página
-│   └── index.js      # Exporta todos los componentes globales
-│
-├── /config           # Configuración global del proyecto
-│   ├── api.js        # Configuración base de Axios (ejemplo: baseURL, interceptores)
-│   ├── constants.js  # Constantes globales (ejemplo: roles de usuario, estados)
-│   ├── env.js        # Carga de variables de entorno
-│   ├── theme.js      # Configuración de tema (si usas Tailwind o DaisyUI)
-│   └── index.js      # Exporta todas las configuraciones
-│
-├── /features         # Módulos específicos de cada funcionalidad
-│   ├── /auth        # Módulo de autenticación (login, registro)
-│   │   ├── Login.jsx
-│   │   ├── Register.jsx
-│   │   ├── authService.js  # Funciones para login y registro
-│   │   ├── authSlice.js    # Estado global con Zustand o Redux
-│   │   ├── hooks.js        # Hooks específicos para auth
-│   │   └── index.js        # Exporta todo el módulo
-│   ├── /students   # Módulo para estudiantes
-│   │   ├── StudentList.jsx
-│   │   ├── StudentForm.jsx
-│   │   ├── studentService.js
-│   │   ├── studentSlice.js
-│   │   ├── hooks.js
-│   │   └── index.js
-│   ├── /teachers   # Módulo para profesores
-│   ├── /parents    # Módulo para padres
-│   ├── /classes    # Módulo para clases
-│   └── ...         # Más módulos según necesidades
-│
-├── /hooks           # Hooks personalizados
-│   ├── useAuth.js   # Hook para manejar autenticación
-│   ├── useFetch.js  # Hook para llamadas a la API con React Query
-│   ├── useModal.js  # Hook para manejar modales
-│   └── index.js     # Exporta todos los hooks
-│
-├── /pages           # Páginas principales de la app (cada ruta principal)
-│   ├── Home.jsx     # Página de inicio
-│   ├── Dashboard.jsx # Panel principal
-│   ├── Login.jsx    # Página de login
-│   ├── Register.jsx # Página de registro
-│   ├── NotFound.jsx # Página 404
-│   └── index.js     # Exporta todas las páginas
-│
-├── /routes          # Configuración de rutas
-│   ├── PrivateRoute.jsx  # Protege rutas privadas con autenticación
-│   ├── AppRouter.jsx     # Define las rutas principales
-│   └── index.js          # Exporta las rutas
-│
-├── /services        # Llamadas a la API con Axios
-│   ├── authService.js    # Servicio para autenticación
-│   ├── studentService.js # Servicio para estudiantes
-│   ├── teacherService.js # Servicio para maestros
-│   ├── classService.js   # Servicio para clases
-│   └── index.js          # Exporta todos los servicios
-│
-├── /store           # Estado global con Zustand
-│   ├── authStore.js     # Manejo de sesión de usuario
-│   ├── studentStore.js  # Manejo de estado de estudiantes
-│   ├── teacherStore.js  # Manejo de estado de maestros
-│   └── index.js         # Exporta todos los stores
-│
-├── /utils           # Funciones auxiliares
-│   ├── formatDate.js  # Función para formatear fechas
-│   ├── validateForm.js # Validaciones de formularios
-│   ├── helpers.js     # Funciones genéricas
-│   └── index.js       # Exporta todas las utilidades
-│
-├── /styles          # Configuración de Tailwind y estilos globales
-│   ├── tailwind.css  # Estilos de Tailwind
-│   ├── global.css    # Estilos personalizados
-│   └── theme.css     # Personalización del tema
-│
-├── main.jsx         # Punto de entrada
-├── app.jsx          # Componente raíz
+src/
+├── lib/                      # Infra cliente
+│   ├── api.ts                # Axios con interceptor refresh + dual auth
+│   ├── queryClient.ts        # React Query config
+│   ├── utils.ts              # cn() helper (clsx + twMerge)
+│   └── tauri.ts              # Detección runtime + token storage
+├── types/                    # Tipos compartidos (DTOs backend)
+│   ├── api.types.ts
+│   ├── auth.types.ts
+│   ├── user.types.ts
+│   ├── rbac.types.ts
+│   └── catalog.types.ts
+├── stores/                   # Zustand
+│   ├── auth.store.ts         # user + persist
+│   └── ui.store.ts           # sidebar, theme
+├── services/                 # HTTP services (puras llamadas API)
+│   ├── auth.service.ts
+│   ├── users.service.ts
+│   ├── roles.service.ts
+│   ├── permissions.service.ts
+│   └── catalogs.service.ts
+├── hooks/                    # Hooks compartidos
+│   ├── useAuth.ts
+│   ├── usePermission.ts
+│   └── useDebounce.ts
+├── features/                 # Por dominio
+│   ├── auth/
+│   │   ├── hooks/useLoginForm.ts
+│   │   ├── components/LoginForm.tsx
+│   │   └── pages/LoginPage.tsx
+│   ├── users/
+│   │   ├── hooks/useUsersPage.ts, useUserForm.ts, useUserMutations.ts
+│   │   ├── components/UsersTable*.tsx, UserFormDialog.tsx
+│   │   └── pages/UsersPage.tsx
+│   └── dashboard/
+├── layouts/
+│   └── AppLayout.tsx         # Sidebar + Outlet
+├── components/
+│   ├── ui/                   # shadcn primitives (CLI)
+│   └── common/               # DataTable, PageHeader, EmptyState, ConfirmDialog, Pagination, PermissionGate
+├── routes/
+│   ├── AppRouter.tsx         # Routes + lazy
+│   ├── ProtectedRoute.tsx
+│   ├── PublicOnlyRoute.tsx
+│   └── routes.ts             # Nav config
+├── config/
+│   └── env.ts                # Env tipado
+├── styles/
+│   └── globals.css           # Tailwind v4 + shadcn vars
+├── test/
+│   └── setup.ts
+├── App.tsx
+└── main.tsx
 ```
 
-## 🛠 Instalación y Configuración
+---
 
-Sigue estos pasos para ejecutar el proyecto localmente:
+## 📐 Convenciones obligatorias
 
-### 1️⃣ Clonar el repositorio
+### Componentes ≤ 150 líneas
+Si rebasas 150 → split en subcomponentes. Ideal mucho menos.
 
-```
- git clone https://github.com/muke78/Frontend-Kindergarden.git
- cd Frontend-Kindergarden
-```
-
-### 2️⃣ Instalar dependencias
-
-```
-bun i
-```
-
-### 3️⃣ Configurar variables de entorno
-
-Crea un archivo .env en la raíz del proyecto y configura las variables necesarias:
-
-```
-VITE_API_BASE_URL=https://tu-api.com
-VITE_GOOGLE_CLIENT_ID=tu-google-client-id
+### Lógica en hooks, JSX limpio
+**Anti-patrón** (NO hacer):
+```tsx
+export const UsersPage = () => {
+  const [filters, setFilters] = useState({});
+  const { data } = useQuery(...);
+  const handleDelete = async (id) => { ... };
+  // 200 líneas de lógica + JSX
+};
 ```
 
-### 4️⃣ Ejecutar el proyecto
+**Patrón correcto** (SÍ hacer):
+```tsx
+// hooks/useUsersPage.ts
+export const useUsersPage = () => {
+  const [filters, setFilters] = useState({});
+  const usersQuery = useUsersQuery(filters);
+  const mutations = useUserMutations();
+  return { filters, setFilters, ...usersQuery, mutations };
+};
 
+// pages/UsersPage.tsx (< 80 líneas)
+export const UsersPage = () => {
+  const p = useUsersPage();
+  return <DataTable data={p.rows} ... />;
+};
 ```
-  bun dev
+
+Ver implementación de referencia en `src/features/users/`.
+
+---
+
+## 🔐 Auth dual: Browser + Tauri
+
+Un solo backend sirve a ambos clientes según header:
+
+| Cliente | Detección | Headers | Storage |
+|---|---|---|---|
+| **Browser** | default | (nada) | Cookies `httpOnly` |
+| **Tauri** | `window.__TAURI_INTERNALS__` | `X-Client-Type: tauri` + `Authorization: Bearer` | localStorage (TODO: plugin-stronghold en prod) |
+
+`lib/api.ts` detecta runtime y configura request automático. `lib/tauri.ts` abstrae storage.
+
+### Interceptor refresh
+
+Cuando un request recibe 401:
+1. Se encola request original
+2. Llama `/auth/refresh` UNA vez (single-flight)
+3. Reintenta requests pendientes con nuevo token
+4. Si refresh falla → dispara `auth:logout` event → `useAuth` redirige a `/login`
+
+---
+
+## 🎨 shadcn/ui
+
+`components.json` ya configurado. **No se generan todos los primitives upfront** (filosofía shadcn = on-demand).
+
+### Componentes ya incluidos manualmente
+
+Los primitives base ya están escritos en `src/components/ui/` (canonical shadcn):
+`button`, `input`, `label`, `card`, `dialog`, `select`, `badge`, `dropdown-menu`,
+`table`, `separator`, `avatar`, `skeleton`, `tooltip`, `sheet`, `checkbox`,
+`tabs`, `sonner`, `sidebar`.
+
+> Nota: shadcn CLI (`bunx shadcn add ...`) tiene bug en Windows con paths que
+> contienen caracteres especiales / espacios (ej. carpeta "Mi música" en
+> Documentos). Por eso los primitives están escritos directamente, no via CLI.
+> Si quieres agregar más, copia desde [ui.shadcn.com](https://ui.shadcn.com/docs/components).
+
+### Para añadir más cuando los necesites (ya todos listados en el plan):
+```bash
+bunx --bun shadcn@latest add <component-name>
 ```
 
-## 📌 Convenciones de Código
+Lista completa solicitada (instalar bajo demanda):
+`accordion`, `alert`, `alert-dialog`, `aspect-ratio`, `avatar`, `badge`, `breadcrumb`, `button`, `button-group`, `calendar`, `card`, `carousel`, `chart`, `checkbox`, `collapsible`, `combobox`, `command`, `context-menu`, `data-table`, `date-picker`, `dialog`, `drawer`, `dropdown-menu`, `empty`, `field`, `hover-card`, `input`, `input-group`, `input-otp`, `item`, `kbd`, `label`, `menubar`, `native-select`, `navigation-menu`, `pagination`, `popover`, `progress`, `radio-group`, `resizable`, `scroll-area`, `select`, `separator`, `sheet`, `sidebar`, `skeleton`, `slider`, `sonner`, `spinner`, `switch`, `table`, `tabs`, `textarea`, `toggle`, `toggle-group`.
 
-Para mantener un código limpio y estandarizado, seguimos estas prácticas:
+---
 
-- Prettier para formateo automático.
+## ⚙️ Setup
 
-- Husky para ejecutar validaciones antes de los commits.
+```bash
+# 1. Instalar deps
+bun install
 
-- Zustand para manejo de estado global.
+# 2. shadcn primitives ya incluidos en src/components/ui/ (no requiere CLI)
 
-- React Query para manejar peticiones asíncronas eficientemente.
+# 3. .env
+cp .env.example .env
+# Editar VITE_API_URL=http://localhost:4000/api/v1
 
-## 📄 Licencia
+# 4. Levantar
+bun dev
+```
 
-Este proyecto está bajo la licencia MIT. Consulta el archivo LICENSE para más detalles.
+---
+
+## 🧪 Tests
+
+```bash
+bun test            # Vitest run
+bun test:ui         # UI interactiva
+bun test:coverage   # Cobertura
+```
+
+Setup en `src/test/setup.ts`. Tests viven junto a su feature: `features/<feature>/__tests__/`.
+
+---
+
+## 📦 Scripts
+
+| Script | Comando |
+|---|---|
+| `bun dev` | Servidor dev |
+| `bun build` | tsc + Vite build |
+| `bun preview` | Preview de build |
+| `bun test` | Vitest |
+| `bun lint` | Biome lint |
+| `bun format` | Biome format |
+| `bun check` | Biome check (lint + format) |
+
+---
+
+## 🔄 Estado de módulos
+
+| Módulo | Estado | Notas |
+|---|---|---|
+| auth | ✅ | LoginPage + refresh interceptor + logout |
+| dashboard | ✅ | Stub con cards del user |
+| users | ✅ | CRUD completo (table, dialog, filters, pagination, permissions ready) — **úsalo como template** |
+| roles | ⏳ | Stub. Replicar patrón users |
+| permissions (UI matrix) | ⏳ | Pendiente |
+| students | ⏳ | Pendiente |
+| teachers | ⏳ | Pendiente |
+| parents | ⏳ | Pendiente |
+| classrooms | ⏳ | Pendiente |
+| grade-groups | ⏳ | Pendiente |
+| assets | ⏳ | Pendiente |
+| inventory | ⏳ | Pendiente |
+| supplies | ⏳ | Pendiente |
+| suppliers | ⏳ | Pendiente |
+| diagnostics | ⏳ | Pendiente |
+| audit-logs | ⏳ | Pendiente (read-only viewer con filtros) |
+
+Cada módulo nuevo sigue el patrón de `src/features/users/`:
+1. `services/<feature>.service.ts` (ya creados varios)
+2. `features/<feature>/hooks/use<Feature>Page.ts`, `use<Feature>Form.ts`, `use<Feature>Mutations.ts`
+3. `features/<feature>/components/<Feature>FormDialog.tsx`, `<Feature>Filters.tsx`, `<Feature>TableColumns.tsx`
+4. `features/<feature>/pages/<Feature>Page.tsx`
+5. Registrar ruta en `AppRouter.tsx`
+
+---
+
+## 📁 Repositorio
+
+🔗 https://github.com/muke78/Frontend-Kindergarden

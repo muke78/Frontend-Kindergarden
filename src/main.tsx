@@ -1,25 +1,15 @@
-import { App } from "@/App";
-
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router";
 
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import "@styles/index.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import "animate.css";
+import { App } from "@/App";
 
-const queryClient = new QueryClient();
-const GOOGLE_ID_CLIENT = import.meta.env.VITE_GOOGLE_CLIENT_ID as string;
+import "@/styles/globals.css";
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <BrowserRouter>
-      <GoogleOAuthProvider clientId={GOOGLE_ID_CLIENT}>
-        <QueryClientProvider client={queryClient}>
-          <App />
-        </QueryClientProvider>
-      </GoogleOAuthProvider>
-    </BrowserRouter>
-  </StrictMode>,
+const container = document.getElementById("root");
+if (!container) throw new Error("Root element not found");
+
+createRoot(container).render(
+	<StrictMode>
+		<App />
+	</StrictMode>,
 );

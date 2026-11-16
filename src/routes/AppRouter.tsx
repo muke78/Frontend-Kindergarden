@@ -1,144 +1,93 @@
-import { ControlUserOptions } from "@/components/ui/ControlUserOptions";
-import { Catalogs } from "@/pages/PrivateRoutes/Catalogs";
-import { Confi } from "@/pages/PrivateRoutes/Confi";
-import { Evaluations } from "@/pages/PrivateRoutes/Evaluations";
-import { Help } from "@/pages/PrivateRoutes/Help";
-import { Parents } from "@/pages/PrivateRoutes/Parents";
-import { Reports } from "@/pages/PrivateRoutes/Reports";
-import { Users } from "@/pages/PrivateRoutes/Users";
-import { useAuthStore } from "@/store/Auth/authStore";
+import { lazy, Suspense } from "react";
+import { Route, Routes } from "react-router";
+import { AppLayout } from "@/layouts/AppLayout";
+import { ProtectedRoute } from "@/routes/ProtectedRoute";
+import { PublicOnlyRoute } from "@/routes/PublicOnlyRoute";
 
-// import { Evaluations } from "@/pages/PrivateRoutes/evaluations";
+const LoginPage = lazy(() =>
+	import("@/features/auth/pages/LoginPage").then((m) => ({ default: m.LoginPage })),
+);
+const DashboardPage = lazy(() =>
+	import("@/features/dashboard/pages/DashboardPage").then((m) => ({ default: m.DashboardPage })),
+);
+const UsersPage = lazy(() =>
+	import("@/features/users/pages/UsersPage").then((m) => ({ default: m.UsersPage })),
+);
+const NotFoundPage = lazy(() =>
+	import("@/features/dashboard/pages/NotFoundPage").then((m) => ({ default: m.NotFoundPage })),
+);
+const ClassroomsPage = lazy(() =>
+	import("@/features/classrooms/pages/ClassroomsPage").then((m) => ({ default: m.ClassroomsPage })),
+);
+const TeachersPage = lazy(() =>
+	import("@/features/teachers/pages/TeachersPage").then((m) => ({ default: m.TeachersPage })),
+);
+const StudentsPage = lazy(() =>
+	import("@/features/students/pages/StudentsPage").then((m) => ({ default: m.StudentsPage })),
+);
+const ParentsPage = lazy(() =>
+	import("@/features/parents/pages/ParentsPage").then((m) => ({ default: m.ParentsPage })),
+);
+const RolesPage = lazy(() =>
+	import("@/features/roles/pages/RolesPage").then((m) => ({ default: m.RolesPage })),
+);
+const ProfilePage = lazy(() =>
+	import("@/features/profile/pages/ProfilePage").then((m) => ({ default: m.ProfilePage })),
+);
+const GradeGroupsPage = lazy(() =>
+	import("@/features/grade-groups/pages/GradeGroupsPage").then((m) => ({
+		default: m.GradeGroupsPage,
+	})),
+);
+const AssignmentsPage = lazy(() =>
+	import("@/features/assignments/pages/AssignmentsPage").then((m) => ({
+		default: m.AssignmentsPage,
+	})),
+);
+const PdasAdminPage = lazy(() =>
+	import("@/features/pdas/pages/PdasAdminPage").then((m) => ({ default: m.PdasAdminPage })),
+);
+const StudentPdaPage = lazy(() =>
+	import("@/features/pdas/pages/StudentPdaPage").then((m) => ({ default: m.StudentPdaPage })),
+);
+const AssetsPage = lazy(() =>
+	import("@/features/assets/pages/AssetsPage").then((m) => ({ default: m.AssetsPage })),
+);
+const InventoryPage = lazy(() =>
+	import("@/features/inventory/pages/InventoryPage").then((m) => ({ default: m.InventoryPage })),
+);
+const AuditLogsPage = lazy(() =>
+	import("@/features/audit-logs/pages/AuditLogsPage").then((m) => ({ default: m.AuditLogsPage })),
+);
 
-import { useEffect } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+export const AppRouter = () => (
+	<Suspense fallback={null}>
+		<Routes>
+			<Route element={<PublicOnlyRoute />}>
+				<Route path="/login" element={<LoginPage />} />
+			</Route>
 
-import { NotFound } from "@pages/NotFound";
-import { Home } from "@pages/PrivateRoutes/Home";
-import { Login } from "@pages/PublicPages/Login";
-import { Register } from "@pages/PublicPages/Register";
-import { PrivateRoute } from "@routes/PrivateRoute";
-import { PublicRouter } from "@routes/PublicRouter";
+			<Route element={<ProtectedRoute />}>
+				<Route element={<AppLayout />}>
+					<Route index element={<DashboardPage />} />
+					<Route path="/users" element={<UsersPage />} />
+					<Route path="/roles" element={<RolesPage />} />
+					<Route path="/students" element={<StudentsPage />} />
+					<Route path="/teachers" element={<TeachersPage />} />
+					<Route path="/parents" element={<ParentsPage />} />
+					<Route path="/classrooms" element={<ClassroomsPage />} />
+					<Route path="/grade-groups" element={<GradeGroupsPage />} />
+					<Route path="/assignments" element={<AssignmentsPage />} />
+					<Route path="/pdas" element={<PdasAdminPage />} />
+					<Route path="/students/:studentId/pdas" element={<StudentPdaPage />} />
+					<Route path="/assets" element={<AssetsPage />} />
+					<Route path="/inventory" element={<InventoryPage />} />
+					<Route path="/audit-logs" element={<AuditLogsPage />} />
+					<Route path="/profile" element={<ProfilePage />} />
+				</Route>
+			</Route>
 
-import { Student } from "../pages/PrivateRoutes/Student";
-import { Teachers } from "../pages/PrivateRoutes/Teachers";
-
-export const AppRouter = () => {
-  const { login, user, token } = useAuthStore();
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      login(token);
-    }
-  }, [login]);
-
-  return (
-    <>
-      <div className={`${user && token ? "block" : "hidden"}`}>
-        <ControlUserOptions />
-      </div>
-      <Routes>
-        <Route
-          path="/login"
-          element={
-            <PublicRouter>
-              <Login />
-            </PublicRouter>
-          }
-        />
-        <Route
-          path="/register"
-          element={
-            <PublicRouter>
-              <Register />
-            </PublicRouter>
-          }
-        />
-
-        <Route
-          path="/home"
-          element={
-            <PrivateRoute>
-              <Home />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/users"
-          element={
-            <PrivateRoute>
-              <Users />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/teachers"
-          element={
-            <PrivateRoute>
-              <Teachers />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/parents"
-          element={
-            <PrivateRoute>
-              <Parents />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/students"
-          element={
-            <PrivateRoute>
-              <Student />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/reports"
-          element={
-            <PrivateRoute>
-              <Reports />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/evaluations"
-          element={
-            <PrivateRoute>
-              <Evaluations />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/catalogs"
-          element={
-            <PrivateRoute>
-              <Catalogs />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/config"
-          element={
-            <PrivateRoute>
-              <Confi />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/help"
-          element={
-            <PrivateRoute>
-              <Help />
-            </PrivateRoute>
-          }
-        />
-        <Route path="*" element={<NotFound />} />
-        <Route path="/" element={<Navigate to="/login" replace />} />
-      </Routes>
-    </>
-  );
-};
+			<Route path="*" element={<NotFoundPage />} />
+		</Routes>
+	</Suspense>
+);
